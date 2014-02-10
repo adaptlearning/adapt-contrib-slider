@@ -1,0 +1,54 @@
+<div class="slider-inner component-inner">
+    {{#if title}}
+    <div class="slider-title component-title">
+        <h4 class="slider-title-inner component-title-inner">
+            {{{title}}}
+        </h4>
+    </div>
+    {{/if}}
+    {{#if body}}
+    <div class="slider-body component-body">
+        <div class="slider-body-inner component-body-inner">
+            {{{body}}}
+        </div>
+    </div>
+    {{/if}}
+    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
+        {{#each items}}
+        <div class="slider-item item {{#unless ../_isEnabled}} {{#if _isCorrect}}correct{{else}}incorrect{{/if}} {{/unless}} item-{{@index}}">
+            <label for="{{../_id}}-{{@index}}" class="{{#if selected}}selected{{/if}}">
+                <div class="slider-item-state">
+                    <div class="slider-item-icon slider-answer-icon icon"></div>
+                    <div class="slider-item-icon slider-correct-icon icon icon-tick"></div>
+                    <div class="slider-item-icon slider-incorrect-icon icon icon-cross"></div>
+                </div>
+                <h5 class="slider-item-inner">
+                    {{{text}}}
+                </h5>
+            </label>
+            <input type="checkbox" id="{{../_id}}-{{@index}}"/>
+        </div>
+        {{/each}}
+        <a href="#" class="button submit">
+            <span>  
+                {{{buttons.submit}}} 
+            </span>
+        </a>
+        <a href="#" class="button reset">
+            <span>
+                {{{buttons.reset}}} 
+            </span>
+        </a> 
+        <a href="#" class="button model">
+            <span> 
+                {{{buttons.showCorrectAnswer}}} 
+            </span>
+        </a>
+
+        <a href="#" class="button user">
+            <span>
+                {{{buttons.hideCorrectAnswer}}} 
+            </span>
+        </a>
+    </div>
+</div>

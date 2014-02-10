@@ -1,0 +1,34 @@
+{
+    "id": "m05-t05-p10-a05-b15-c10",
+    "layout": "right",
+    "component": "slider",
+    "title": "Slider",
+    "body": "Question goes here",
+    "error": "error msg",
+    "attempts": 2,
+    "showNumber": true,
+    "showScaleIndicator": true,
+    "labelstart": "complete",
+    "labelend": "incomplete",
+    "scalestart": 1,
+    "scaleend": 10,
+    "correctanswer": "",
+    "correctrange": {
+        "bottom": 4,
+        "top": 9
+    },
+    "button": {
+        "submit": "Submit",
+        "model": "Model Answer",
+        "reset": "Reset",
+        "user": "My Answer"
+    },
+    "feedback": {
+        "correct": "FINAL and NON FINAL This feedback will appear if you answered the question correctly.",
+        "incorrect": [
+            "FINAL This feedback will appear if you answered the question incorrectly.",
+            "NON FINAL This feedback will appear if you answered the question incorrectly."
+        ],
+        "partly": "FINAL This feedback will appear if you answered part of the question correctly."
+    }
+}
