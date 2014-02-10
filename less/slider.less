@@ -1,0 +1,221 @@
+.component.slider .widget .holder {
+    padding-bottom: 0px;
+    width: 100%;
+}
+
+.component.slider .widget .slider.handle {
+    display: block;
+    position: absolute;
+    height: 30px;
+    cursor: pointer;
+    width: 30px;
+    top: -32px;
+    border-radius: 50%;
+    margin-left: -12px;
+    background-color: #8fc344 !important;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
+    color: #fff;
+    text-align: center;
+    z-index: 2;
+}
+
+.component.slider .widget.submitted .slider.handle,
+.component.slider .widget.submitted .bar {
+    cursor: default;
+}
+
+.component.slider .widget.disabled .slider.handle {
+    display:none;
+}
+
+.component.slider .widget .marker {
+    display: none;
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    top: -42px;
+    border-radius: 50%;
+    margin-left: -11px;
+    color: #fff;
+    cursor:default;
+    line-height: 24px;
+    text-align: center;
+    z-index: 1;
+    background-color: #8fc344;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.5);
+}
+
+.component.slider .widget .scaler {
+    width: 80%;
+    height: 2px;
+    background-color: #999999;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-top: none;
+    border-bottom: none;
+    margin: 20px 5%;
+    top: 25px;
+}
+
+.component.slider .widget .scaler .line {
+    display: block;
+    width: 2px;
+    height: 13px;
+    top: -11px;
+    background-color: #999999;
+    position: absolute;
+    z-index: 0;
+    margin-left: -2px;
+}
+
+.component.slider .widget .slider {
+    width: 80%;
+    height: 6px;
+    background-color: #999999;
+    float: left;
+    position: relative;
+    border: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 20px;
+    margin: 20px 5%;
+    top: 15px;
+    box-shadow: inset -1px 1px 1px 1px rgba(0,0,0,0.2);
+    z-index:2;
+}
+
+.component.slider .widget .bar {
+    height: 6px;
+    background-color: #8fc344;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 20px;
+    z-index:1;
+       
+}
+
+.component.slider .widget .outer-bar {
+    width: 85%;
+    height: 21px;
+    background-color: #f6f4ec;
+    float: left;
+    position: relative;
+    border: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 20px;
+    margin: 17px;
+    left: -9px;
+    top: -36px;
+    box-shadow: inset -1px 1px 2px 2px rgba(0,0,0,0.3);
+    z-index: 0;  
+}
+
+.component.slider .widget .result {
+    padding: 5px;
+    display: block;
+    margin-top: -80px;
+    float: right;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background-color:transparent !important;
+    background-position: 10000px;
+}
+
+.component.slider .widget .model-answer {
+    display: none;
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    top: -42px;
+    border-radius: 50%;
+    margin-left: -11px;
+    color: #fff;
+    cursor:default;
+    line-height: 24px;
+    text-align: center;
+    z-index: 1;
+    background-color: #8fc344;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.5);    
+}
+
+.component.slider .widget .result.icon.tick {
+    color:#8fc344;
+}
+
+.component.slider .widget .result.icon.cross {
+    color:#8fc344;
+}
+
+.component.slider .widget .scale-labels {
+    width:80%;
+    margin:2px 5%;
+    height:20px;
+}
+
+.component.slider .widget .scale-labels .scale-start {
+    display:inline-block;
+    float:left;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border-radius: 5px;
+    margin-left:-10px;
+    
+}
+
+.component.slider .widget .scale-labels .scale-end {
+    display:inline-block;
+    float:right;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border-radius: 5px;
+    margin-right:-10px;
+}
+
+.component.slider .widget .marker.display-block {
+    display: block;
+}
+
+.component.slider .widget .myanswermarker {
+    display: none;
+    position: absolute;
+    height: 26px;
+    cursor: pointer;
+    width: 26px;
+    top: -11px;
+    border-radius: 50%;
+    margin-left: -13px;
+    background-color: #666;
+    color:#fff;
+    line-height:26px;
+    text-align:center;
+}
+
+.component.slider .widget .onemodel.answer {
+    display: none;
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    top: -11px;
+    border-radius: 50%;
+    margin-left: -13px;
+    background-color: #8fc344;
+    color:#fff;
+    line-height:26px;
+    text-align:center;
+    z-index:1;
+}
+
+.component.slider .widget .button {
+    margin-top:10px;
+}
