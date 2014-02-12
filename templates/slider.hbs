@@ -1,10 +1,10 @@
 <div class="slider-inner component-inner">
     {{#if title}}
-    <div class="slider-title component-title">
-        <h4 class="slider-title-inner component-title-inner">
-            {{{title}}}
-        </h4>
-    </div>
+        <div class="slider-title component-title">
+            <h4 class="inner">
+                {{{title}}}
+            </h4>
+        </div>
     {{/if}}
     {{#if body}}
     <div class="slider-body component-body">
@@ -14,21 +14,30 @@
     </div>
     {{/if}}
     <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
-        {{#each items}}
-        <div class="slider-item item {{#unless ../_isEnabled}} {{#if _isCorrect}}correct{{else}}incorrect{{/if}} {{/unless}} item-{{@index}}">
-            <label for="{{../_id}}-{{@index}}" class="{{#if selected}}selected{{/if}}">
-                <div class="slider-item-state">
-                    <div class="slider-item-icon slider-answer-icon icon"></div>
-                    <div class="slider-item-icon slider-correct-icon icon icon-tick"></div>
-                    <div class="slider-item-icon slider-incorrect-icon icon icon-cross"></div>
+        <div class="slider-holder clearfix">
+            <div class="slider-scale-labels">
+                <div class="slider-scale-start">{{labelstart}}</div>
+                <div class="slider-scale-end">{{labelend}}</div>
+            </div>
+            <div class="slider-scaler">
+                <div class="slider-modelranges"></div>
+                <div class="slider-markers"></div>
+                <div class="slider-answer"></div>
+                <div class="slider-scale-marker"></div>
+            </div>
+            <div class="slider-background">
+                {{! if the items is disabled, it's definitely going to have the word correct, if they got it wrong, just add "in" to the front to make "incorrect"}}
+                <div class="slider-item{{#unless _isEnabled}} {{#unless _isCorrect}}in{{/unless}}correct{{/unless}}">
+                    <div class="slider-slide">
+                        <a href="#" class="slider-handle"></a>
+                        <div class="slider-bar"></div>
+                    </div>
+                    <div class="slider-outer-bar"></div>
+                    {{! the result icon needs to be handled in some adapt kind of way}}
+                    <div class="result icon"></div>
                 </div>
-                <h5 class="slider-item-inner">
-                    {{{text}}}
-                </h5>
-            </label>
-            <input type="checkbox" id="{{../_id}}-{{@index}}"/>
+            </div>
         </div>
-        {{/each}}
         <a href="#" class="button submit">
             <span>  
                 {{{buttons.submit}}} 
@@ -44,7 +53,6 @@
                 {{{buttons.showCorrectAnswer}}} 
             </span>
         </a>
-
         <a href="#" class="button user">
             <span>
                 {{{buttons.hideCorrectAnswer}}} 
