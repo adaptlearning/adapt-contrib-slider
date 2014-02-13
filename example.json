@@ -11,12 +11,12 @@
     "_questionWeight":1,
     "showNumber": true,
     "showScaleIndicator": true,
-    "labelstart": "incomplete",
-    "labelend": "complete",
-    "scalestart": 1,
-    "scaleend": 10,
-    "correctanswer": "",
-    "correctrange": {
+    "labelStart": "incomplete",
+    "labelEnd": "complete",
+    "scaleStart": 1,
+    "scaleEnd": 10,
+    "correctAnswer": "",
+    "correctRange": {
         "bottom": 4,
         "top": 9
     },

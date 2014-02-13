@@ -6,10 +6,10 @@ define(function(require) {
 
         events: {
             'click .slider-slide': 'onSliderSelected',
-            'click .slider-slide.slider-handle': 'preventEvent',
-            'touchstart .slider-slide.slider-handle':'onHandlePressed',
-            'mousedown .slider-slide.slider-handle': 'onHandlePressed',
-            'focus .slider-slide.slider-handle':'onHandleFocus',
+            'click .slider-handle': 'preventEvent',
+            'touchstart .slider-handle':'onHandlePressed',
+            'mousedown .slider-handle': 'onHandlePressed',
+            'focus .slider-handle':'onHandleFocus',
             "click .button.submit": "onSubmitClicked",
             "click .button.reset": "onResetClicked",
             "click .button.model": "onModelAnswerClicked",
@@ -40,8 +40,8 @@ define(function(require) {
         },
         
         getIndexFromValue: function(itemValue) {
-            var scaleStart = this.model.get('scalestart'),
-                scaleEnd = this.model.get('scaleend');
+            var scaleStart = this.model.get('scaleStart'),
+                scaleEnd = this.model.get('scaleEnd');
             
             return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('items').length - 1));
         },
@@ -90,11 +90,10 @@ define(function(require) {
         
         onHandleDragged: function (event) {
             event.preventDefault();
-            
             var left = (event.pageX || event.originalEvent.touches[0].pageX) - event.data.offsetLeft;
             left = Math.max(Math.min(left, event.data.width), 0);
             
-            this.$('.slider-slide.slider-handle').css({
+            this.$('.slider-handle').css({
                 left: left + 'px'
             });
             
@@ -107,8 +106,7 @@ define(function(require) {
         
         onHandleFocus: function(event) {
             event.preventDefault();
-            
-            this.$('.slider-slide.slider-handle').on('keydown', _.bind(this.onKeyDown, this));
+            this.$('.slider-handle').on('keydown', _.bind(this.onKeyDown, this));
         },
         
         onHandlePressed: function (event) {
@@ -118,9 +116,9 @@ define(function(require) {
             this.showScaleMarker(true);
             
             var eventData = {
-                    width:this.$('.slider-slide').width(),
-                    offsetLeft: this.$('.slider-slide').offset().left
-                };
+                width:this.$('.slider-slide').width(),
+                offsetLeft: this.$('.slider-slide').offset().left
+            };
             $(document).on('mousemove touchmove', eventData, _.bind(this.onHandleDragged, this));
             $(document).one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
         },
@@ -164,14 +162,14 @@ define(function(require) {
         
         onModelAnswerShown: function() {
             var answers = [],
-                bottom = this.model.get('correctrange').bottom,
-                top = this.model.get('correctrange').top,
+                bottom = this.model.get('correctRange').bottom,
+                top = this.model.get('correctRange').top,
                 range = top - bottom;
             
             this.showScaleMarker(false);
             
-            if(this.model.get('correctanswer') != "") {
-                answers.push(this.model.get('correctanswer'));
+            if(this.model.get('correctAnswer') != "") {
+                answers.push(this.model.get('correctAnswer'));
             } else if(bottom != "") {
                 for(var i = 0; i <= range; i++) {
                     answers.push(this.model.get('items')[this.getIndexFromValue(bottom) + i].value);
@@ -185,7 +183,7 @@ define(function(require) {
         },
         
         onUserAnswerShown: function() {
-            var userAnswerIndex = this.getIndexFromValue(this.model.get("_UserAnswer"));
+            var userAnswerIndex = this.getIndexFromValue(this.model.get("_userAnswer"));
             this.$('.slider-modelranges').empty();
             
             this.showScaleMarker(true);
@@ -237,10 +235,10 @@ define(function(require) {
         
         setupModelItems: function() {
             var items = [],
-                answer = this.model.get('correctanswer'),
-                range = this.model.get('correctrange'),
-                start = this.model.get('scalestart'),
-                end = this.model.get('scaleend');
+                answer = this.model.get('correctAnswer'),
+                range = this.model.get('correctRange'),
+                start = this.model.get('scaleStart'),
+                end = this.model.get('scaleEnd');
             
             for(var i = start; i <= end; i++) {
                 if(answer != "") {
@@ -297,7 +295,7 @@ define(function(require) {
         
         
         storeUserAnswer: function() {
-            this.model.set('_UserAnswer', this.getSelectedItems().value);
+            this.model.set('_userAnswer', this.getSelectedItems().value);
         }
 
     });

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
   "authors": [
-    "Daryl Hedley <darylhedley@hotmail.com>"
+    "Daryl Hedley <darylhedley@hotmail.com>",
     "Dan Gray <dan@sinensis.co.uk>"
   ],
   "description": "A question component that allows the learner to position a slider on scale",
