@@ -5,19 +5,19 @@ define(function(require) {
     var Slider = QuestionView.extend({
 
         events: {
-            'click .slider-slide': 'onSliderSelected',
+            'click .slider-sliderange': 'onSliderSelected',
             'click .slider-handle': 'preventEvent',
             'touchstart .slider-handle':'onHandlePressed',
             'mousedown .slider-handle': 'onHandlePressed',
             'focus .slider-handle':'onHandleFocus',
-            "click .button.submit": "onSubmitClicked",
-            "click .button.reset": "onResetClicked",
-            "click .button.model": "onModelAnswerClicked",
-            "click .button.user": "onUserAnswerClicked"
+            "click .slider-widget .button.submit": "onSubmitClicked",
+            "click .slider-widget .button.reset": "onResetClicked",
+            "click .slider-widget .button.model": "onModelAnswerClicked",
+            "click .slider-widget .button.user": "onUserAnswerClicked"
         },
         
         animateToPosition: function(newPosition) {
-            this.$('.slider-slide.slider-handle').stop(true).animate({
+            this.$('.slider-handle').stop(true).animate({
                 left: newPosition + 'px'
             },200);
             this.$('.slider-bar').stop(true).animate({width:newPosition + 'px'});
@@ -57,14 +57,14 @@ define(function(require) {
 
         mapIndexToPixels: function(value, $widthObject) {
             var numberOfItems = this.model.get('items').length,
-                width = $widthObject ? $widthObject.width() : this.$('.slider-slide').width();
+                width = $widthObject ? $widthObject.width() : this.$('.slider-sliderange').width();
             
             return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
         },
         
         mapPixelsToIndex: function(value) {
             var numberOfItems = this.model.get('items').length,
-                width = this.$('.slider-slide').width();
+                width = this.$('.slider-sliderange').width();
             
             return Math.round(this.mapValue(value, 0, width, 0, numberOfItems - 1));
         },
@@ -116,8 +116,8 @@ define(function(require) {
             this.showScaleMarker(true);
             
             var eventData = {
-                width:this.$('.slider-slide').width(),
-                offsetLeft: this.$('.slider-slide').offset().left
+                width:this.$('.slider-sliderange').width(),
+                offsetLeft: this.$('.slider-sliderange').offset().left
             };
             $(document).on('mousemove touchmove', eventData, _.bind(this.onHandleDragged, this));
             $(document).one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
@@ -138,20 +138,20 @@ define(function(require) {
                     newItemIndex = Math.min(newItemIndex + 1, this.model.get('items').length - 1);
                     break;
             }
-            
+
             this.selectItem(newItemIndex);
             if(typeof newItemIndex == "number") this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
         },
-        
+
         onSliderSelected: function (event) {
             event.preventDefault();
              if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
             
             this.showScaleMarker(true);
                     
-            var offsetLeft = this.$('.slider-slide').offset().left,
-                width = this.$('.slider-slide').width(),
+            var offsetLeft = this.$('.slider-sliderange').offset().left,
+                width = this.$('.slider-sliderange').width(),
                 left = (event.pageX || event.originalEvent.touches[0].pageX) - offsetLeft;
             
             left = Math.max(Math.min(left, width), 0);
@@ -196,7 +196,7 @@ define(function(require) {
         },
         
         resetControlStyles: function() {
-            this.$('.slider-slide.slider-handle').empty();
+            this.$('.slider-handle').empty();
             this.showScaleMarker(false);
             this.$('.slider-bar').animate({width:'0px'});     
         },
@@ -209,16 +209,16 @@ define(function(require) {
         
         onScreenSizeChanged: function() {
             this.$(".slider-markers").empty();
-            var $scaler = this.$('.scaler'),
+            var $scaler = this.$('.slider-scaler'),
                 $markers = this.$('.slider-markers');
             for(var i = 0, count = this.model.get('items').length; i < count; i++) {
-                $markers.append("<div class='line'>");
-                $('.line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+                $markers.append("<div class='slider-line'>");
+                $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
             }
             var currentIndex = this.getIndexFromValue(this.getSelectedItems().value);
-            this.$('.slider-slide.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
+            this.$('.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-scale-marker').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
-            this.$('.slider-slide .slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
+            this.$('.slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
         },
         
         selectItem: function(itemIndex) {
@@ -244,6 +244,7 @@ define(function(require) {
                 if(answer != "") {
                     items.push({value: i, selected:false, correct: (i == answer)});
                 } else {
+                    //console.log('Hi Dude');
                     items.push({value: i, selected:false, correct: (i >= range.bottom && i <= range.top)});
                 }
             }
@@ -253,13 +254,13 @@ define(function(require) {
         showMarking: function() {
             this.$('.slider-item').addClass(this.getSelectedItems().correct ? 'correct' : 'incorrect');
         },
-        
+
         showModelAnswers: function(correctAnswerArray) {
             var $parentDiv = this.$('.slider-modelranges');
             _.each(correctAnswerArray, function(correctAnswer, index) {
-                $parentDiv.append($("<div class='model-answer'>"));
+                $parentDiv.append($("<div class='slider-model-answer'>"));
                 
-                var $element = $(this.$('.slider-modelranges .model-answer')[index]),
+                var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]),
                     startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.getSelectedItems().value));
                 
                 if(this.model.get("showNumber")) $element.html(correctAnswer);

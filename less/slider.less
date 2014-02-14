@@ -15,22 +15,7 @@
     }
 
     .slider-widget {
-        width: 80%;
-        height: 6px;
-        background-color: @item-color;
-        float: left;
-        position: relative;
-        border: none;
-        border-top: none;
-        border-bottom: none;
-        border-radius: 20px;
-        margin: 20px 5%;
-        top: 15px;
-        box-shadow: inset -1px 1px 1px 1px rgba(0,0,0,0.2);
-        z-index:2;
-
-
-        &.submitted {
+        .submitted {
             .slider-handle {
                 cursor: default;
             }
@@ -39,7 +24,7 @@
             }
         }
 
-        &.disabled {
+        .disabled {
             .slider-handle {
                 display:none;
             }
@@ -51,13 +36,70 @@
         width: 100%;
     }
 
+    .slider-scale-labels {
+        width:80%;
+        margin:2px 5%;
+        height:20px;
+    }
+
+    .slider-scale-start {
+        display:inline-block;
+        float:left;
+        height:30px;
+        line-height:30px;
+        text-align:center;
+        border-radius: 5px;
+        margin-left:-10px;
+    }
+
+    .slider-scale-end {
+        display:inline-block;
+        float:right;
+        height:30px;
+        line-height:30px;
+        text-align:center;
+        border-radius: 5px;
+        margin-right:-10px;
+    }
+
+    .slider-scaler {
+        width: 80%;
+        height: 2px;
+        background-color: @item-color;
+        float: left;
+        position: relative;
+        cursor: pointer;
+        border: none;
+        border-top: none;
+        border-bottom: none;
+        margin: 20px 5%;
+        top: 25px;
+    }
+
+    .slider-sliderange {
+        width: 80%;
+        height: 6px;
+        background-color: #999999;
+        float: left;
+        position: relative;
+        border: none;
+        border-top: none;
+        border-bottom: none;
+        border-radius: 20px;
+        margin: 20px 5%;
+        top: 15px;
+        box-shadow: inset -1px 1px 1px 1px rgba(0,0,0,0.2);
+        z-index:2;
+    }
+
+
     .slider-handle {
         display: block;
         position: absolute;
         height: 30px;
         cursor: pointer;
         width: 30px;
-        top: -32px;
+        top: -15px;
         border-radius: 50%;
         margin-left: -12px;
         background-color: @item-color !important;
@@ -84,21 +126,11 @@
         box-shadow: 0px 3px 6px rgba(0,0,0,0.5);
     }
 
-    .slider-scaler {
-        width: 80%;
-        height: 2px;
-        background-color: @item-color;
-        float: left;
-        position: relative;
-        cursor: pointer;
-        border: none;
-        border-top: none;
-        border-bottom: none;
-        margin: 20px 5%;
-        top: 25px;
-    }
+    .slider-scale-marker.display-block {
+        display: block;
+    } 
 
-    .slider-scaler .line {
+    .slider-line {
         display: block;
         width: 2px;
         height: 13px;
@@ -109,7 +141,7 @@
         margin-left: -2px;
     }
 
-    .bar {
+    .slider-bar {
         height: 6px;
         background-color: @secondary-color;
         float: left;
@@ -140,7 +172,7 @@
         z-index: 0;  
     }
 
-    .model-answer {
+    .slider-model-answer {
         display: none;
         position: absolute;
         height: 24px;
@@ -178,36 +210,7 @@
         color:@icon-incorrect-color;
     }
 
-    .slider-scale-labels {
-        width:80%;
-        margin:2px 5%;
-        height:20px;
-    }
 
-    .slider-scale-labels .slider-scale-start {
-        display:inline-block;
-        float:left;
-        height:30px;
-        line-height:30px;
-        text-align:center;
-        border-radius: 5px;
-        margin-left:-10px;
-        
-    }
-
-    .slider-scale-labels .slider-scale-end {
-        display:inline-block;
-        float:right;
-        height:30px;
-        line-height:30px;
-        text-align:center;
-        border-radius: 5px;
-        margin-right:-10px;
-    }
-
-    .slider-scale-marker.display-block {
-        display: block;
-    }
 /*  myanswermarker does not seem to be used  */
     .myanswermarker {
         display: none;
@@ -239,7 +242,4 @@
         z-index:1;
     }
 
-    .button {
-        margin-top:10px;
-    }
 }

@@ -13,11 +13,11 @@
         </div>
     </div>
     {{/if}}
-    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
+    <div class="slider-widget component-widget{{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
             <div class="slider-scale-labels">
-                <div class="slider-scale-start">{{labelstart}}</div>
-                <div class="slider-scale-end">{{labelend}}</div>
+                <div class="slider-scale-start">{{labelStart}}</div>
+                <div class="slider-scale-end">{{labelEnd}}</div>
             </div>
             <div class="slider-scaler">
                 <div class="slider-modelranges"></div>
@@ -28,7 +28,7 @@
             <div class="slider-background">
                 {{! if the items is disabled, it's definitely going to have the word correct, if they got it wrong, just add "in" to the front to make "incorrect"}}
                 <div class="slider-item{{#unless _isEnabled}} {{#unless _isCorrect}}in{{/unless}}correct{{/unless}}">
-                    <div class="slider-slide">
+                    <div class="slider-sliderange">
                         <a href="#" class="slider-handle"></a>
                         <div class="slider-bar"></div>
                     </div>
