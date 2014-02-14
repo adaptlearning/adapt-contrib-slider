@@ -1,18 +1,5 @@
 <div class="slider-inner component-inner">
-    {{#if title}}
-        <div class="slider-title component-title">
-            <h4 class="inner">
-                {{{title}}}
-            </h4>
-        </div>
-    {{/if}}
-    {{#if body}}
-    <div class="slider-body component-body">
-        <div class="slider-body-inner component-body-inner">
-            {{{body}}}
-        </div>
-    </div>
-    {{/if}}
+    {{> component this}}
     <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
             <div class="slider-scale-labels">
