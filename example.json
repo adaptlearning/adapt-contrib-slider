@@ -9,14 +9,14 @@
     "body": "Question text here",
     "_attempts": 2,
     "_questionWeight":1,
-    "showNumber": true,
-    "showScaleIndicator": true,
+    "_showNumber": true,
+    "_showScaleIndicator": true,
     "labelStart": "incomplete",
     "labelEnd": "complete",
-    "scaleStart": 1,
-    "scaleEnd": 10,
-    "correctAnswer": "",
-    "correctRange": {
+    "_scaleStart": 1,
+    "_scaleEnd": 10,
+    "_correctAnswer": "",
+    "_correctRange": {
         "bottom": 4,
         "top": 9
     },

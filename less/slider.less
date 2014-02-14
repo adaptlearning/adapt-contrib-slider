@@ -15,18 +15,62 @@
     }
 
     .slider-widget {
-        .submitted {
+        &.submitted {
             .slider-handle {
                 cursor: default;
             }
-            .bar {
+            .slider_bar {
                 cursor: default;
+            }
+           .button.submit {
+                display: none;
+            }
+            .button.reset {
+                display: inline-block;
             }
         }
 
-        .disabled {
+        &.user {
+            .button.model {
+                display: inline-block;
+            }
+            .incorrect {
+                .slider-incorrect-icon {
+                    display: inline-block;
+                }
+            }
+            .correct {
+                .slider-correct-icon {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &.model {
+            .button.user {
+                display: inline-block;
+            }
+            .slider-select-icon {
+                display: none;
+            }
+            .slider-correct-icon {
+                display: inline-block;
+            }
+           .slider-incorrect-icon {
+                display: none;
+            }
+        }
+
+        &.disabled {
             .slider-handle {
                 display:none;
+            }
+           .button.reset {
+                display: none;
+            }
+            .user.correct .button {
+                display: inline-block;
+                visibility: hidden;
             }
         }
     }
@@ -189,42 +233,30 @@
         box-shadow: 0px 3px 6px rgba(0,0,0,0.5);    
     }
 
-    .result {
-        padding: 5px;
-        display: block;
-        margin-top: -80px;
-        float: right;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
-        background-color:transparent !important;
-        background-position: 10000px;
+    .slider-background {
+        position: relative;
     }
 
-    .result.icon.tick {
-        color:@icon-correct-color;
-    }
-
-    .result.icon.cross {
-        color:@icon-incorrect-color;
-    }
-
-
-/*  myanswermarker does not seem to be used  */
-    .myanswermarker {
-        display: none;
+    .slider-item-state {
+        background: none;
         position: absolute;
-        height: 26px;
-        cursor: pointer;
-        width: 26px;
-        top: -11px;
-        border-radius: 50%;
-        margin-left: -13px;
-        background-color: #666;
-        color:#fff;
-        line-height:26px;
-        text-align:center;
+        right: (@icon-size/2);
+        width: @icon-size;
+        height: @icon-size;
+        top: 50%;
+        margin-top: -(@icon-size/2);
+        margin-right: -50px;
+        z-index: 0;
+    }
+
+    .slider-correct-icon {
+        color: @icon-correct-color;
+        display: none;
+    }
+
+    .slider-incorrect-icon {
+        color: @icon-incorrect-color;
+        display: none;
     }
 
     .slider-answer {

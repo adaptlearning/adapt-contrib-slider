@@ -27,14 +27,18 @@
             </div>
             <div class="slider-background">
                 {{! if the items is disabled, it's definitely going to have the word correct, if they got it wrong, just add "in" to the front to make "incorrect"}}
-                <div class="slider-item{{#unless _isEnabled}} {{#unless _isCorrect}}in{{/unless}}correct{{/unless}}">
+                <div class="slider-item item {{#unless _isEnabled}}{{#if correct}}correct{{else}}incorrect{{/if}}{{/unless}}">
                     <div class="slider-sliderange">
                         <a href="#" class="slider-handle"></a>
                         <div class="slider-bar"></div>
                     </div>
-                    <div class="slider-outer-bar"></div>
-                    {{! the result icon needs to be handled in some adapt kind of way}}
-                    <div class="result icon"></div>
+                    <div class="slider-outer-bar">
+                    <div class="slider-item-state">
+                        <div class="slider-icon slider-correct-icon icon icon-tick"></div>
+                        <div class="slider-icon slider-incorrect-icon icon icon-cross"></div>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </div>

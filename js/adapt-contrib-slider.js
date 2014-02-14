@@ -40,8 +40,8 @@ define(function(require) {
         },
         
         getIndexFromValue: function(itemValue) {
-            var scaleStart = this.model.get('scaleStart'),
-                scaleEnd = this.model.get('scaleEnd');
+            var scaleStart = this.model.get('_scaleStart'),
+                scaleEnd = this.model.get('_scaleEnd');
             
             return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('items').length - 1));
         },
@@ -53,6 +53,19 @@ define(function(require) {
             }
             QuestionView.prototype.preRender.apply(this, arguments);
             this.selectItem(0);
+        },
+
+        postRender: function() {
+            QuestionView.prototype.postRender.apply(this);
+            this.onScreenSizeChanged();
+            this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
+        },
+
+        markQuestion: function() {
+            this.forEachAnswer(function(correct, item) {
+                item.correct = correct;
+            });
+            QuestionView.prototype.markQuestion.apply(this);
         },
 
         mapIndexToPixels: function(value, $widthObject) {
@@ -162,14 +175,14 @@ define(function(require) {
         
         onModelAnswerShown: function() {
             var answers = [],
-                bottom = this.model.get('correctRange').bottom,
-                top = this.model.get('correctRange').top,
+                bottom = this.model.get('_correctRange').bottom,
+                top = this.model.get('_correctRange').top,
                 range = top - bottom;
             
             this.showScaleMarker(false);
             
-            if(this.model.get('correctAnswer') != "") {
-                answers.push(this.model.get('correctAnswer'));
+            if(this.model.get('_correctAnswer') != "") {
+                answers.push(this.model.get('_correctAnswer'));
             } else if(bottom != "") {
                 for(var i = 0; i <= range; i++) {
                     answers.push(this.model.get('items')[this.getIndexFromValue(bottom) + i].value);
@@ -235,16 +248,15 @@ define(function(require) {
         
         setupModelItems: function() {
             var items = [],
-                answer = this.model.get('correctAnswer'),
-                range = this.model.get('correctRange'),
-                start = this.model.get('scaleStart'),
-                end = this.model.get('scaleEnd');
+                answer = this.model.get('_correctAnswer'),
+                range = this.model.get('_correctRange'),
+                start = this.model.get('_scaleStart'),
+                end = this.model.get('_scaleEnd');
             
             for(var i = start; i <= end; i++) {
                 if(answer != "") {
                     items.push({value: i, selected:false, correct: (i == answer)});
                 } else {
-                    //console.log('Hi Dude');
                     items.push({value: i, selected:false, correct: (i >= range.bottom && i <= range.top)});
                 }
             }
@@ -263,7 +275,7 @@ define(function(require) {
                 var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]),
                     startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.getSelectedItems().value));
                 
-                if(this.model.get("showNumber")) $element.html(correctAnswer);
+                if(this.model.get("_showNumber")) $element.html(correctAnswer);
                 
                 $element.css({left:startingLeft}).fadeIn(0, _.bind(function() {
                     $element.animate({left: this.mapIndexToPixels(this.getIndexFromValue(correctAnswer))});
@@ -273,7 +285,7 @@ define(function(require) {
         
         showNumber: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
-            if(this.model.get("showNumber")) {
+            if(this.model.get("_showNumber")) {
                 if(show) {
                     $scaleMarker.html(this.getSelectedItems().value);
                 } else {
@@ -284,7 +296,7 @@ define(function(require) {
         
         showScaleMarker: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
-            if (this.model.get('showScaleIndicator')) {
+            if (this.model.get('_showScaleIndicator')) {
                 this.showNumber(show);
                 if(show) {
                     $scaleMarker.addClass('display-block');
