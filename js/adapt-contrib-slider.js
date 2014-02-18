@@ -28,7 +28,11 @@ define(function(require) {
         },
         
         canSubmit: function() {
-            return true;
+            if ($('.slider-scale-marker').css('display') === 'none') {
+                return false;
+            } else {
+                return true;
+            }  
         },
         
         forEachAnswer: function(callback) {
@@ -42,7 +46,6 @@ define(function(require) {
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
-            
             return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('items').length - 1));
         },
         
@@ -59,13 +62,6 @@ define(function(require) {
             QuestionView.prototype.postRender.apply(this);
             this.onScreenSizeChanged();
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
-        },
-
-        markQuestion: function() {
-            this.forEachAnswer(function(correct, item) {
-                item.correct = correct;
-            });
-            QuestionView.prototype.markQuestion.apply(this);
         },
 
         mapIndexToPixels: function(value, $widthObject) {
@@ -232,6 +228,12 @@ define(function(require) {
             this.$('.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-scale-marker').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
+
+            if ($('.slider-widget.user .button.model').css('display') === 'inline-block') {
+                this.onUserAnswerClicked();
+            } else if ($('.slider-widget.model .button.user ').css('display') === 'inline-block') {
+                this.onModelAnswerClicked();
+            }
         },
         
         selectItem: function(itemIndex) {
