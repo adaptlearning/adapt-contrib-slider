@@ -9,14 +9,14 @@
     "body": "Question text here",
     "_attempts": 2,
     "_questionWeight":1,
-    "showNumber": true,
-    "showScaleIndicator": true,
+    "_showNumber": true,
+    "_showScaleIndicator": true,
     "labelStart": "incomplete",
     "labelEnd": "complete",
-    "scaleStart": 1,
-    "scaleEnd": 10,
-    "correctAnswer": "",
-    "correctRange": {
+    "_scaleStart": 1,
+    "_scaleEnd": 10,
+    "_correctAnswer": "",
+    "_correctRange": {
         "bottom": 4,
         "top": 9
     },
@@ -27,11 +27,8 @@
         "user": "My Answer"
     },
     "feedback": {
-        "correct": "FINAL and NON FINAL This feedback will appear if you answered the question correctly.",
-        "incorrect": [
-            "FINAL This feedback will appear if you answered the question incorrectly.",
-            "NON FINAL This feedback will appear if you answered the question incorrectly."
-        ],
-        "partly": "FINAL This feedback will appear if you answered part of the question correctly."
+        "correct": "This feedback will appear if you answered the question correctly.",
+        "incorrect": "This feedback will appear if you answered the question incorrectly.",
+        "partly": "This feedback will appear if you answered part of the question correctly."
     }
 }
