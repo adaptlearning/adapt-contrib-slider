@@ -317,4 +317,5 @@ define(function(require) {
 
     Adapt.register("slider", Slider);
 
+    return Slider;
 });
