@@ -15,7 +15,7 @@ define(function(require) {
             "click .slider-widget .button.model": "onModelAnswerClicked",
             "click .slider-widget .button.user": "onUserAnswerClicked"
         },
-        
+
         animateToPosition: function(newPosition) {
             this.$('.slider-handle').stop(true).animate({
                 left: newPosition + 'px'
@@ -26,15 +26,18 @@ define(function(require) {
             },200);
             this.$('.slider-bar').stop(true).animate({width:newPosition + 'px'});
         },
-        
+
         canSubmit: function() {
-            if ($('.slider-scale-marker').css('display') === 'none') {
-                return false;
+            var canSubmit = true;
+            if (this.model.get('_slideCanSubmit')) {
+                canSubmit = true;
             } else {
-                return true;
-            }  
+                canSubmit = false;
+            }
+
+            return canSubmit;
         },
-        
+
         forEachAnswer: function(callback) {
             _.each(this.model.get('items'), function(item, index) {
                 var correctSelection = item.selected && item.correct;
@@ -42,13 +45,13 @@ define(function(require) {
                 callback(item.correct || (!item.selected && !item.correct), item);
             }, this);
         },
-        
+
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
             return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('items').length - 1));
         },
-        
+
         preRender: function() {
             this.setReadyStatus();
             if(!this.model.get('items')) {
@@ -62,19 +65,20 @@ define(function(require) {
             QuestionView.prototype.postRender.apply(this);
             this.onScreenSizeChanged();
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
+            this.model.set('_slideCanSubmit', false);
         },
 
         mapIndexToPixels: function(value, $widthObject) {
             var numberOfItems = this.model.get('items').length,
                 width = $widthObject ? $widthObject.width() : this.$('.slider-sliderange').width();
-            
+
             return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
         },
-        
+
         mapPixelsToIndex: function(value) {
             var numberOfItems = this.model.get('items').length,
                 width = this.$('.slider-sliderange').width();
-            
+
             return Math.round(this.mapValue(value, 0, width, 0, numberOfItems - 1));
         },
 
@@ -82,7 +86,7 @@ define(function(require) {
             var range = high - low;
             return (value - low) / range;
         },
-        
+
         mapValue: function(value, inputLow, inputHigh, outputLow, outputHigh) {
             var normal = this.normalise(value, inputLow, inputHigh);
             return normal * (outputHigh - outputLow) + outputLow;
@@ -96,34 +100,35 @@ define(function(require) {
             //this.selectItem(itemIndex);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
         },
-        
+
         onHandleDragged: function (event) {
             event.preventDefault();
             var left = (event.pageX || event.originalEvent.touches[0].pageX) - event.data.offsetLeft;
             left = Math.max(Math.min(left, event.data.width), 0);
-            
+
             this.$('.slider-handle').css({
                 left: left + 'px'
             });
-            
+
             this.$('.slider-scale-marker').css({
                 left: left + 'px'
             });
 
             this.selectItem(this.mapPixelsToIndex(left));
         },
-        
+
         onHandleFocus: function(event) {
             event.preventDefault();
             this.$('.slider-handle').on('keydown', _.bind(this.onKeyDown, this));
         },
-        
+
         onHandlePressed: function (event) {
             event.preventDefault();
             if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
-            
+
             this.showScaleMarker(true);
-            
+            this.model.set('_slideCanSubmit', true);
+
             var eventData = {
                 width:this.$('.slider-sliderange').width(),
                 offsetLeft: this.$('.slider-sliderange').offset().left
@@ -131,7 +136,7 @@ define(function(require) {
             $(document).on('mousemove touchmove', eventData, _.bind(this.onHandleDragged, this));
             $(document).one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
         },
-        
+
         onKeyDown: function(event) {
             event.preventDefault();
             
@@ -168,7 +173,7 @@ define(function(require) {
             this.selectItem(left);
             this.animateToPosition(this.mapIndexToPixels(left));
         },
-        
+
         onModelAnswerShown: function() {
             var answers = [],
                 bottom = this.model.get('_correctRange').bottom,
@@ -190,7 +195,7 @@ define(function(require) {
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
             this.showModelAnswers(answers);
         },
-        
+
         onUserAnswerShown: function() {
             var userAnswerIndex = this.getIndexFromValue(this.model.get("_userAnswer"));
             this.$('.slider-modelranges').empty();
@@ -199,23 +204,23 @@ define(function(require) {
             this.selectItem(userAnswerIndex);
             this.animateToPosition(this.mapIndexToPixels(userAnswerIndex));
         },
-        
+
         preventEvent: function(event) {
             event.preventDefault();
         },
-        
+
         resetControlStyles: function() {
             this.$('.slider-handle').empty();
             this.showScaleMarker(false);
             this.$('.slider-bar').animate({width:'0px'});     
         },
-        
+
         resetItems:function() {
             this.selectItem(0);
             this.animateToPosition(0);
             this.resetControlStyles();
         },
-        
+
         onScreenSizeChanged: function() {
             this.$(".slider-markers").empty();
             var $scaler = this.$('.slider-scaler'),
@@ -235,7 +240,7 @@ define(function(require) {
                 this.onModelAnswerClicked();
             }
         },
-        
+
         selectItem: function(itemIndex) {
             _.each(this.model.get('items'), function(item, index) {
                 item.selected = (index == itemIndex);
@@ -247,7 +252,7 @@ define(function(require) {
             }, this);
             this.showNumber(true);
         },
-        
+
         setupModelItems: function() {
             var items = [],
                 answer = this.model.get('_correctAnswer'),
@@ -264,7 +269,7 @@ define(function(require) {
             }
             this.model.set('items', items);
         },
-        
+
         showMarking: function() {
             this.$('.slider-item').addClass(this.getSelectedItems().correct ? 'correct' : 'incorrect');
         },
@@ -284,7 +289,7 @@ define(function(require) {
                 }, this));
             }, this);
         },
-        
+
         showNumber: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
             if(this.model.get("_showNumber")) {
@@ -295,7 +300,7 @@ define(function(require) {
                 }
             }
         },
-        
+
         showScaleMarker: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
             if (this.model.get('_showScaleIndicator')) {
@@ -307,8 +312,7 @@ define(function(require) {
                 }
             }
         },
-        
-        
+
         storeUserAnswer: function() {
             this.model.set('_userAnswer', this.getSelectedItems().value);
         }
