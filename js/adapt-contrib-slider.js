@@ -234,9 +234,9 @@ define(function(require) {
             this.$('.slider-scale-marker').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
 
-            if ($('.slider-widget.user .button.model').css('display') === 'inline-block') {
+            if (this.$('.slider-widget.user .button.model').css('display') === 'inline-block') {
                 this.onUserAnswerClicked();
-            } else if ($('.slider-widget.model .button.user ').css('display') === 'inline-block') {
+            } else if (this.$('.slider-widget.model .button.user ').css('display') === 'inline-block') {
                 this.onModelAnswerClicked();
             }
         },
