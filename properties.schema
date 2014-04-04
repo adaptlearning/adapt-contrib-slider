@@ -1,0 +1,93 @@
+{
+  "type":"object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "$ref": "http://localhost/plugins/content/component/model.schema",
+  "properties":{
+    "_attempts": {
+      "type":"number"
+    },
+    "_correctAnswer": {
+      "type":"string"
+    },
+    "_correctRange": {
+      "type":"object",
+      "properties":{
+        "bottom": {
+          "type":"number"
+        },
+        "top": {
+          "type":"number"
+        }
+      }
+    },
+    "_questionWeight": {
+      "type":"number"
+    },
+    "_scaleEnd": {
+      "type":"number",
+      "required":true
+    },
+    "_scaleStart": {
+      "type":"number",
+      "required":true
+    },
+    "_showNumber": {
+      "type":"boolean",
+      "required":true
+    },
+    "_showScaleIndicator": {
+      "type":"boolean",
+      "required":true
+    },
+    "button": {
+      "type":"object",
+      "required":true,
+      "properties":{
+        "model": {
+          "type":"string",
+          "required":true,
+          "default" : "Model Answer"
+        },
+        "reset": {
+          "type":"string",
+          "default" : "Reset"
+        },
+        "submit": {
+          "type":"string",
+          "required":true,
+          "default" : "Submit"
+        },
+        "user": {
+          "type":"string",
+          "required":true,
+          "default" : "My Answer"
+        }
+      }
+    },
+    "feedback": {
+      "type":"object",
+      "required":true,
+      "properties":{
+        "correct": {
+          "type":"string",
+          "required":true
+        },
+        "incorrect": {
+          "type":"string",
+          "required":true
+        },
+        "partly": {
+          "type":"string",
+          "required":true
+        }
+      }
+    },
+    "labelEnd": {
+      "type":"string"
+    },
+    "labelStart": {
+      "type":"string"
+    }
+  }
+}
