@@ -5,24 +5,29 @@
   "$ref": "http://localhost/plugins/content/component/model.schema",
   "properties":{
     "_attempts": {
-      "type":"number"
+      "type":"number",
+      "required":true,
+      "default":1
     },
     "_correctAnswer": {
-      "type":"string"
+      "type":"number"
     },
     "_correctRange": {
       "type":"object",
       "properties":{
         "bottom": {
-          "type":"number"
+          "type":"number",
+          "required":true
         },
         "top": {
-          "type":"number"
+          "type":"number",
+          "required":true
         }
       }
     },
     "_questionWeight": {
-      "type":"number"
+      "type":"number",
+      "required":false
     },
     "_scaleEnd": {
       "type":"number",
