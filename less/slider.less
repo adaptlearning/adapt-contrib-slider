@@ -1,19 +1,5 @@
 .slider-component {
 
-    .button {
-        outline: none;
-        text-decoration: none;
-        padding: @button-padding;
-        color: @button-text-color;
-        background-color: @button-color;
-        display: none;
-        margin-top:8px;
-
-        &.submit {
-            display: inline-block;
-        }
-    }
-
     .slider-widget {
         &.submitted {
             .slider-handle {
@@ -22,18 +8,9 @@
             .slider_bar {
                 cursor: default;
             }
-            .button.submit {
-                display: none;
-            }
-            .button.reset {
-                display: inline-block;
-            }
         }
 
         &.user {
-            .button.model {
-                display: inline-block;
-            }
             .incorrect {
                 .slider-incorrect-icon {
                     display: inline-block;
@@ -47,16 +24,13 @@
         }
 
         &.model {
-            .button.user {
-                display: inline-block;
-            }
             .slider-select-icon {
                 display: none;
             }
             .slider-correct-icon {
                 display: inline-block;
             }
-           .slider-incorrect-icon {
+            .slider-incorrect-icon {
                 display: none;
             }
         }
@@ -64,9 +38,6 @@
         &.disabled {
             .slider-handle {
                 display:none;
-            }
-           .button.reset {
-                display: none;
             }
             .user.correct .button {
                 display: inline-block;

@@ -17,16 +17,16 @@
     "_scaleEnd": 10,
     "_correctAnswer": "",
     "_correctRange": {
-        "bottom": 4,
-        "top": 9
+        "_bottom": 4,
+        "_top": 9
     },
-    "button": {
-        "submit": "Submit",
-        "model": "Model Answer",
-        "reset": "Reset",
-        "user": "My Answer"
+    "_button": {
+        "submit": "",
+        "model": "",
+        "reset": "",
+        "user": ""
     },
-    "feedback": {
+    "_feedback": {
         "correct": "This feedback will appear if you answered the question correctly.",
         "incorrect": "This feedback will appear if you answered the question incorrectly.",
         "partly": "This feedback will appear if you answered part of the question correctly."

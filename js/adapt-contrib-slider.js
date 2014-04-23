@@ -36,7 +36,7 @@ define(function(require) {
         },
         
         forEachAnswer: function(callback) {
-            _.each(this.model.get('items'), function(item, index) {
+            _.each(this.model.get('_items'), function(item, index) {
                 var correctSelection = item.selected && item.correct;
                 if(correctSelection) this.model.set('atLeastOneCorrectSelection');
                 callback(item.correct || (!item.selected && !item.correct), item);
@@ -46,12 +46,12 @@ define(function(require) {
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
-            return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('items').length - 1));
+            return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
         },
         
         preRender: function() {
             this.setReadyStatus();
-            if(!this.model.get('items')) {
+            if(!this.model.get('_items')) {
                 this.setupModelItems();
             }
             QuestionView.prototype.preRender.apply(this, arguments);
@@ -65,14 +65,14 @@ define(function(require) {
         },
 
         mapIndexToPixels: function(value, $widthObject) {
-            var numberOfItems = this.model.get('items').length,
+            var numberOfItems = this.model.get('_items').length,
                 width = $widthObject ? $widthObject.width() : this.$('.slider-sliderange').width();
             
             return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
         },
         
         mapPixelsToIndex: function(value) {
-            var numberOfItems = this.model.get('items').length,
+            var numberOfItems = this.model.get('_items').length,
                 width = this.$('.slider-sliderange').width();
             
             return Math.round(this.mapValue(value, 0, width, 0, numberOfItems - 1));
@@ -144,7 +144,7 @@ define(function(require) {
                     break;
                 case 38: // ↑ up
                 case 39: // → right
-                    newItemIndex = Math.min(newItemIndex + 1, this.model.get('items').length - 1);
+                    newItemIndex = Math.min(newItemIndex + 1, this.model.get('_items').length - 1);
                     break;
             }
 
@@ -171,8 +171,8 @@ define(function(require) {
         
         onModelAnswerShown: function() {
             var answers = [],
-                bottom = this.model.get('_correctRange').bottom,
-                top = this.model.get('_correctRange').top,
+                bottom = this.model.get('_correctRange')._bottom,
+                top = this.model.get('_correctRange')._top,
                 range = top - bottom;
             
             this.showScaleMarker(false);
@@ -181,7 +181,7 @@ define(function(require) {
                 answers.push(this.model.get('_correctAnswer'));
             } else if(bottom != "") {
                 for(var i = 0; i <= range; i++) {
-                    answers.push(this.model.get('items')[this.getIndexFromValue(bottom) + i].value);
+                    answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
                 }
             } else {
                 console.log(this.constructor + "::WARNING: no correct answer or correct range set in JSON")
@@ -220,7 +220,7 @@ define(function(require) {
             this.$(".slider-markers").empty();
             var $scaler = this.$('.slider-scaler'),
                 $markers = this.$('.slider-markers');
-            for(var i = 0, count = this.model.get('items').length; i < count; i++) {
+            for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
                 $markers.append("<div class='slider-line'>");
                 $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
             }
@@ -237,7 +237,7 @@ define(function(require) {
         },
         
         selectItem: function(itemIndex) {
-            _.each(this.model.get('items'), function(item, index) {
+            _.each(this.model.get('_items'), function(item, index) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     var selectedItems = this.model.get('_selectedItems');
@@ -259,10 +259,10 @@ define(function(require) {
                 if(answer != "") {
                     items.push({value: i, selected:false, correct: (i == answer)});
                 } else {
-                    items.push({value: i, selected:false, correct: (i >= range.bottom && i <= range.top)});
+                    items.push({value: i, selected:false, correct: (i >= range._bottom && i <= range._top)});
                 }
             }
-            this.model.set('items', items);
+            this.model.set('_items', items);
         },
         
         showMarking: function() {
