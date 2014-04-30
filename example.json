@@ -1,13 +1,14 @@
 {
-    "id": "c-110",
+    "_id":"c-110",
     "_parentId":"b-55",
     "_type":"component",
-    "_component": "slider",
+    "_component":"slider",
     "_classes":"",
-    "_layout": "right",
+    "_layout":"right",
     "title": "Slider type component",
-    "displayTitle": "Slider type component",
-    "body": "Question text here",
+    "displayTitle":"Slider type component",
+    "body":"Question text here",
+    "instruction": "",
     "_attempts": 2,
     "_questionWeight":1,
     "_showNumber": true,
@@ -21,11 +22,11 @@
         "_bottom": 4,
         "_top": 9
     },
-    "_button": {
+    "_buttons": {
         "submit": "",
-        "model": "",
         "reset": "",
-        "user": ""
+        "showCorrectAnswer": "",
+        "hideCorrectAnswer": ""
     },
     "_feedback": {
         "correct": "This feedback will appear if you answered the question correctly.",
