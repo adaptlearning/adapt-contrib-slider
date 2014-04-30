@@ -13,7 +13,6 @@
                 <div class="slider-scale-marker"></div>
             </div>
             <div class="slider-background">
-                {{! if the items is disabled, it's definitely going to have the word correct, if they got it wrong, just add "in" to the front to make "incorrect"}}
                 <div class="slider-item item {{#unless _isEnabled}}{{#if correct}}correct{{else}}incorrect{{/if}}{{/unless}}">
                     <div class="slider-sliderange">
                         <a href="#" class="slider-handle"></a>
