@@ -40,7 +40,7 @@
       "type":"boolean",
       "required":true
     },
-    "button": {
+    "_button": {
       "type":"object",
       "required":true,
       "properties":{
@@ -65,7 +65,7 @@
         }
       }
     },
-    "feedback": {
+    "_feedback": {
       "type":"object",
       "required":true,
       "properties":{
