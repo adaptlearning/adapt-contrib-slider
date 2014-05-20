@@ -13,10 +13,10 @@
     "_correctRange": {
       "type":"object",
       "properties":{
-        "bottom": {
+        "_bottom": {
           "type":"number"
         },
-        "top": {
+        "_top": {
           "type":"number"
         }
       }
@@ -40,54 +40,61 @@
       "type":"boolean",
       "required":true
     },
-    "_button": {
-      "type":"object",
-      "required":true,
-      "properties":{
-        "model": {
-          "type":"string",
-          "required":true,
-          "default" : "Model Answer"
-        },
-        "reset": {
-          "type":"string",
-          "default" : "Reset"
-        },
-        "submit": {
-          "type":"string",
-          "required":true,
-          "default" : "Submit"
-        },
-        "user": {
-          "type":"string",
-          "required":true,
-          "default" : "My Answer"
-        }
-      }
-    },
-    "_feedback": {
-      "type":"object",
-      "required":true,
-      "properties":{
-        "correct": {
-          "type":"string",
-          "required":true
-        },
-        "incorrect": {
-          "type":"string",
-          "required":true
-        },
-        "partly": {
-          "type":"string",
-          "required":true
-        }
-      }
-    },
     "labelEnd": {
       "type":"string"
     },
     "labelStart": {
       "type":"string"
+    },
+    "_buttons": {
+      "type":"object",
+      "properties":{
+        "hideCorrectAnswer": {
+          "type":"string"
+        },
+        "reset": {
+          "type":"string"
+        },
+        "showCorrectAnswer": {
+          "type":"string"
+        },
+        "submit": {
+          "type":"string"
+        }
+      }
+    },
+    "_feedback": {
+      "type":"object",
+      "properties":{
+        "_incorrect": {
+          "type":"object",
+          "required":true,
+          "properties":{
+            "final": {
+              "type":"string",
+              "required":true
+            },
+            "notFinal": {
+              "type":"string"
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type":"object",
+          "properties":{
+            "final": {  
+              "type":"string"
+            },
+            "notFinal": {
+              "type":"string"
+            }
+          }
+        },
+        "correct": {
+          "type":"string",
+          "required":true
+        }
+      }
     }
   }
 }
