@@ -5,7 +5,10 @@
             .slider-handle {
                 cursor: default;
             }
-            .slider_bar {
+            .slider-bar {
+                cursor: default;
+            }
+            .slider-sliderange {
                 cursor: default;
             }
         }
@@ -38,6 +41,12 @@
         &.disabled {
             .slider-handle {
                 display:none;
+            }
+            .slider-bar {
+                cursor:default;
+            }
+            .slider-sliderange {
+                cursor:default;
             }
         }
     }
@@ -79,7 +88,6 @@
         background-color: @item-color;
         float: left;
         position: relative;
-        cursor: pointer;
         border: none;
         border-top: none;
         border-bottom: none;
@@ -88,6 +96,7 @@
     }
 
     .slider-sliderange {
+        cursor: pointer;
         width: 80%;
         height: 6px;
         background-color: darken(@item-color, 30%);

@@ -28,14 +28,7 @@ define(function(require) {
         },
 
         canSubmit: function() {
-            var canSubmit = true;
-            if (this.model.get('_slideCanSubmit')) {
-                canSubmit = true;
-            } else {
-                canSubmit = false;
-            }
-
-            return canSubmit;
+            return true;
         },
 
         forEachAnswer: function(callback) {
