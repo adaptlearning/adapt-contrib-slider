@@ -13,10 +13,10 @@
     "_correctRange": {
       "type":"object",
       "properties":{
-        "_bottom": {
+        "bottom": {
           "type":"number"
         },
-        "_top": {
+        "top": {
           "type":"number"
         }
       }
@@ -40,61 +40,54 @@
       "type":"boolean",
       "required":true
     },
-    "labelEnd": {
-      "type":"string"
-    },
-    "labelStart": {
-      "type":"string"
-    },
-    "_buttons": {
+    "_button": {
       "type":"object",
+      "required":true,
       "properties":{
-        "hideCorrectAnswer": {
-          "type":"string"
+        "model": {
+          "type":"string",
+          "required":true,
+          "default" : "Model Answer"
         },
         "reset": {
-          "type":"string"
-        },
-        "showCorrectAnswer": {
-          "type":"string"
+          "type":"string",
+          "default" : "Reset"
         },
         "submit": {
-          "type":"string"
+          "type":"string",
+          "required":true,
+          "default" : "Submit"
+        },
+        "user": {
+          "type":"string",
+          "required":true,
+          "default" : "My Answer"
         }
       }
     },
     "_feedback": {
       "type":"object",
+      "required":true,
       "properties":{
-        "_incorrect": {
-          "type":"object",
-          "required":true,
-          "properties":{
-            "final": {
-              "type":"string",
-              "required":true
-            },
-            "notFinal": {
-              "type":"string"
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type":"object",
-          "properties":{
-            "final": {  
-              "type":"string"
-            },
-            "notFinal": {
-              "type":"string"
-            }
-          }
-        },
         "correct": {
+          "type":"string",
+          "required":true
+        },
+        "incorrect": {
+          "type":"string",
+          "required":true
+        },
+        "partly": {
           "type":"string",
           "required":true
         }
       }
+    },
+    "labelEnd": {
+      "type":"string"
+    },
+    "labelStart": {
+      "type":"string"
     }
   }
 }
