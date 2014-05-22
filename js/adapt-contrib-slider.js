@@ -219,7 +219,7 @@ define(function(require) {
             var $scaler = this.$('.slider-scaler'),
                 $markers = this.$('.slider-markers');
             for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
-                $markers.append("<div class='slider-line'>");
+                $markers.append("<div class='slider-line component-item-color'>");
                 $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
             }
             var currentIndex = this.getIndexFromValue(this.getSelectedItems().value);
@@ -270,7 +270,7 @@ define(function(require) {
         showModelAnswers: function(correctAnswerArray) {
             var $parentDiv = this.$('.slider-modelranges');
             _.each(correctAnswerArray, function(correctAnswer, index) {
-                $parentDiv.append($("<div class='slider-model-answer'>"));
+                $parentDiv.append($("<div class='slider-model-answer component-item-color component-item-text-color'>"));
                 
                 var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]),
                     startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.getSelectedItems().value));
