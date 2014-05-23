@@ -57,8 +57,8 @@ define(function(require) {
         postRender: function() {
             QuestionView.prototype.postRender.apply(this);
             this.onScreenSizeChanged();
+            this.showScaleMarker(true);
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
-            this.model.set('_slideCanSubmit', false);
         },
 
         mapIndexToPixels: function(value, $widthObject) {
@@ -120,7 +120,6 @@ define(function(require) {
             if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
 
             this.showScaleMarker(true);
-            this.model.set('_slideCanSubmit', true);
 
             var eventData = {
                 width:this.$('.slider-sliderange').width(),
