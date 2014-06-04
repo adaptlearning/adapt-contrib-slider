@@ -1,3 +1,8 @@
+/*
+ * adapt-contrib-slider
+ * License - https://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
+ * Maintainers - Himanshu Rajotia <himanshu.rajotia@credipoint.com>
+ */
 define(function(require) {
     var QuestionView = require('coreViews/questionView');
     var Adapt = require('coreJS/adapt');
@@ -10,6 +15,7 @@ define(function(require) {
             'touchstart .slider-handle':'onHandlePressed',
             'mousedown .slider-handle': 'onHandlePressed',
             'focus .slider-handle':'onHandleFocus',
+            'blur .slider-handle':'onHandleBlur',
             "click .slider-widget .button.submit": "onSubmitClicked",
             "click .slider-widget .button.reset": "onResetClicked",
             "click .slider-widget .button.model": "onModelAnswerClicked",
@@ -61,6 +67,10 @@ define(function(require) {
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
         },
 
+        setAltText: function(value) {
+            this.$('.slider-handle').attr('alt', value);
+        },
+
         mapIndexToPixels: function(value, $widthObject) {
             var numberOfItems = this.model.get('_items').length,
                 width = $widthObject ? $widthObject.width() : this.$('.slider-sliderange').width();
@@ -92,6 +102,7 @@ define(function(require) {
             var itemIndex = this.getIndexFromValue(this.getSelectedItems().value);
             //this.selectItem(itemIndex);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
+            this.setAltText(itemIndex + 1);
         },
 
         onHandleDragged: function (event) {
@@ -115,6 +126,11 @@ define(function(require) {
             this.$('.slider-handle').on('keydown', _.bind(this.onKeyDown, this));
         },
 
+        onHandleBlur: function(event) {
+            event.preventDefault();
+            this.$('.slider-handle').off('keydown');
+        },
+
         onHandlePressed: function (event) {
             event.preventDefault();
             if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
@@ -130,6 +146,7 @@ define(function(require) {
         },
 
         onKeyDown: function(event) {
+            if(event.which == 9) return; // tab key
             event.preventDefault();
             
             var newItemIndex = this.getIndexFromValue(this.getSelectedItems().value);
@@ -148,6 +165,7 @@ define(function(require) {
             this.selectItem(newItemIndex);
             if(typeof newItemIndex == "number") this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
+            this.setAltText(newItemIndex + 1);
         },
 
         onSliderSelected: function (event) {
@@ -211,6 +229,7 @@ define(function(require) {
             this.selectItem(0);
             this.animateToPosition(0);
             this.resetControlStyles();
+            this.setAltText(1);
         },
 
         onScreenSizeChanged: function() {
