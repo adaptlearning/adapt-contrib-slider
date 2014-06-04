@@ -183,6 +183,7 @@ define(function(require) {
             left = this.mapPixelsToIndex(left);
             this.selectItem(left);
             this.animateToPosition(this.mapIndexToPixels(left));
+            this.setAltText(left + 1);
         },
 
         onModelAnswerShown: function() {
