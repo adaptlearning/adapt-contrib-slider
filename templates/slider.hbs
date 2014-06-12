@@ -1,4 +1,4 @@
-<div class="slider-inner component-inner">
+<div class="slider-inner component-inner" role="region" aria-label="{{_accessibility._ariaRegions.slider}}">
     {{> component this}}
     <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
@@ -15,7 +15,7 @@
             <div class="slider-background">
                 <div class="slider-item component-item {{#unless _isEnabled}}{{#if correct}}correct{{else}}incorrect{{/if}}{{/unless}}">
                     <div class="slider-sliderange">
-                        <a href="#" class="slider-handle component-item-color component-item-text-color"></a>
+                        <a href="#" class="slider-handle component-item-color component-item-text-color" role="slider"></a>
                         <div class="slider-bar component-item-color"></div>
                     </div>
                     <div class="slider-outer-bar">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="buttons">
+        <div class="buttons" role="button">
             {{> buttons this}}
         </div>
     </div>
