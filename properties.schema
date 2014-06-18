@@ -13,10 +13,10 @@
     "_correctRange": {
       "type":"object",
       "properties":{
-        "bottom": {
+        "_bottom": {
           "type":"number"
         },
-        "top": {
+        "_top": {
           "type":"number"
         }
       }
@@ -40,7 +40,7 @@
       "type":"boolean",
       "required":true
     },
-    "_button": {
+    "_buttons": {
       "type":"object",
       "required":true,
       "properties":{
@@ -51,6 +51,7 @@
         },
         "reset": {
           "type":"string",
+          "required":true,
           "default" : "Reset"
         },
         "submit": {
@@ -66,28 +67,45 @@
       }
     },
     "_feedback": {
-      "type":"object",
+      "type": "object",
       "required":true,
-      "properties":{
+      "properties" : {
+        "_incorrect": {
+          "type":"object",
+          "required": true,
+          "properties": {
+            "final": {
+              "type": "string"
+            },
+            "notFinal": {
+              "type": "string"
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": true
+            },
+            "notFinal": {
+              "type": "string"
+            }
+          }
+        },
         "correct": {
-          "type":"string",
-          "required":true
-        },
-        "incorrect": {
-          "type":"string",
-          "required":true
-        },
-        "partly": {
-          "type":"string",
-          "required":true
+          "type": "string",
+          "required": true
         }
       }
     },
     "labelEnd": {
-      "type":"string"
+      "type": "string"
     },
     "labelStart": {
-      "type":"string"
+      "type": "string"
     }
   }
 }
