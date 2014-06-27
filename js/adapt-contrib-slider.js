@@ -18,12 +18,14 @@ define(function(require) {
             'blur .slider-handle':'onHandleBlur'
         },
 
+        // Used by the question to reset the question when revisiting the component
         resetQuestionOnRevisit: function() {
             this.setAllItemsEnabled(true);
             this.deselectAllItems();
             this.resetQuestion();
         },
 
+        // Used by question to setup itself just before rendering
         setupQuestion: function() {
             if(!this.model.get('_items')) {
                 this.setupModelItems();
@@ -51,22 +53,25 @@ define(function(require) {
             this.model.set('_items', items);
         },
 
+        // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
             this.setAllItemsEnabled(false);
         },
 
+        // Used by question to enable the question during interactions
         enableQuestion: function() {
             this.setAllItemsEnabled(true);
         },
-
+        
         setAllItemsEnabled: function(isEnabled) {
             if (isEnabled) {
-                //this.$('.slider-widget').removeClass('disabled');
+                this.$('.slider-widget').removeClass('disabled');
             } else {
-                //this.$('.slider-widget').addClass('disabled');
+                this.$('.slider-widget').addClass('disabled');
             }
         },
 
+        // Used by question to setup itself just after rendering
         onQuestionRendered: function() {
             this.onScreenSizeChanged();
             this.showScaleMarker(true);
@@ -75,6 +80,7 @@ define(function(require) {
             this.setReadyStatus();
         },
 
+        // this should make the slider handle, slider marker and slider bar to animate to give position
         animateToPosition: function(newPosition) {
             this.$('.slider-handle').stop(true).animate({
                 left: newPosition + 'px'
@@ -86,12 +92,14 @@ define(function(require) {
             this.$('.slider-bar').stop(true).animate({width:newPosition + 'px'});
         },
 
+        // this shoud give the index of item using given slider value
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
             return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
         },
 
+        // this should set given value to slider handle
         setAltText: function(value) {
             this.$('.slider-handle').attr('alt', value);
         },
@@ -220,16 +228,20 @@ define(function(require) {
             this.$('.slider-bar').animate({width:'0px'});     
         },
 
+        //Use to check if the user is allowed to submit the question
         canSubmit: function() {
             return true;
         },
 
+        // Blank method for question to fill out when the question cannot be submitted
         onCannotSubmit: function() {},
 
+        //This preserve the state of the users answers for returning or showing the users answer
         storeUserAnswer: function() {
             this.model.set('_userAnswer', this.model.get('_selectedItem').value);
         },
 
+        // this return a boolean based upon whether to question is correct or not
         isCorrect: function() {
             var numberOfCorrectAnswers = 0;
 
@@ -243,6 +255,7 @@ define(function(require) {
             return this.model.get('_isAtLeastOneCorrectSelection') ? true : false;
         },
 
+        // Used to set the score based upon the _questionWeight
         setScore: function() {
 
             var numberOfCorrectAnswers = this.model.get('_numberOfCorrectAnswers');
@@ -255,14 +268,18 @@ define(function(require) {
 
         },
 
+        // This is important and should give the user feedback on how they answered the question
+        // Normally done through ticks and crosses by adding classes
         showMarking: function() {
             this.$('.slider-item').addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
 
+        // Used by the question to determine if the question is incorrect or partly correct
         isPartlyCorrect: function() {
             return this.model.get('_isAtLeastOneCorrectSelection');
         },
 
+        // Used by the question view to reset the stored user answer
         resetUserAnswer: function() {
             this.model.set({
                 _selectedItem: {},
@@ -270,11 +287,9 @@ define(function(require) {
             });
         },
 
+        // Used by the question view to reset the look and feel of the component.
+        // This could also include resetting item data
         resetQuestion: function() {
-            this.resetItems();
-        },
-
-        resetItems:function() {
             this.selectItem(0);
             this.animateToPosition(0);
             this.resetControlStyles();
@@ -302,6 +317,7 @@ define(function(require) {
             }
         },
 
+        // Used by the question to display the correct answer to the user
         showCorrectAnswer: function() {
             var answers = [],
                 bottom = this.model.get('_correctRange')._bottom,
@@ -340,6 +356,9 @@ define(function(require) {
             }, this);
         },
 
+        // Used by the question to display the users answer and
+        // hide the correct answer
+        // Should use the values stored in storeUserAnswer
         hideCorrectAnswer: function() {
             var userAnswerIndex = this.getIndexFromValue(this.model.get("_userAnswer"));
             this.$('.slider-modelranges').empty();
@@ -349,6 +368,7 @@ define(function(require) {
             this.animateToPosition(this.mapIndexToPixels(userAnswerIndex));
         },
 
+        // according to given item index this should make the item as selected
         selectItem: function(itemIndex) {
             _.each(this.model.get('_items'), function(item, index) {
                 item.selected = (index == itemIndex);
@@ -359,12 +379,14 @@ define(function(require) {
             this.showNumber(true);
         },
 
+        // this should reset the selected state of each item
         deselectAllItems: function() {
             _.each(this.model.get('_items'), function(item) {
                 item.selected = false;
             }, this);
         },
 
+        // this makes the marker visible or hidden
         showScaleMarker: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
             if (this.model.get('_showScaleIndicator')) {
@@ -377,6 +399,7 @@ define(function(require) {
             }
         },
 
+        // this should add the current slider value to the marker
         showNumber: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
             if(this.model.get("_showNumber")) {
