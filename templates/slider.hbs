@@ -1,6 +1,6 @@
 <div class="slider-inner component-inner">
     {{> component this}}
-    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted user {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
+    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted show-user-answer {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
             <div class="slider-scale-labels">
                 <div class="slider-scale-start">{{labelStart}}</div>
@@ -28,8 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="buttons">
-            {{> buttons this}}
-        </div>
+    </div>
+    <div class="buttons">
     </div>
 </div>
