@@ -271,7 +271,8 @@ define(function(require) {
         // This is important and should give the user feedback on how they answered the question
         // Normally done through ticks and crosses by adding classes
         showMarking: function() {
-            this.$('.slider-item').addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
+            this.$('.slider-item').removeClass('correct incorrect')
+                .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
 
         // Used by the question to determine if the question is incorrect or partly correct
