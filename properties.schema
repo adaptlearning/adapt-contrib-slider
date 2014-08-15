@@ -66,28 +66,24 @@
           "type":"string",
           "required":true,
           "minLength": 1,
-          "default" : "Model Answer",
           "title": "Model answer button label"
         },
         "reset": {
           "type":"string",
           "required":true,
           "minLength": 1,
-          "default" : "Reset",
           "title": "Reset button label"
         },
         "submit": {
           "type":"string",
           "required":true,
           "minLength": 1,
-          "default" : "Submit",
           "title": "Submit button label"
         },
         "user": {
           "type":"string",
           "required":true,
           "minLength": 1,
-          "default" : "My Answer",
           "title": "User answer button label"
         }
       }
