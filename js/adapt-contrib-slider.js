@@ -179,18 +179,16 @@ define(function(require) {
         },
 
         onKeyDown: function(event) {
-            if(event.which == 9) return; // tab key
+            if(event.which == 9 || !event.ctrlKey) return; // tab key
             event.preventDefault();
             
             var newItemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             
             switch (event.which) {
-                case 40: // ↓ down
-                case 37: // ← left
+                case 188: // < left
                     newItemIndex = Math.max(newItemIndex - 1, 0);
                     break;
-                case 38: // ↑ up
-                case 39: // → right
+                case 190: // > right
                     newItemIndex = Math.min(newItemIndex + 1, this.model.get('_items').length - 1);
                     break;
             }
@@ -403,11 +401,12 @@ define(function(require) {
         // this should add the current slider value to the marker
         showNumber: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
+            var $scaleMarkerNumber = $scaleMarker.find('.slider-scale-marker-number');
             if(this.model.get("_showNumber")) {
                 if(show) {
-                    $scaleMarker.html(this.model.get('_selectedItem').value);
+                    $scaleMarkerNumber.html(this.model.get('_selectedItem').value);
                 } else {
-                    $scaleMarker.html = "";
+                    $scaleMarkerNumber.html = "";
                 }
             }
         }

@@ -10,7 +10,12 @@
                 <div class="slider-modelranges"></div>
                 <div class="slider-markers"></div>
                 <div class="slider-answer component-item-color component-item-text-color"></div>
-                <div class="slider-scale-marker component-item-color component-item-text-color"></div>
+                <div class="slider-scale-marker component-item-color component-item-text-color" aria-live="assertive" aria-atomic="true">
+                    {{#if _accessibility._ariaLabels.sliderScaleMarkerPrefix}}
+                        <div class="slider-scale-marker-prefix">{{_accessibility._ariaLabels.sliderScaleMarkerPrefix}}</div>
+                    {{/if}}
+                    <div class="slider-scale-marker-number"></div>
+                </div>
             </div>
             <div class="slider-background">
                 <div class="slider-item component-item {{#unless _isEnabled}}{{#if correct}}correct{{else}}incorrect{{/if}}{{/unless}}">
