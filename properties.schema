@@ -5,89 +5,141 @@
   "$ref": "http://localhost/plugins/content/component/model.schema",
   "properties":{
     "_attempts": {
-      "type":"number"
+      "type":"number",
+      "required":true,
+      "default":1,
+      "minimum":1,
+      "title": "Number of attempts"
     },
     "_correctAnswer": {
-      "type":"string"
+      "type":"string",
+      "title": "Single correct answer"
     },
     "_correctRange": {
       "type":"object",
+      "title": "Correct answer range",
       "properties":{
-        "bottom": {
-          "type":"number"
+        "_bottom": {
+          "type":"number",
+          "title": "Correct answer range start"
         },
-        "top": {
-          "type":"number"
+        "_top": {
+          "type":"number",
+          "title": "Correct answer range end"
         }
       }
     },
     "_questionWeight": {
-      "type":"number"
+      "type":"number",
+      "title": "Question weight"
     },
     "_scaleEnd": {
       "type":"number",
-      "required":true
+      "required":true,
+      "default":10,
+      "minimum":1,
+      "title": "Scale end"
     },
     "_scaleStart": {
       "type":"number",
-      "required":true
+      "required":true,
+      "default":1,
+      "minimum":1,
+      "title": "Scale start"
     },
     "_showNumber": {
       "type":"boolean",
-      "required":true
+      "required":true,
+      "title": "Show number scale"
     },
     "_showScaleIndicator": {
       "type":"boolean",
-      "required":true
+      "required":true,
+      "title": "Show scale position indicator"
     },
-    "_button": {
+    "_buttons": {
       "type":"object",
       "required":true,
+      "title": "Buttons",
       "properties":{
         "model": {
           "type":"string",
           "required":true,
-          "default" : "Model Answer"
+          "minLength": 1,
+          "title": "Model answer button label"
         },
         "reset": {
           "type":"string",
-          "default" : "Reset"
+          "required":true,
+          "minLength": 1,
+          "title": "Reset button label"
         },
         "submit": {
           "type":"string",
           "required":true,
-          "default" : "Submit"
+          "minLength": 1,
+          "title": "Submit button label"
         },
         "user": {
           "type":"string",
           "required":true,
-          "default" : "My Answer"
+          "minLength": 1,
+          "title": "User answer button label"
         }
       }
     },
     "_feedback": {
-      "type":"object",
+      "type": "object",
       "required":true,
-      "properties":{
+      "title": "Feedback text",
+      "properties" : {
+        "_incorrect": {
+          "type":"object",
+          "required": true,
+          "title": "Feedback for incorrect answers",
+          "properties": {
+            "final": {
+              "type": "string",
+              "title": "Incorrect final answer"
+            },
+            "notFinal": {
+              "type": "string",
+              "title": "Incorrect non final answer"
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type": "object",
+          "required": true,
+          "title": "Feedback when answer is partly correct",
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": true,
+              "minLength": 1,
+              "title": "Partially correct final answer"
+            },
+            "notFinal": {
+              "type": "string",
+              "title": "Partially correct non final answer"
+            }
+          }
+        },
         "correct": {
-          "type":"string",
-          "required":true
-        },
-        "incorrect": {
-          "type":"string",
-          "required":true
-        },
-        "partly": {
-          "type":"string",
-          "required":true
+          "type": "string",
+          "required": true,
+          "minLength": 1,
+          "title": "Feedback for correct answer"
         }
       }
     },
     "labelEnd": {
-      "type":"string"
+      "type": "string",
+      "title": "Slider scale end label"
     },
     "labelStart": {
-      "type":"string"
+      "type": "string",
+      "title": "Slider scale start label"
     }
   }
 }
