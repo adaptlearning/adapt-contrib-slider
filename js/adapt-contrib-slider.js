@@ -252,6 +252,8 @@ define(function(require) {
                 }
             }, this);
 
+            this.model.set('_numberOfCorrectAnswers', numberOfCorrectAnswers);
+
             return this.model.get('_isAtLeastOneCorrectSelection') ? true : false;
         },
 
@@ -260,9 +262,8 @@ define(function(require) {
 
             var numberOfCorrectAnswers = this.model.get('_numberOfCorrectAnswers');
             var questionWeight = this.model.get("_questionWeight");
-            var itemLength = this.model.get('_items').length;
 
-            var score = questionWeight * numberOfCorrectAnswers / itemLength;
+            var score = questionWeight * numberOfCorrectAnswers;
 
             this.model.set('_score', score);
 
