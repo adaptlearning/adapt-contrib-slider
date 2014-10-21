@@ -1,6 +1,6 @@
 {
   "name": "adapt-contrib-slider",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A question component that allows the learner to position a slider on scale",
   "main": "",
   "scripts": {
