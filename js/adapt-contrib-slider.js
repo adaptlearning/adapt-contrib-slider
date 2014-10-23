@@ -101,7 +101,7 @@ define(function(require) {
 
         // this should set given value to slider handle
         setAltText: function(value) {
-            this.$('.slider-handle').attr('alt', value);
+            this.$('.slider-handle').attr('aria-valuenow', value);
         },
 
         mapIndexToPixels: function(value, $widthObject) {
