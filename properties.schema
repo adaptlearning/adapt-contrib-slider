@@ -59,7 +59,7 @@
     "_correctRange": {
       "type":"object",
       "properties":{
-        "bottom": {
+        "_bottom": {
           "type":"number",
           "default": 1,
           "title": "Correct Range - Bottom",
@@ -67,7 +67,7 @@
           "validators": ["number"],
           "help": "Correct bottom range answer on the scale"
         },
-        "top": {
+        "_top": {
           "type":"number",
           "default": 1,
           "title": "Correct Range - Top",
