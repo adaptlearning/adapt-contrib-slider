@@ -12,6 +12,7 @@ define(function(require) {
         events: {
             'click .slider-sliderange': 'onSliderSelected',
             'click .slider-handle': 'preventEvent',
+            'click .slider-scale-number': 'onNumberSelected',
             'touchstart .slider-handle':'onHandlePressed',
             'mousedown .slider-handle': 'onHandlePressed',
             'focus .slider-handle':'onHandleFocus',
@@ -73,6 +74,7 @@ define(function(require) {
 
         // Used by question to setup itself just after rendering
         onQuestionRendered: function() {
+            this.setScalePositions();
             this.onScreenSizeChanged();
             this.showScaleMarker(true);
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
@@ -218,6 +220,15 @@ define(function(require) {
             this.setAltText(left + 1);
         },
 
+        onNumberSelected: function(event) {
+            event.preventDefault();
+            if (this.model.get("_isInteractionsComplete")) return;
+            var index = parseInt($(event.currentTarget).attr("data-id")) - 1;
+            this.selectItem(index);
+            this.animateToPosition(this.mapIndexToPixels(index));
+            this.setAltText(index + 1);
+        },
+
         preventEvent: function(event) {
             event.preventDefault();
         },
@@ -298,6 +309,14 @@ define(function(require) {
             this.setAltText(this.model.get('_scaleStart'));
         },
 
+        setScalePositions: function() {
+            var numberOfItems = this.model.get('_items').length;
+            _.each(this.model.get('_items'), function(item, index) {
+                var normalisedPosition = this.normalise(index, 0, numberOfItems -1);
+                this.$('.slider-scale-number').eq(index).data('normalisedPosition', normalisedPosition);
+            }, this);
+        },
+
         onScreenSizeChanged: function() {
             this.$(".slider-markers").empty();
             var $scaler = this.$('.slider-scaler'),
@@ -305,6 +324,13 @@ define(function(require) {
             for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
                 $markers.append("<div class='slider-line component-item-color'>");
                 $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+            }
+            var scaleWidth = $scaler.width(),
+                $numbers = this.$('.slider-scale-number');
+            for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
+                var $number = $numbers.eq(i),
+                    newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
+                $number.css({left: newLeft});
             }
             var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             this.$('.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
@@ -371,10 +397,13 @@ define(function(require) {
 
         // according to given item index this should make the item as selected
         selectItem: function(itemIndex) {
+            this.$el.a11y_selected(false);
             _.each(this.model.get('_items'), function(item, index) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
+                    $('.confidenceSlider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
+                    $('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
                 }
             }, this);
             this.showNumber(true);
