@@ -222,7 +222,7 @@ define(function(require) {
 
         onNumberSelected: function(event) {
             event.preventDefault();
-            if (this.model.get("_isInteractionsComplete")) return;
+            if (this.model.get("_isComplete")) return;
             var index = parseInt($(event.currentTarget).attr("data-id")) - 1;
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index));
