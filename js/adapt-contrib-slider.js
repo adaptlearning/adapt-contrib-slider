@@ -402,8 +402,8 @@ define(function(require) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
-                    $('.confidenceSlider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
-                    $('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
+                    this.$('.confidenceSlider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
+                    this.$('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
                 }
             }, this);
             this.showNumber(true);
