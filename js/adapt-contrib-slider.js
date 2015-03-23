@@ -356,7 +356,7 @@ define(function(require) {
 
             if(this.model.get('_correctAnswer') != "") {
                 answers.push(this.model.get('_correctAnswer'));
-            } else if(bottom != "") {
+            } else if(bottom !== undefined) {
                 for(var i = 0; i <= range; i++) {
                     answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
                 }
