@@ -30,6 +30,24 @@
       "validators": ["number"],
       "help": "How much this question is worth"
     },
+    "labelStart": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Scale Label - Start",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Label for the start of the slider scale"
+    },
+    "labelEnd": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Scale Label - End",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Label for the end of the slider scale"
+    },
     "_scaleStart": {
       "type":"number",
       "required":true,
