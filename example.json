@@ -10,6 +10,7 @@
     "body":"Question text here",
     "instruction": "",
     "_attempts": 2,
+    "_shouldDisplayAttempts": false,
     "_questionWeight":1,
     "_showNumber": true,
     "_showScaleIndicator": true,
