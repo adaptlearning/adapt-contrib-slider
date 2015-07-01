@@ -136,11 +136,13 @@
       "properties":{
         "_submit": {
           "type":"object",
+          "title": "Submit",
           "properties":{
             "buttonText": {
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "QuestionButton",
               "validators": [],
               "help": "Button label text for the submit button"
@@ -149,6 +151,7 @@
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "Text",
               "validators": [],
               "help": "Aria label for the submit button"
@@ -157,11 +160,13 @@
         },
         "_reset": {
           "type":"object",
+          "title": "Reset",
           "properties":{
             "buttonText": {
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "QuestionButton",
               "validators": [],
               "help": "Button label text for the reset button"
@@ -170,6 +175,7 @@
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "Text",
               "validators": [],
               "help": "Aria label for the reset button"
@@ -178,11 +184,13 @@
         },
         "_showCorrectAnswer": {
           "type":"object",
+          "title": "Show Correct Answer",
           "properties":{
             "buttonText": {
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "QuestionButton",
               "validators": [],
               "help": "Button label text to show the model answer"
@@ -191,6 +199,7 @@
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "Text",
               "validators": [],
               "help": "Aria label for the show model answer button"
@@ -199,11 +208,13 @@
         },
         "_hideCorrectAnswer": {
           "type":"object",
+          "title": "Show Correct Answer",
           "properties":{
             "buttonText": {
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "QuestionButton",
               "validators": [],
               "help": "Button label text to hide the model answer"
@@ -212,6 +223,7 @@
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "Text",
               "validators": [],
               "help": "Aria label for the hide model answer button"
@@ -220,11 +232,13 @@
         },
         "_showFeedback": {
           "type":"object",
+          "title": "Show Feedback",
           "properties":{
             "buttonText": {
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "QuestionButton",
               "validators": [],
               "help": "Button label text to show feedback"
@@ -233,6 +247,7 @@
               "type":"string",
               "required": false,
               "default": "",
+              "title": "",
               "inputType": "Text",
               "validators": [],
               "help": "Aria label for the show feedback button"
@@ -243,17 +258,19 @@
           "type":"string",
           "required": false,
           "default": "",
+          "title": "Attempts Remaining Text",
           "inputType": "Text",
           "validators": [],
-          "help": "Aria label for the show feedback button"
+          "help": "Shown when there are multiple attempts left"
         },
         "remainingAttemptText": {
           "type":"string",
           "required": false,
           "default": "",
+          "title": "Final Attempt Text",
           "inputType": "Text",
           "validators": [],
-          "help": "Aria label for the show feedback button"
+          "help": "Shown when there is one attempt left"
         }
       }
     },
