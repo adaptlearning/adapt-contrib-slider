@@ -208,7 +208,7 @@
         },
         "_hideCorrectAnswer": {
           "type":"object",
-          "title": "Show Correct Answer",
+          "title": "Hide Correct Answer",
           "properties":{
             "buttonText": {
               "type":"string",
