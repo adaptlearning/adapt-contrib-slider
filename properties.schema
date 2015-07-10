@@ -4,142 +4,340 @@
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
   "properties":{
+    "_supportedLayout": {
+      "type": "string",
+      "required": true,
+      "enum": ["full-width", "half-width", "both"],
+      "default": "both",
+      "editorOnly": true
+    },
+    "instruction": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This is the instruction text"
+    },
     "_attempts": {
       "type":"number",
       "required":true,
       "default":1,
-      "minimum":1,
-      "title": "Number of attempts"
+      "title": "Attempts",
+      "inputType":"Number",
+      "validators": ["required", "number"],
+      "help": "How many attempts the learner is allow"
     },
-    "_correctAnswer": {
-      "type":"string",
-      "title": "Single correct answer"
-    },
-    "_correctRange": {
-      "type":"object",
-      "title": "Correct answer range",
-      "properties":{
-        "_bottom": {
-          "type":"number",
-          "title": "Correct answer range start"
-        },
-        "_top": {
-          "type":"number",
-          "title": "Correct answer range end"
-        }
-      }
+    "_shouldDisplayAttempts": {
+      "type":"boolean",
+      "required":false,
+      "default": false,
+      "title": "Display Attempts",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to display the numbers of attempts left"
     },
     "_questionWeight": {
       "type":"number",
-      "title": "Question weight"
+      "required":false,
+      "default": 1,
+      "title": "Question Weight",
+      "inputType": "Number",
+      "validators": ["number"],
+      "help": "How much this question is worth"
     },
-    "_scaleEnd": {
-      "type":"number",
-      "required":true,
-      "default":10,
-      "minimum":1,
-      "title": "Scale end"
+    "labelStart": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Scale Label - Start",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Label for the start of the slider scale"
+    },
+    "labelEnd": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Scale Label - End",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Label for the end of the slider scale"
     },
     "_scaleStart": {
       "type":"number",
       "required":true,
-      "default":1,
-      "minimum":1,
-      "title": "Scale start"
+      "default": 1,
+      "title": "Scale Start",
+      "inputType": "Number",
+      "validators": ["required", "number"],
+      "help": "What number the scale should start on"
+    },
+    "_scaleEnd": {
+      "type":"number",
+      "required":true,
+      "default": 1,
+      "title": "Scale End",
+      "inputType": "Number",
+      "validators": ["required", "number"],
+      "help": "What number the scale should end on"
+    },
+    "_correctAnswer": {
+      "type":"number",
+      "default": 1,
+      "title": "Correct Answer",
+      "inputType": "Number",
+      "validators": ["required", "number"],
+      "help": "Correct answer on the scale"
+    },
+    "_correctRange": {
+      "type":"object",
+      "properties":{
+        "_bottom": {
+          "type":"number",
+          "default": 1,
+          "title": "Correct Range - Bottom",
+          "inputType": "Number",
+          "validators": ["number"],
+          "help": "Correct bottom range answer on the scale"
+        },
+        "_top": {
+          "type":"number",
+          "default": 1,
+          "title": "Correct Range - Top",
+          "inputType": "Number",
+          "validators": ["number"],
+          "help": "Correct top range answer on the scale"
+        }
+      }
     },
     "_showNumber": {
       "type":"boolean",
       "required":true,
-      "title": "Show number scale"
+      "default": true,
+      "title": "Show Numbers on Scale",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to show the numbers along the scale"
     },
     "_showScaleIndicator": {
       "type":"boolean",
       "required":true,
-      "title": "Show scale position indicator"
+      "default": true,
+      "title": "Show scale indicators",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to show the lines along the scale"
     },
     "_buttons": {
       "type":"object",
-      "required":true,
       "title": "Buttons",
+      "required": false,
       "properties":{
-        "model": {
-          "type":"string",
-          "required":true,
-          "minLength": 1,
-          "title": "Model answer button label"
+        "_submit": {
+          "type":"object",
+          "title": "Submit",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text for the submit button"
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the submit button"
+            }
+          }
         },
-        "reset": {
-          "type":"string",
-          "required":true,
-          "minLength": 1,
-          "title": "Reset button label"
+        "_reset": {
+          "type":"object",
+          "title": "Reset",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text for the reset button"
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the reset button"
+            }
+          }
         },
-        "submit": {
-          "type":"string",
-          "required":true,
-          "minLength": 1,
-          "title": "Submit button label"
+        "_showCorrectAnswer": {
+          "type":"object",
+          "title": "Show Correct Answer",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to show the model answer"
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the show model answer button"
+            }
+          }
         },
-        "user": {
+        "_hideCorrectAnswer": {
+          "type":"object",
+          "title": "Hide Correct Answer",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to hide the model answer"
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the hide model answer button"
+            }
+          }
+        },
+        "_showFeedback": {
+          "type":"object",
+          "title": "Show Feedback",
+          "properties":{
+            "buttonText": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "QuestionButton",
+              "validators": [],
+              "help": "Button label text to show feedback"
+            },
+            "ariaLabel": {
+              "type":"string",
+              "required": false,
+              "default": "",
+              "title": "",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the show feedback button"
+            }
+          }
+        },
+        "remainingAttemptsText": {
           "type":"string",
-          "required":true,
-          "minLength": 1,
-          "title": "User answer button label"
+          "required": false,
+          "default": "",
+          "title": "Attempts Remaining Text",
+          "inputType": "Text",
+          "validators": [],
+          "help": "Shown when there are multiple attempts left"
+        },
+        "remainingAttemptText": {
+          "type":"string",
+          "required": false,
+          "default": "",
+          "title": "Final Attempt Text",
+          "inputType": "Text",
+          "validators": [],
+          "help": "Shown when there is one attempt left"
         }
       }
     },
     "_feedback": {
-      "type": "object",
+      "type":"object",
       "required":true,
-      "title": "Feedback text",
-      "properties" : {
+      "title": "Feedback",
+      "properties":{
+        "correct": {
+          "type":"string",
+          "required":true,
+          "default": "",
+          "title": "Correct",
+          "inputType": "TextArea",
+          "validators": ["required"],
+          "help": "Correct feedback for this question"
+        },
         "_incorrect": {
           "type":"object",
-          "required": true,
-          "title": "Feedback for incorrect answers",
-          "properties": {
+          "required":true,
+          "title": "Incorrect Feedback",
+          "properties":{
             "final": {
-              "type": "string",
-              "title": "Incorrect final answer"
+              "type":"string",
+              "required": true,
+              "default": "",
+              "title": "Incorrect Final",
+              "inputType": "TextArea",
+              "validators": ["required"],
+              "help": "Incorrect feedback for the final attempt"
             },
             "notFinal": {
-              "type": "string",
-              "title": "Incorrect non final answer"
+              "type":"string",
+              "required": true,
+              "default": "",
+              "title": "Incorrect Not Final",
+              "inputType": "TextArea",
+              "validators": ["required"],
+              "help": "Incorrect feedback for any attempt apart from the last attempt"
             }
           }
         },
         "_partlyCorrect": {
-          "type": "object",
-          "required": true,
-          "title": "Feedback when answer is partly correct",
-          "properties": {
+          "type":"object",
+          "required":true,
+          "properties":{
             "final": {
-              "type": "string",
+              "type":"string",
               "required": true,
-              "minLength": 1,
-              "title": "Partially correct final answer"
+              "default": "",
+              "title": "Partly Correct Final",
+              "inputType": "TextArea",
+              "validators": ["required"],
+              "help": "Partly correct feedback for the final attempt"
             },
             "notFinal": {
-              "type": "string",
-              "title": "Partially correct non final answer"
+              "type":"string",
+              "required": true,
+              "default": "",
+              "title": "Partly Correct Not Final",
+              "inputType": "TextArea",
+              "validators": ["required"],
+              "help": "Partly correct feedback for any attempt apart from the last attempt"
             }
           }
-        },
-        "correct": {
-          "type": "string",
-          "required": true,
-          "minLength": 1,
-          "title": "Feedback for correct answer"
         }
       }
-    },
-    "labelEnd": {
-      "type": "string",
-      "title": "Slider scale end label"
-    },
-    "labelStart": {
-      "type": "string",
-      "title": "Slider scale start label"
     }
   }
 }

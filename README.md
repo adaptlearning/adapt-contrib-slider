@@ -63,6 +63,12 @@ Default: `1`
 
 Specifies the number of attempts for this question
 
+####_shouldDisplayAttempts
+
+Default: `false`
+
+When set to true the number of attempts remaining is shown below the buttons.
+
 ####_showNumber
 
 Default: `true`
