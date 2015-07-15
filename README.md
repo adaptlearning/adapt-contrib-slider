@@ -115,7 +115,7 @@ This setting is the end value for the correct range. It's value must be numeric.
  
 ##Limitations
  
-
+To be completed.
  
 ##Browser spec
  
