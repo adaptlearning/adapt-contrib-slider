@@ -31,9 +31,14 @@ define(function(require) {
             if(!this.model.get('_items')) {
                 this.setupModelItems();
             }
+
             this.model.set({
                 _selectedItem: {}
             });
+
+            this.restoreUserAnswers();
+            if (this.model.get("_isSubmitted")) return;
+
             this.selectItem(0);
         },
 
@@ -52,6 +57,30 @@ define(function(require) {
                 }
             }
             this.model.set('_items', items);
+        },
+
+        restoreUserAnswers: function() {
+            if (!this.model.get("_isSubmitted")) return;
+
+            var selectedItem = {};
+            var items = this.model.get("_items");
+            var userAnswer = this.model.get("_userAnswer");
+            for (var i = 0, l = items.length; i < l; i++) {
+                var item = items[i];
+                if (item.value == userAnswer) {
+                    item._isSelected = true;
+                    selectedItem = item;
+                    this.model.set("_selectedItem", selectedItem);
+                    this.selectItem(item.value);
+                    break;
+                }
+            }            
+
+            this.setQuestionAsSubmitted();
+            this.markQuestion();
+            this.setScore();
+            this.showMarking();
+            this.setupFeedback();
         },
 
         // Used by question to disable the question during submit and complete stages
@@ -296,7 +325,7 @@ define(function(require) {
         resetUserAnswer: function() {
             this.model.set({
                 _selectedItem: {},
-                _userAnswer: ''
+                _userAnswer: undefined
             });
         },
 

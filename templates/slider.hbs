@@ -1,6 +1,6 @@
 <div class="slider-inner component-inner" role="region" aria-label="{{_globals._components._slider.ariaRegion}}" {{#if _globals._components._slider.ariaRegion}}tabindex="0"{{/if}}>
     {{> component this}}
-    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isComplete}} complete submitted show-user-answer {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
+    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isInteractionComplete}} complete submitted show-user-answer {{#if _isCorrect}}correct{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
             <div class="slider-scale-labels">
                 <div class="slider-scale-start" tabindex="0" role="region">{{labelStart}}</div>
@@ -18,7 +18,7 @@
                 <div class="slider-scale-marker component-item-color component-item-text-color a11y-ignore" aria-hidden="true" tabindex="-1"></div>
             </div>
             <div class="slider-background">
-                <div class="slider-item component-item {{#unless _isEnabled}}{{#if correct}}correct{{else}}incorrect{{/if}}{{/unless}}">
+                <div class="slider-item component-item {{#unless _isEnabled}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/unless}}">
                     <div class="slider-sliderange">
                         <a href="#" class="slider-handle component-item-color component-item-text-color a11y-ignore" tabindex="-1" aria-hidden="true"></a>
                         <div class="slider-bar component-item-color"></div>
