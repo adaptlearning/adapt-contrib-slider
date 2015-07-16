@@ -1,18 +1,17 @@
 #adapt-contrib-slider
-====================
 
 A question component that allows the learner to position a slider on scale
 
 
 ##Installation
  
-This component can be installed using the  by running the following command:
+First, be sure to install the [Adapt Command Line Interface](https://github.com/adaptlearning/adapt-cli), then from the command line run:-
 
-`adapt install adapt-my-plugin`
+        adapt install adapt-contrib-slider
 
-Alternatively add the component to the adapt.json file:
-
-`"adapt-contrib-slider": "*"` 
+This component can also be installed by adding the component to the adapt.json file before running `adapt install`:
+ 
+        "adapt-contrib-slider": "*"
  
  
 ##Usage
@@ -22,7 +21,7 @@ This component can be used as part of an assessment.
  
 ##Settings overview
  
-An complete example of this components settings can be found in the example.json file. A description of the core settings can be found at: [Core model attributes](https://github.com/adaptlearning/adapt_framework/wiki/Core-model-attributes)
+For example JSON format, see [example.json](example.json). A description of the core settings can be found at: [Core model attributes](https://github.com/adaptlearning/adapt_framework/wiki/Core-model-attributes)
 
 Further slider settings are shown below:
 ```
@@ -115,7 +114,7 @@ This setting is the end value for the correct range. It's value must be numeric.
  
 ##Limitations
  
-
+To be completed.
  
 ##Browser spec
  
