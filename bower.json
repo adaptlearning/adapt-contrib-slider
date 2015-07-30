@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "framework": "^2.0.0",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
-  "issues": "https://adaptlearning.atlassian.net/secure/CreateIssueDetails!init.jspa?pid=10100&issuetype=1&priority=6&summary=Issue+From+Link&components=10509",
+  "issues": "https://adaptlearning.atlassian.net/secure/CreateIssueDetails!init.jspa?pid=10100&issuetype=1&priority=6&components=10509",
   "displayName" : "Slider",
   "component" : "slider",
   "description": "A question component that allows the learner to position a slider on scale",
