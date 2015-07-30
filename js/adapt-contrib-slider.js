@@ -1,8 +1,3 @@
-/*
- * adapt-contrib-slider
- * License - https://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
- * Maintainers - Daryl Hedley <darylhedley@hotmail.com>, Dan Gray <dan@sinensis.co.uk>, Himanshu Rajotia <himanshu.rajotia@credipoint.com>
- */
 define(function(require) {
     var QuestionView = require('coreViews/questionView');
     var Adapt = require('coreJS/adapt');
