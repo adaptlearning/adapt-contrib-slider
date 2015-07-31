@@ -1,121 +1,102 @@
-#adapt-contrib-slider
+# adapt-contrib-slider  
 
-A question component that allows the learner to position a slider on scale
+<img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/slider01.gif" alt="Slider in action" align="right"> **Slider** is a *question component* bundled with the [Adapt framework](https://github.com/adaptlearning/adapt_framework).  
 
+To respond to the question, the learner positions a slider along a scale. Upon submission, feedback is provided via the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor), if installed. Feedback can be provided for correct, incorrect and partially correct answers. The number of attempts allowed may be configured.
+
+[Visit the **Slider** wiki](https://github.com/adaptlearning/adapt-contrib-slider/wiki) for more information about its functionality and for explanations of key properties. 
 
 ##Installation
+
+As one of Adapt's *[core components](https://github.com/adaptlearning/adapt_framework/wiki/Core-Plug-ins-in-the-Adapt-Learning-Framework#components),* **Slider** is included with the [installation of the Adapt framework](https://github.com/adaptlearning/adapt_framework/wiki/Manual-installation-of-the-Adapt-framework#installation) and the [installation of the Adapt authoring tool](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-Adapt-Origin).
+
+* If **Slider** has been uninstalled from the Adapt framework, it may be reinstalled.
+With the [Adapt CLI](https://github.com/adaptlearning/adapt-cli) installed, run the following from the command line:  
+`adapt install adapt-contrib-slider`
+
+    Alternatively, this component can also be installed by adding the following line of code to the *adapt.json* file:  
+    `"adapt-contrib-slider": "*"`  
+    Then running the command:  
+    `adapt install`  
+    (This second method will reinstall all plug-ins listed in *adapt.json*.)  
+
+* If **Slider** has been uninstalled from the Adapt authoring tool, it may be reinstalled using the [Plug-in Manager](https://github.com/adaptlearning/adapt_authoring/wiki/Plugin-Manager).  
+<div float align=right><a href="#top">Back to Top</a></div>
+
+## Settings Overview
+
+The attributes listed below are used in *components.json* to configure **Slider**, and are properly formatted as JSON in [*example.json*](https://github.com/adaptlearning/adapt-contrib-slider/blob/master/example.json). Visit the [**Slider** wiki](https://github.com/adaptlearning/adapt-contrib-slider/wiki) for more information about how they appear in the [authoring tool](https://github.com/adaptlearning/adapt_authoring/wiki). 
+
+### Attributes
+
+In addition to the attributes specifically listed below, [*question components*](https://github.com/adaptlearning/adapt_framework/wiki/Core-Plug-ins-in-the-Adapt-Learning-Framework#question-components) can implement the following sets of attributes:   
++ [**core model attributes**](https://github.com/adaptlearning/adapt_framework/wiki/Core-model-attributes): These are inherited by every Adapt component. They have no default values. Like the attributes below, their values are assigned in *components.json*. 
++ [**core buttons**](https://github.com/adaptlearning/adapt_framework/wiki/Core-Buttons): Default values are found in *course.json*, but may be overridden by **Slider's** model in *components.json*.
+
+**_component** (string): This value must be: `slider`.  
+
+**_classes** (string): CSS class name to be applied to **Slider**’s containing `div`. The class must be predefined in one of the Less files. Separate multiple classes with a space.  
+
+**_layout** (string): This defines the horizontal position of the component in the block. Acceptable values are `full`, `left` or `right`.  
+
+**instruction** (string): This optional text appears above the component. It is frequently used to
+guide the learner’s interaction with the component.  
+
+**_attempts** (integer): This specifies the number of times a learner is allowed to submit an answer. The default is `1`.  
+
+**_shouldDisplayAttempts** (boolean): Determines whether or not the text set in **remainingAttemptText** and **remainingAttemptsText** will be displayed. These two attributes are part of the [core buttons](https://github.com/adaptlearning/adapt_framework/wiki/Core-Buttons) attribute group. The default is `false`.  
+
+**_questionWeight** (number): A number which reflects the significance of the question in relation to the other questions in the course. This number is used in calculations of the final score reported to the LMS.
+
+**labelStart** (string): Text/characters that appear at the start of the slider scale.    
+
+**labelEnd** (string): Text/characters that appear at the end of the slider scale.   
+
+**_scaleStart** (number): This value is the numeric start of the scale. It is used to calculate the slider's position on the scale.  
+
+**_scaleEnd** (number): This value is the numeric end of the scale. It is used to calculate the slider's position on the scale.  
+
+**_correctAnswer** (string): Used to set a single value on the slider scale as the correct answer. (Since the attribute expects a string, numeric values must appear in JSON within quotes.)
+
+**_correctRange** (object):  Used to set a range of values on the slider scale as the correct answer. The range is determined by **_bottom** and **_top**.  
+
+>**_bottom** (number): This number is the start value for the correct range.  
+
+>**_top** (number): This number is the end value for the correct range.  
+
+**_showNumber** (boolean): When set to `true`, a numeric value appears above the scale when the slider is moved. The value indicates the slider's position on the scale. The default is `true`.  
+
+**_showScaleIndicator** (boolean): When set to `true`, a marker for the position of the slider along the scale is shown. If **_showNumber** is `true` this marker will contain a numeric value. If **_showNumber** is `false` a blank marker is shown.  
+
+**_feedback** (object): If the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor) is enabled, these various texts will be displayed depending on the submitted answer. **_feedback**
+contains values for three types of answers: **correct**, **_incorrect**, and **_partlyCorrect**.
+
+>**correct** (string): Text that will be displayed when the submitted answer is correct.  
+
+>**_incorrect** (object): Texts that will be displayed when the submitted answer is incorrect. It contains values that are displayed under differing conditions: **final** and **notFinal**. 
+
+>>**final** (string): Text that will be displayed when the submitted answer is incorrect and no more attempts are permitted. 
+
+>>**notFinal** (string): Text that will be displayed when the submitted answer is incorrect while more attempts are permitted.  
+
+>**_partlyCorrect** (object): Texts that will be displayed when the submitted answer is partially correct. It contains values that are displayed under differing conditions: **final** and **notFinal**.    
+
+>>**final** (string): Text that will be displayed when the submitted answer is partly correct and no more attempts are permitted. 
+
+>>**notFinal** (string): Text that will be displayed when the submitted answer is partly correct while more attempts are permitted.  
+
+### Accessibility
+**Slider** has been assigned a label using the [aria-label](https://github.com/adaptlearning/adapt_framework/wiki/Aria-Labels) attribute: **ariaRegion**. This label is not a visible element. It is utilized by assistive technology such as screen readers. Should the region's text need to be customised, it can be found within the **globals** object in [*properties.schema*](https://github.com/adaptlearning/adapt-contrib-slider/blob/master/properties.schema).   
+<div float align=right><a href="#top">Back to Top</a></div>
+
+## Limitations
  
-First, be sure to install the [Adapt Command Line Interface](https://github.com/adaptlearning/adapt-cli), then from the command line run:-
+No known limitations.  
 
-        adapt install adapt-contrib-slider
-
-This component can also be installed by adding the component to the adapt.json file before running `adapt install`:
- 
-        "adapt-contrib-slider": "*"
- 
- 
-##Usage
- 
-This component can be used as part of an assessment.
- 
- 
-##Settings overview
- 
-For example JSON format, see [example.json](example.json). A description of the core settings can be found at: [Core model attributes](https://github.com/adaptlearning/adapt_framework/wiki/Core-model-attributes)
-
-Further slider settings are shown below:
-```
-    {
-        "_component":"slider",
-        "_classes":"",
-        "_layout":"right",
-        "_attempts": 2,
-        "_showNumber": true,
-        "_showScaleIndicator": true,
-        "labelStart": "incomplete",
-        "labelEnd": "complete",
-        "_scaleStart": 1,
-        "_scaleEnd": 10,
-        "_correctAnswer": "",
-        "_correctRange": {
-            "_bottom": 4,
-            "_top": 9
-        }
-    }
-```
-
-####_component
-
-This value must be: `slider`
-
-####_classes
-
-You can use this setting to add custom classes to your template and LESS file.
-
-####_layout
-
-This defines the position of the component in the block. Values can be `full`, `left` or `right`. 
-
-####_attempts
-
-Default: `1`
-
-Specifies the number of attempts for this question
-
-####_shouldDisplayAttempts
-
-Default: `false`
-
-When set to true the number of attempts remaining is shown below the buttons.
-
-####_showNumber
-
-Default: `true`
-
-When set to true a numeric value appears above the scale when the slider is moved. The value indicates the sliders position on the scale.
-
-####_showScaleIndicator
-
-Default: `true`
-
-When set to `true` a marker for the position of the slider along the scale is shown. If _showNumber is `true` this marker will contain a numeric value. If _showNumber is `false` a blank marker is shown.
-
-####labelStart
-
-The value of this setting appears at the start of the slider scale.
-
-####labelEnd
-
-The value of this setting appears at the end of the slider scale.
-
-####_scaleStart
-
-This must be a numeric value for the start of the scale. This value is used to calculate the sliders position on the scale.
-
-####_scaleEnd
-
-This must be a numeric value for the end of the scale.
-
-####_correctAnswer
-
-To set a single value on the slider scale as correct enter it's value in this setting.
-
-####_correctRange
-
-To set a value range as the correct answer the settings for _bottom and _top should be given a numeric value.
-
-####_bottom
-
-This setting is the start value for the correct range. It's value must be numeric.
-
-####_top
-
-This setting is the end value for the correct range. It's value must be numeric.
- 
-##Limitations
- 
-To be completed.
- 
-##Browser spec
- 
-This component has been tested to the standard Adapt browser specification.
+----------------------------
+**Version number:**  2.0   <a href="https://community.adaptlearning.org/ target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a> 
+**Framework versions:** 2.0  
+**Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-slider/graphs/contributors)    
+**Accessibility support:** WAI AA   
+**RTL support:** yes  
+**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), IE 11, IE10, IE9, IE8, IE Mobile 11, Safari for iPhone (iOS 7+8), Safari for iPad (iOS 7+8), Safari 8, Opera    
