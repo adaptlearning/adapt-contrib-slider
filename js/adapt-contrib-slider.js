@@ -32,7 +32,7 @@ define(function(require) {
             });
 
             this.restoreUserAnswers();
-            if (this.model.get("_isSubmitted")) return;
+            if (this.model.get('_isSubmitted')) return;
 
             this.selectItem(0);
         },
@@ -55,21 +55,21 @@ define(function(require) {
         },
 
         restoreUserAnswers: function() {
-            if (!this.model.get("_isSubmitted")) return;
+            if (!this.model.get('_isSubmitted')) return;
 
             var selectedItem = {};
-            var items = this.model.get("_items");
-            var userAnswer = this.model.get("_userAnswer");
+            var items = this.model.get('_items');
+            var userAnswer = this.model.get('_userAnswer');
             for (var i = 0, l = items.length; i < l; i++) {
                 var item = items[i];
                 if (item.value == userAnswer) {
                     item._isSelected = true;
                     selectedItem = item;
-                    this.model.set("_selectedItem", selectedItem);
+                    this.model.set('_selectedItem', selectedItem);
                     this.selectItem(item.value);
                     break;
                 }
-            }            
+            }
 
             this.setQuestionAsSubmitted();
             this.markQuestion();
@@ -87,7 +87,7 @@ define(function(require) {
         enableQuestion: function() {
             this.setAllItemsEnabled(true);
         },
-        
+
         setAllItemsEnabled: function(isEnabled) {
             if (isEnabled) {
                 this.$('.slider-widget').removeClass('disabled');
@@ -157,7 +157,7 @@ define(function(require) {
         onDragReleased: function (event) {
             event.preventDefault();
             $(document).off('mousemove touchmove');
-            
+
             var itemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             //this.selectItem(itemIndex);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
@@ -192,7 +192,7 @@ define(function(require) {
 
         onHandlePressed: function (event) {
             event.preventDefault();
-            if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
+            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) return;
 
             this.showScaleMarker(true);
 
@@ -207,9 +207,9 @@ define(function(require) {
         onKeyDown: function(event) {
             if(event.which == 9) return; // tab key
             event.preventDefault();
-            
+
             var newItemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
-            
+
             switch (event.which) {
                 case 40: // ↓ down
                 case 37: // ← left
@@ -222,21 +222,21 @@ define(function(require) {
             }
 
             this.selectItem(newItemIndex);
-            if(typeof newItemIndex == "number") this.showScaleMarker(true);
+            if(typeof newItemIndex == 'number') this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
             this.setAltText(newItemIndex + 1);
         },
 
         onSliderSelected: function (event) {
             event.preventDefault();
-             if (!this.model.get("_isEnabled") || this.model.get("_isSubmitted")) return;
-            
+            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) return;
+
             this.showScaleMarker(true);
-                    
+
             var offsetLeft = this.$('.slider-sliderange').offset().left,
                 width = this.$('.slider-sliderange').width(),
                 left = (event.pageX || event.originalEvent.touches[0].pageX) - offsetLeft;
-            
+
             left = Math.max(Math.min(left, width), 0);
             left = this.mapPixelsToIndex(left);
             this.selectItem(left);
@@ -246,8 +246,8 @@ define(function(require) {
 
         onNumberSelected: function(event) {
             event.preventDefault();
-            if (this.model.get("_isComplete")) return;
-            var index = parseInt($(event.currentTarget).attr("data-id")) - 1;
+            if (this.model.get('_isComplete')) return;
+            var index = parseInt($(event.currentTarget).attr('data-id')) - 1;
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index));
             this.setAltText(index + 1);
@@ -260,7 +260,7 @@ define(function(require) {
         resetControlStyles: function() {
             this.$('.slider-handle').empty();
             this.showScaleMarker(false);
-            this.$('.slider-bar').animate({width:'0px'});     
+            this.$('.slider-bar').animate({width:'0px'});
         },
 
         //Use to check if the user is allowed to submit the question
@@ -294,14 +294,10 @@ define(function(require) {
 
         // Used to set the score based upon the _questionWeight
         setScore: function() {
-
             var numberOfCorrectAnswers = this.model.get('_numberOfCorrectAnswers');
-            var questionWeight = this.model.get("_questionWeight");
-            
+            var questionWeight = this.model.get('_questionWeight');
             var score = questionWeight * numberOfCorrectAnswers;
-
             this.model.set('_score', score);
-
         },
 
         // This is important and should give the user feedback on how they answered the question
@@ -342,26 +338,49 @@ define(function(require) {
             }, this);
         },
 
-        onScreenSizeChanged: function() {
-            this.$(".slider-markers").empty();
-            var $scaler = this.$('.slider-scaler'),
-                $markers = this.$('.slider-markers');
-            for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
-                $markers.append("<div class='slider-line component-item-color'>");
-                $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+        showScale: function () {
+            this.$('.slider-markers').empty();
+            if (this.model.get('_showScale') === false) {
+                this.$('.slider-markers').eq(0).css({display: 'none'});
+                this.model.get('_showScaleIndicator')
+                    ? this.$('.slider-scale-numbers').eq(0).css({visibility: 'hidden'})
+                    : this.$('.slider-scale-numbers').eq(0).css({display: 'none'});
+            } else {
+                var $scaler = this.$('.slider-scaler');
+                var $markers = this.$('.slider-markers');
+                for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
+                    $markers.append("<div class='slider-line component-item-color'>");
+                    $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+                }
+                var scaleWidth = $scaler.width(),
+                    $numbers = this.$('.slider-scale-number');
+                for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
+                    var $number = $numbers.eq(i),
+                        newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
+                    $number.css({left: newLeft});
+                }
             }
-            var scaleWidth = $scaler.width(),
-                $numbers = this.$('.slider-scale-number');
-            for(var i = 0, count = this.model.get('_items').length; i < count; i++) {
-                var $number = $numbers.eq(i),
-                    newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                $number.css({left: newLeft});
+        },
+
+        //Labels are enabled in slider.hbs. Here we manage their containing div.
+        showLabels: function () {
+            if(!this.model.get('labelStart') && !this.model.get('labelEnd')) {
+                this.$('.slider-scale-labels').eq(0).css({display: 'none'});
             }
+        },
+
+        remapSliderBar: function() {
+            var $scaler = this.$('.slider-scaler');
             var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             this.$('.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-scale-marker').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
             this.$('.slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
+        },
 
+        onScreenSizeChanged: function() {
+            this.showScale();
+            this.showLabels();
+            this.remapSliderBar();
             if (this.$('.slider-widget.user .button.model').css('display') === 'inline-block') {
                 this.hideCorrectAnswer();
             } else if (this.$('.slider-widget.model .button.user ').css('display') === 'inline-block') {
@@ -400,7 +419,7 @@ define(function(require) {
                 var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]),
                     startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
 
-                if(this.model.get("_showNumber")) $element.html(correctAnswer);
+                if(this.model.get('_showNumber')) $element.html(correctAnswer);
 
                 $element.css({left:startingLeft}).fadeIn(0, _.bind(function() {
                     $element.animate({left: this.mapIndexToPixels(this.getIndexFromValue(correctAnswer))});
@@ -412,7 +431,7 @@ define(function(require) {
         // hide the correct answer
         // Should use the values stored in storeUserAnswer
         hideCorrectAnswer: function() {
-            var userAnswerIndex = this.getIndexFromValue(this.model.get("_userAnswer"));
+            var userAnswerIndex = this.getIndexFromValue(this.model.get('_userAnswer'));
             this.$('.slider-modelranges').empty();
 
             this.showScaleMarker(true);
@@ -456,7 +475,7 @@ define(function(require) {
         // this should add the current slider value to the marker
         showNumber: function(show) {
             var $scaleMarker = this.$('.slider-scale-marker');
-            if(this.model.get("_showNumber")) {
+            if(this.model.get('_showNumber')) {
                 if(show) {
                     $scaleMarker.html(this.model.get('_selectedItem').value);
                 } else {
@@ -467,7 +486,7 @@ define(function(require) {
 
     });
 
-    Adapt.register("slider", Slider);
+    Adapt.register('slider', Slider);
 
     return Slider;
 });

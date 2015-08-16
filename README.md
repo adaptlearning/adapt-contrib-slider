@@ -64,9 +64,11 @@ guide the learner’s interaction with the component.
 
 >**_top** (number): This number is the end value for the correct range.  
 
-**_showNumber** (boolean): When set to `true`, a numeric value appears above the scale when the slider is moved. The value indicates the slider's position on the scale. The default is `true`.  
+**_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`.  
 
 **_showScaleIndicator** (boolean): When set to `true`, a marker for the position of the slider along the scale is shown. If **_showNumber** is `true` this marker will contain a numeric value. If **_showNumber** is `false` a blank marker is shown.  
+
+**_showScale** (boolean): When set to `false`, visual indications of the scale&mdash;range of numbers and short rules&mdash;are not displayed. The default is `true`.
 
 **_feedback** (object): If the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor) is enabled, these various texts will be displayed depending on the submitted answer. **_feedback**
 contains values for three types of answers: **correct**, **_incorrect**, and **_partlyCorrect**.
