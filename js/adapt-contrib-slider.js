@@ -463,6 +463,14 @@ define(function(require) {
                     $scaleMarker.html = "";
                 }
             }
+        },
+
+        getResponse:function() {
+            return this.model.get('_userAnswer').toString();
+        },
+
+        getResponseType:function() {
+            return "choice";
         }
 
     });
