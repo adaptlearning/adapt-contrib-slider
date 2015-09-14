@@ -68,6 +68,8 @@ guide the learner’s interaction with the component.
 
 **_showScaleIndicator** (boolean): When set to `true`, a marker for the position of the slider along the scale is shown. If **_showNumber** is `true` this marker will contain a numeric value. If **_showNumber** is `false` a blank marker is shown.  
 
+**_recordInteraction** (boolean) Determines whether the question uses SCORM cmi.interactions to track each attempt the user makes.
+
 **_feedback** (object): If the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor) is enabled, these various texts will be displayed depending on the submitted answer. **_feedback**
 contains values for three types of answers: **correct**, **_incorrect**, and **_partlyCorrect**.
 

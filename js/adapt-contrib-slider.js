@@ -470,7 +470,7 @@ define(function(require) {
         },
 
         getResponseType:function() {
-            return "choice";
+            return "numeric";
         }
 
     });
