@@ -38,13 +38,13 @@
 
     &.disabled {
         .slider-handle {
-            display:none;
+            display: none;
         }
         .slider-bar {
-            cursor:default;
+            cursor: default;
         }
         .slider-sliderange {
-            cursor:default;
+            cursor: default;
         }
     }
 }
@@ -55,55 +55,55 @@
     }
 
     .slider-scale-numbers {
-        position:relative;
-        width:85%;
+        position: relative;
+        width: 85%;
         margin: 45px 5% -7px 5%;
     }
 
     .slider-scale-number {
         position: absolute;
         width: 30px;
-        text-align: center;
+        top: -32px;
         margin-left: -15px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
 		.dir-rtl & {
 		    /*its supposed to be margin-left and not margin-right due to alignment of slider inside its container*/
 			margin-left: -40px;
 		}
-        top: -32px;
-        text-decoration: none;
-        color: inherit;
     }
 
     .slider-scale-labels {
-        width:80%;
-        margin:2px 5%;
-        height:20px;
+        width: 80%;
+        margin: 2px 5%;
+        height: 20px;
     }
 
     .slider-scale-start {
-        display:inline-block;
-        float:left;
-        height:30px;
-        line-height:30px;
-        text-align:center;
+        display: inline-block;
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
         border-radius: 5px;
-        margin-left:-10px;
+        margin-left: -10px;
     }
 
     .slider-scale-end {
-        display:inline-block;
-        float:right;
-        height:30px;
-        line-height:30px;
-        text-align:center;
+        display: inline-block;
+        float: right;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
         border-radius: 5px;
-        margin-right:-10px;
+        margin-right: -10px;
     }
 
     .slider-scaler {
         width: 80%;
         height: 2px;
-        background-color: @item-color;
+        background-color: @item-body-text-color;
         float: left;
         position: relative;
         border: none;
@@ -117,7 +117,7 @@
         cursor: pointer;
         width: 80%;
         height: 6px;
-        background-color: darken(@item-color, 30%);
+        background-color: @item-body-text-color;
         float: left;
         position: relative;
         border: none;
@@ -145,13 +145,14 @@
         color: @item-text-color;
         text-align: center;
         z-index: 2;
-        .ie8 & {
-            border: 2px solid @item-border-color;
-        }
         .no-touch & {
             &:hover {
-                background-color:@item-hover-color;
+                background-color: @item-color-hover;
             }
+        }
+
+        .ie8 & {
+            border: @item-border;
         }
     }
 
@@ -181,7 +182,7 @@
         width: 2px;
         height: 13px;
         top: -11px;
-        background-color: @item-color;
+        background-color: @item-body-text-color;
         position: absolute;
         z-index: 0;
         margin-left: -2px;
@@ -252,12 +253,12 @@
     }
 
     .slider-correct-icon {
-        color: @icon-correct-color;
+        color: @validation-success;
         display: none;
     }
 
     .slider-incorrect-icon {
-        color: @icon-incorrect-color;
+        color: @validation-error;
         display: none;
     }
 
@@ -270,9 +271,9 @@
         border-radius: 50%;
         margin-left: -13px;
         background-color: @item-color;
-        color:@item-text-color;
-        line-height:26px;
-        text-align:center;
-        z-index:1;
+        color: @item-text-color;
+        line-height: 26px;
+        text-align: center;
+        z-index: 1;
     }
 }
