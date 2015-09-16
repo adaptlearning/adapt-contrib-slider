@@ -124,19 +124,28 @@
       "type":"boolean",
       "required":true,
       "default": true,
-      "title": "Show Numbers on Scale",
+      "title": "Show number on indicator",
       "inputType": {"type": "Boolean", "options": [true, false]},
       "validators": [],
-      "help": "Select 'true' to show the numbers along the scale"
+      "help": "Select 'true' to show the position number on the indicator"
     },
     "_showScaleIndicator": {
       "type":"boolean",
       "required":true,
       "default": true,
-      "title": "Show scale indicators",
+      "title": "Show position indicator",
       "inputType": {"type": "Boolean", "options": [true, false]},
       "validators": [],
-      "help": "Select 'true' to show the lines along the scale"
+      "help": "Select 'true' to show a position indicator on the scale"
+    },
+    "_showScale": {
+      "type":"boolean",
+      "required":true,
+      "default": true,
+      "title": "Show scale",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to show the lines and numbers of the scale"
     },
     "_buttons": {
       "type":"object",

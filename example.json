@@ -14,6 +14,7 @@
     "_questionWeight":1,
     "_showNumber": true,
     "_showScaleIndicator": true,
+    "_showScale": true,
     "labelStart": "incomplete",
     "labelEnd": "complete",
     "_scaleStart": 1,
