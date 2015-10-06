@@ -25,7 +25,6 @@
         "_bottom": 4,
         "_top": 9
     },
-    "_recordInteraction":true,
     "_buttons": {
       "_submit": {
         "buttonText": "Submit",
