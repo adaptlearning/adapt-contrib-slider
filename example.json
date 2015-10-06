@@ -15,6 +15,7 @@
     "_recordInteraction": true,
     "_showNumber": true,
     "_showScaleIndicator": true,
+    "_showScale": true,
     "labelStart": "incomplete",
     "labelEnd": "complete",
     "_scaleStart": 1,

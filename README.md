@@ -67,11 +67,11 @@ guide the learner’s interaction with the component.
 
 >**_top** (number): This number is the end value for the correct range.  
 
-**_showNumber** (boolean): When set to `true`, a numeric value appears above the scale when the slider is moved. The value indicates the slider's position on the scale. The default is `true`.  
+**_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`.  
 
 **_showScaleIndicator** (boolean): When set to `true`, a marker for the position of the slider along the scale is shown. If **_showNumber** is `true` this marker will contain a numeric value. If **_showNumber** is `false` a blank marker is shown.  
 
-**_recordInteraction** (boolean) Determines whether the question uses SCORM cmi.interactions to track each attempt the user makes.
+**_showScale** (boolean): When set to `false`, visual indications of the scale&mdash;range of numbers and short rules&mdash;are not displayed. The default is `true`.
 
 **_feedback** (object): If the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor) is enabled, these various texts will be displayed depending on the submitted answer. **_feedback**
 contains values for three types of answers: **correct**, **_incorrect**, and **_partlyCorrect**.
@@ -99,7 +99,7 @@ contains values for three types of answers: **correct**, **_incorrect**, and **_
 No known limitations.  
 
 ----------------------------
-**Version number:**  2.0   <a href="https://community.adaptlearning.org/ target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a> 
+**Version number:**  2.0   <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a> 
 **Framework versions:** 2.0  
 **Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-slider/graphs/contributors)    
 **Accessibility support:** WAI AA   
