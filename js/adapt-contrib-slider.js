@@ -465,10 +465,16 @@ define(function(require) {
             }
         },
 
+        /**
+        * Used by adapt-contrib-spoor to get the user's answers in the format required by the cmi.interactions.n.student_response data field
+        */
         getResponse:function() {
             return this.model.get('_userAnswer').toString();
         },
-
+        
+		/**
+        * Used by adapt-contrib-spoor to get the type of this question in the format required by the cmi.interactions.n.type data field
+        */
         getResponseType:function() {
             return "numeric";
         }

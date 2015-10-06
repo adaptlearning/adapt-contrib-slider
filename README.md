@@ -49,7 +49,7 @@ guide the learner’s interaction with the component.
 
 **_questionWeight** (number): A number which reflects the significance of the question in relation to the other questions in the course. This number is used in calculations of the final score reported to the LMS.
   
-**_recordInteraction** (boolean) Determines whether or not the user's response to the question will be recorded to the LMS or not. Default is `true`. For further information, see the entry for `_shouldRecordInteractions` in the README for [adapt-contrib-spoor](https://github.com/adaptlearning/adapt-contrib-spoor).
+**_recordInteraction** (boolean) Determines whether or not the user's answers will be recorded to the LMS via cmi.interactions. Default is `true`. For further information, see the entry for `_shouldRecordInteractions` in the README for [adapt-contrib-spoor](https://github.com/adaptlearning/adapt-contrib-spoor).
 
 **labelStart** (string): Text/characters that appear at the start of the slider scale.    
 
