@@ -12,6 +12,7 @@
     "_attempts": 2,
     "_shouldDisplayAttempts": false,
     "_questionWeight":1,
+    "_recordInteraction": true,
     "_showNumber": true,
     "_showScaleIndicator": true,
     "_showScale": true,
