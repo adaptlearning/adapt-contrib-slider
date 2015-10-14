@@ -200,8 +200,9 @@ define(function(require) {
                 width:this.$('.slider-sliderange').width(),
                 offsetLeft: this.$('.slider-sliderange').offset().left
             };
+            
             $(document).on('mousemove touchmove', eventData, _.bind(this.onHandleDragged, this));
-            $(document).one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
+            this.$('.slider-handle').one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
         },
 
         onKeyDown: function(event) {
