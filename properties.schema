@@ -55,6 +55,15 @@
       "validators": ["number"],
       "help": "How much this question is worth"
     },
+    "_recordInteraction": {
+      "type":"boolean",
+      "required":false,
+      "default": true,
+      "title": "Record interaction",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "If set to 'true', the user's answer(s) will be recorded to cmi.interactions on the LMS (where supported)."
+    },
     "labelStart": {
       "type": "string",
       "required": false,
@@ -124,19 +133,28 @@
       "type":"boolean",
       "required":true,
       "default": true,
-      "title": "Show Numbers on Scale",
+      "title": "Show number on indicator",
       "inputType": {"type": "Boolean", "options": [true, false]},
       "validators": [],
-      "help": "Select 'true' to show the numbers along the scale"
+      "help": "Select 'true' to show the position number on the indicator"
     },
     "_showScaleIndicator": {
       "type":"boolean",
       "required":true,
       "default": true,
-      "title": "Show scale indicators",
+      "title": "Show position indicator",
       "inputType": {"type": "Boolean", "options": [true, false]},
       "validators": [],
-      "help": "Select 'true' to show the lines along the scale"
+      "help": "Select 'true' to show a position indicator on the scale"
+    },
+    "_showScale": {
+      "type":"boolean",
+      "required":true,
+      "default": true,
+      "title": "Show scale",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to show the lines and numbers of the scale"
     },
     "_buttons": {
       "type":"object",
@@ -313,35 +331,35 @@
             },
             "notFinal": {
               "type":"string",
-              "required": true,
+              "required": false,
               "default": "",
               "title": "Incorrect Not Final",
               "inputType": "TextArea",
-              "validators": ["required"],
+              "validators": [],
               "help": "Incorrect feedback for any attempt apart from the last attempt"
             }
           }
         },
         "_partlyCorrect": {
           "type":"object",
-          "required":true,
+          "required":false,
           "properties":{
             "final": {
               "type":"string",
-              "required": true,
+              "required": false,
               "default": "",
               "title": "Partly Correct Final",
               "inputType": "TextArea",
-              "validators": ["required"],
+              "validators": [],
               "help": "Partly correct feedback for the final attempt"
             },
             "notFinal": {
               "type":"string",
-              "required": true,
+              "required": false,
               "default": "",
               "title": "Partly Correct Not Final",
               "inputType": "TextArea",
-              "validators": ["required"],
+              "validators": [],
               "help": "Partly correct feedback for any attempt apart from the last attempt"
             }
           }
