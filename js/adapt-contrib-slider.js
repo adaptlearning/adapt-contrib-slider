@@ -160,7 +160,7 @@ define(function(require) {
             if(Modernizr.touch) {
                 this.$('.slider-handle').off('touchmove');
             } else {
-				$(document).off('mousemove.adapt-contrib-slider');
+                $(document).off('mousemove.adapt-contrib-slider');
             }
 
             var itemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
@@ -209,7 +209,7 @@ define(function(require) {
                 this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
                 this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
             } else {
-				$(document).on('mousemove.adapt-contrib-slider', eventData, _.bind(this.onHandleDragged, this));
+                $(document).on('mousemove.adapt-contrib-slider', eventData, _.bind(this.onHandleDragged, this));
                 $(document).one('mouseup', eventData, _.bind(this.onDragReleased, this));
             }
         },
