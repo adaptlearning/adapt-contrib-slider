@@ -157,11 +157,11 @@ define(function(require) {
         onDragReleased: function (event) {
             event.preventDefault();
 
-			if(Modernizr.touch) {
-				this.$('.slider-handle').off('touchmove');
-			} else {
-				$(document).off('mousemove');
-			}
+            if(Modernizr.touch) {
+                this.$('.slider-handle').off('touchmove');
+            } else {
+                $(document).off('mousemove');
+            }
 
             var itemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
@@ -205,12 +205,12 @@ define(function(require) {
                 offsetLeft: this.$('.slider-sliderange').offset().left
             };
             
-			if(Modernizr.touch) {
-				this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
-				this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
-			} else {
-				$(document).on('mousemove', eventData, _.bind(this.onHandleDragged, this));
-				$(document).one('mouseup', eventData, _.bind(this.onDragReleased, this));
+            if(Modernizr.touch) {
+                this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
+                this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
+            } else {
+                $(document).on('mousemove', eventData, _.bind(this.onHandleDragged, this));
+                $(document).one('mouseup', eventData, _.bind(this.onDragReleased, this));
             }
         },
 
@@ -274,8 +274,8 @@ define(function(require) {
         },
 
         /**
-		* allow the user to submit immediately; the slider handle may already be in the position they want to choose
-		*/
+        * allow the user to submit immediately; the slider handle may already be in the position they want to choose
+        */
         canSubmit: function() {
             return true;
         },
@@ -500,7 +500,7 @@ define(function(require) {
             return this.model.get('_userAnswer').toString();
         },
         
-		/**
+        /**
         * Used by adapt-contrib-spoor to get the type of this question in the format required by the cmi.interactions.n.type data field
         */
         getResponseType:function() {
