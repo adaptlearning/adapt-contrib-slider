@@ -156,10 +156,14 @@ define(function(require) {
 
         onDragReleased: function (event) {
             event.preventDefault();
-            $(document).off('mousemove touchmove');
+
+			if(Modernizr.touch) {
+				this.$('.slider-handle').off('touchmove');
+			} else {
+				$(document).off('mousemove');
+			}
 
             var itemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
-            //this.selectItem(itemIndex);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
             this.setAltText(itemIndex + 1);
         },
@@ -201,8 +205,13 @@ define(function(require) {
                 offsetLeft: this.$('.slider-sliderange').offset().left
             };
             
-            $(document).on('mousemove touchmove', eventData, _.bind(this.onHandleDragged, this));
-            this.$('.slider-handle').one('mouseup touchend', eventData, _.bind(this.onDragReleased, this));
+			if(Modernizr.touch) {
+				this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
+				this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
+			} else {
+				$(document).on('mousemove', eventData, _.bind(this.onHandleDragged, this));
+				$(document).one('mouseup', eventData, _.bind(this.onDragReleased, this));
+            }
         },
 
         onKeyDown: function(event) {
@@ -264,7 +273,9 @@ define(function(require) {
             this.$('.slider-bar').animate({width:'0px'});
         },
 
-        //Use to check if the user is allowed to submit the question
+        /**
+		* allow the user to submit immediately; the slider handle may already be in the position they want to choose
+		*/
         canSubmit: function() {
             return true;
         },
@@ -272,12 +283,11 @@ define(function(require) {
         // Blank method for question to fill out when the question cannot be submitted
         onCannotSubmit: function() {},
 
-        //This preserve the state of the users answers for returning or showing the users answer
+        //This preserves the state of the users answers for returning or showing the users answer
         storeUserAnswer: function() {
             this.model.set('_userAnswer', this.model.get('_selectedItem').value);
         },
 
-        // this return a boolean based upon whether to question is correct or not
         isCorrect: function() {
             var numberOfCorrectAnswers = 0;
 
@@ -308,7 +318,6 @@ define(function(require) {
                 .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
 
-        // Used by the question to determine if the question is incorrect or partly correct
         isPartlyCorrect: function() {
             return this.model.get('_isAtLeastOneCorrectSelection');
         },
@@ -389,7 +398,6 @@ define(function(require) {
             }
         },
 
-        // Used by the question to display the correct answer to the user
         showCorrectAnswer: function() {
             var answers = [],
                 bottom = this.model.get('_correctRange')._bottom,
