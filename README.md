@@ -69,7 +69,7 @@ guide the learner’s interaction with the component.
 
 >**_top** (number): This number is the end value for the correct range.  
 
-**_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`.  
+**_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`. Note that **_showScaleIndicator** must be set to `true` in order for this to work.  
 
 **_showScaleIndicator** (boolean): When set to `true`, a marker for the position of the slider along the scale is shown. If **_showNumber** is `true` this marker will contain a numeric value. If **_showNumber** is `false` a blank marker is shown.  
 
