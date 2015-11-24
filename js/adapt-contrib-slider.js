@@ -38,19 +38,20 @@ define(function(require) {
         },
 
         setupModelItems: function() {
-            var items = [],
-                answer = this.model.get('_correctAnswer'),
-                range = this.model.get('_correctRange'),
-                start = this.model.get('_scaleStart'),
-                end = this.model.get('_scaleEnd');
+            var items = [];
+            var answer = this.model.get('_correctAnswer');
+            var range = this.model.get('_correctRange');
+            var start = this.model.get('_scaleStart');
+            var end = this.model.get('_scaleEnd');
 
-            for(var i = start; i <= end; i++) {
-                if(answer != "") {
-                    items.push({value: i, selected:false, correct: (i == answer)});
+            for (var i = start; i <= end; i++) {
+                if (answer) {
+                    items.push({value: i, selected: false, correct: (i == answer)});
                 } else {
-                    items.push({value: i, selected:false, correct: (i >= range._bottom && i <= range._top)});
+                    items.push({value: i, selected: false, correct: (i >= range._bottom && i <= range._top)});
                 }
             }
+
             this.model.set('_items', items);
         },
 
@@ -204,7 +205,7 @@ define(function(require) {
                 width:this.$('.slider-sliderange').width(),
                 offsetLeft: this.$('.slider-sliderange').offset().left
             };
-            
+
             if(Modernizr.touch) {
                 this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
                 this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
@@ -399,18 +400,20 @@ define(function(require) {
         },
 
         showCorrectAnswer: function() {
-            var answers = [],
-                bottom = this.model.get('_correctRange')._bottom,
-                top = this.model.get('_correctRange')._top,
-                range = top - bottom;
+            var answers = [];
+            var bottom = this.model.get('_correctRange')._bottom;
+            var top = this.model.get('_correctRange')._top;
+            var range = top - bottom;
+            var correctAnswer = this.model.get('_correctAnswer');
 
             this.showScaleMarker(false);
 
-            if(this.model.get('_correctAnswer') != "") {
-                answers.push(this.model.get('_correctAnswer'));
-            } else if(bottom !== undefined) {
-                for(var i = 0; i <= range; i++) {
-                    answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
+            if (correctAnswer) {
+                // Check that correctAnswer is neither undefined nor empty
+                answers.push(correctAnswer);
+            } else if (bottom !== undefined) {
+                for (var i = 0; i <= range; i++) {
+                  answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
                 }
             } else {
                 console.log(this.constructor + "::WARNING: no correct answer or correct range set in JSON")
@@ -499,7 +502,7 @@ define(function(require) {
         getResponse:function() {
             return this.model.get('_userAnswer').toString();
         },
-        
+
         /**
         * Used by adapt-contrib-spoor to get the type of this question in the format required by the cmi.interactions.n.type data field
         */
