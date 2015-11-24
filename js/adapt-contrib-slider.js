@@ -157,15 +157,16 @@ define(function(require) {
         onDragReleased: function (event) {
             event.preventDefault();
 
-            if(Modernizr.touch) {
+            if (Modernizr.touch) {
                 this.$('.slider-handle').off('touchmove');
             } else {
                 $(document).off('mousemove.adapt-contrib-slider');
             }
 
-            var itemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
+            var itemValue = this.model.get('_selectedItem').value;
+            var itemIndex = this.getIndexFromValue(itemValue);
             this.animateToPosition(this.mapIndexToPixels(itemIndex));
-            this.setAltText(itemIndex + 1);
+            this.setAltText(itemValue);
         },
 
         onHandleDragged: function (event) {
@@ -234,24 +235,27 @@ define(function(require) {
             this.selectItem(newItemIndex);
             if(typeof newItemIndex == 'number') this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
-            this.setAltText(newItemIndex + 1);
+            this.setAltText(this.getValueFromIndex(newItemIndex));
         },
 
         onSliderSelected: function (event) {
             event.preventDefault();
-            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) return;
+
+            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) {
+              return;
+            }
 
             this.showScaleMarker(true);
 
-            var offsetLeft = this.$('.slider-sliderange').offset().left,
-                width = this.$('.slider-sliderange').width(),
-                left = (event.pageX || event.originalEvent.touches[0].pageX) - offsetLeft;
+            var offsetLeft = this.$('.slider-sliderange').offset().left;
+            var width = this.$('.slider-sliderange').width();
+            var left = (event.pageX || event.originalEvent.touches[0].pageX) - offsetLeft;
 
             left = Math.max(Math.min(left, width), 0);
-            left = this.mapPixelsToIndex(left);
-            this.selectItem(left);
-            this.animateToPosition(this.mapIndexToPixels(left));
-            this.setAltText(left + 1);
+            var itemIndex = this.mapPixelsToIndex(left);
+            this.selectItem(itemIndex);
+            this.animateToPosition(this.mapIndexToPixels(itemIndex));
+            this.setAltText(this.getValueFromIndex(itemIndex));
         },
 
         onNumberSelected: function(event) {
@@ -261,11 +265,16 @@ define(function(require) {
               return;
             }
 
-            var index = this.getIndexFromValue(parseInt($(event.currentTarget).attr('data-id')));
+            var itemValue = parseInt($(event.currentTarget).attr('data-id'));
+            var index = this.getIndexFromValue(itemValue);
             var $scaler = this.$('.slider-scaler');
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index, $scaler));
-            this.setAltText(index);
+            this.setAltText(itemValue);
+        },
+
+        getValueFromIndex: function(index) {
+          return this.model.get('_items')[index].value;
         },
 
         preventEvent: function(event) {
