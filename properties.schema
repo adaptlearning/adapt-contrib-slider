@@ -101,31 +101,31 @@
       "help": "What number the scale should end on"
     },
     "_correctAnswer": {
-      "type":"number",
-      "default": 1,
+      "type": "string",
+      "default": "",
       "title": "Correct Answer",
-      "inputType": "Number",
-      "validators": ["required", "number"],
+      "inputType": "Text",
+      "validators": [],
       "help": "Correct answer on the scale"
     },
     "_correctRange": {
-      "type":"object",
+      "type": "object",
       "properties":{
         "_bottom": {
-          "type":"number",
-          "default": 1,
+          "type": "number",
+          "default": 0,
           "title": "Correct Range - Bottom",
           "inputType": "Number",
           "validators": ["number"],
-          "help": "Correct bottom range answer on the scale"
+          "help": "Correct bottom range answer on the scale -- ignored when 'Correct Answer' is set"
         },
         "_top": {
-          "type":"number",
-          "default": 1,
+          "type": "number",
+          "default": 0,
           "title": "Correct Range - Top",
           "inputType": "Number",
           "validators": ["number"],
-          "help": "Correct top range answer on the scale"
+          "help": "Correct top range answer on the scale -- ignored when 'Correct Answer' is set"
         }
       }
     },

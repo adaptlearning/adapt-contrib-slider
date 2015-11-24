@@ -204,7 +204,7 @@ define(function(require) {
                 width:this.$('.slider-sliderange').width(),
                 offsetLeft: this.$('.slider-sliderange').offset().left
             };
-            
+
             if(Modernizr.touch) {
                 this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
                 this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
@@ -256,11 +256,16 @@ define(function(require) {
 
         onNumberSelected: function(event) {
             event.preventDefault();
-            if (this.model.get('_isComplete')) return;
-            var index = parseInt($(event.currentTarget).attr('data-id')) - 1;
+
+            if (this.model.get('_isComplete')) {
+              return;
+            }
+
+            var index = this.getIndexFromValue(parseInt($(event.currentTarget).attr('data-id')));
+            var $scaler = this.$('.slider-scaler');
             this.selectItem(index);
-            this.animateToPosition(this.mapIndexToPixels(index));
-            this.setAltText(index + 1);
+            this.animateToPosition(this.mapIndexToPixels(index, $scaler));
+            this.setAltText(index);
         },
 
         preventEvent: function(event) {
@@ -499,7 +504,7 @@ define(function(require) {
         getResponse:function() {
             return this.model.get('_userAnswer').toString();
         },
-        
+
         /**
         * Used by adapt-contrib-spoor to get the type of this question in the format required by the cmi.interactions.n.type data field
         */
