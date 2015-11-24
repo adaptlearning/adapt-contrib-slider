@@ -57,16 +57,13 @@ define(function(require) {
         restoreUserAnswers: function() {
             if (!this.model.get('_isSubmitted')) return;
 
-            var selectedItem = {};
             var items = this.model.get('_items');
             var userAnswer = this.model.get('_userAnswer');
             for (var i = 0, l = items.length; i < l; i++) {
                 var item = items[i];
                 if (item.value == userAnswer) {
-                    item._isSelected = true;
-                    selectedItem = item;
-                    this.model.set('_selectedItem', selectedItem);
-                    this.selectItem(item.value);
+                    this.model.set('_selectedItem', item);
+                    this.selectItem(this.getIndexFromValue(item.value));
                     break;
                 }
             }
