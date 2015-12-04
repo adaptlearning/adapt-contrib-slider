@@ -469,7 +469,7 @@ define(function(require) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
-                    this.$('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true, noFocus);
+                    this.$('.slider-scale-number[data-id="'+item.value+'"]').a11y_selected(true, noFocus);
                 }
             }, this);
             this.showNumber(true);
