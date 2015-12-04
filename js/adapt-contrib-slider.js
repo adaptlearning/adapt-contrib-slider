@@ -34,7 +34,7 @@ define(function(require) {
             this.restoreUserAnswers();
             if (this.model.get('_isSubmitted')) return;
 
-            this.selectItem(0);
+            this.selectItem(0, true);
         },
 
         setupModelItems: function() {
@@ -64,7 +64,7 @@ define(function(require) {
                 var item = items[i];
                 if (item.value == userAnswer) {
                     this.model.set('_selectedItem', item);
-                    this.selectItem(this.getIndexFromValue(item.value));
+                    this.selectItem(this.getIndexFromValue(item.value), true);
                     break;
                 }
             }
@@ -345,7 +345,7 @@ define(function(require) {
         // Used by the question view to reset the look and feel of the component.
         // This could also include resetting item data
         resetQuestion: function() {
-            this.selectItem(0);
+            this.selectItem(0, true);
             this.animateToPosition(0);
             this.resetControlStyles();
             this.showScaleMarker(true);
@@ -458,18 +458,18 @@ define(function(require) {
             this.$('.slider-modelranges').empty();
 
             this.showScaleMarker(true);
-            this.selectItem(userAnswerIndex);
+            this.selectItem(userAnswerIndex, true);
             this.animateToPosition(this.mapIndexToPixels(userAnswerIndex));
         },
 
         // according to given item index this should make the item as selected
-        selectItem: function(itemIndex) {
+        selectItem: function(itemIndex, noFocus) {
             this.$el.a11y_selected(false);
             _.each(this.model.get('_items'), function(item, index) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
-                    this.$('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true);
+                    this.$('.slider-scale-number[data-id="'+(itemIndex+1)+'"]').a11y_selected(true, noFocus);
                 }
             }, this);
             this.showNumber(true);
