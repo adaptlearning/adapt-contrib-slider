@@ -1,6 +1,8 @@
-define(function(require) {
-    var QuestionView = require('coreViews/questionView');
-    var Adapt = require('coreJS/adapt');
+define([
+  'coreViews/questionView',
+  'coreJS/adapt',
+  './rangeslider.min.js'
+], function(QuestionView, Adapt, Rangeslider) {
 
     var Slider = QuestionView.extend({
 
@@ -35,6 +37,13 @@ define(function(require) {
             if (this.model.get('_isSubmitted')) return;
 
             this.selectItem(0, true);
+        },
+
+        setupRangeslider: function () {
+            this.$slider = this.$('input[type="range"]');
+            this.$slider.rangeslider({
+                polyfill: false
+            });
         },
 
         setupModelItems: function() {
@@ -96,6 +105,7 @@ define(function(require) {
 
         // Used by question to setup itself just after rendering
         onQuestionRendered: function() {
+            this.setupRangeslider();
             this.setScalePositions();
             this.onScreenSizeChanged();
             this.showScaleMarker(true);

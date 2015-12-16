@@ -17,21 +17,13 @@
                 <div class="slider-answer component-item-color component-item-text-color"></div>
                 <div class="slider-scale-marker component-item-color component-item-text-color a11y-ignore" aria-hidden="true" tabindex="-1"></div>
             </div>
+
             <div class="slider-background">
                 <div class="slider-item component-item {{#unless _isEnabled}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/unless}}">
-                    <div class="slider-sliderange">
-                        <button class="base slider-handle component-item-color component-item-text-color a11y-ignore" tabindex="-1" aria-hidden="true"></button>
-                        <div class="slider-bar component-item-color"></div>
-                    </div>
-                    <div class="slider-outer-bar">
-                    <div class="slider-item-state">
-                        <div class="slider-icon slider-correct-icon icon icon-tick"></div>
-                        <div class="slider-icon slider-incorrect-icon icon icon-cross"></div>
-                    </div>
-                    </div>
-
+                  <input type="range" name="" value="" min="{{_scaleStart}}" max="{{_scaleEnd}}">
                 </div>
             </div>
+            
         </div>
         <div class="buttons">
         </div>
