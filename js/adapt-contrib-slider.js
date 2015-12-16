@@ -412,9 +412,12 @@ define(function(require) {
 
         showCorrectAnswer: function() {
             var answers = [];
-            var bottom = this.model.get('_correctRange')._bottom;
-            var top = this.model.get('_correctRange')._top;
-            var range = top - bottom;
+            var botton,
+                top;
+            if (this.model.has('_correctRange')) {
+              bottom = this.model.get('_correctRange')._bottom;
+              top = this.model.get('_correctRange')._top;
+            }
             var correctAnswer = this.model.get('_correctAnswer');
 
             this.showScaleMarker(false);
@@ -422,7 +425,8 @@ define(function(require) {
             if (correctAnswer) {
                 // Check that correctAnswer is neither undefined nor empty
                 answers.push(correctAnswer);
-            } else if (bottom !== undefined) {
+            } else if (bottom && top) {
+                var range = top - bottom;
                 for (var i = 0; i <= range; i++) {
                   answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
                 }
