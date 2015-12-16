@@ -40,10 +40,17 @@ define([
         },
 
         setupRangeslider: function () {
-            this.$slider = this.$('input[type="range"]');
+            window.$slider = this.$slider = this.$('input[type="range"]');
             this.$slider.rangeslider({
-                polyfill: false
+                polyfill: false,
+                onSlide: _.bind(this.handleSlide, this)
             });
+        },
+
+        handleSlide: function (position, value) {
+          // var itemIndex = this.getIndexFromValue(value);
+          // var pixels = this.mapIndexToPixels(itemIndex);
+          // this.animateToPosition(pixels);
         },
 
         setupModelItems: function() {
@@ -87,6 +94,11 @@ define([
 
         // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
+            var value = this.$slider.val();
+            var index = this.getIndexFromValue(value);
+            var item = this.model.get('_items')[index];
+            // this.model.set('_selectedItem', item);
+            this.selectItem(index);
             this.setAllItemsEnabled(false);
         },
 
@@ -98,8 +110,12 @@ define([
         setAllItemsEnabled: function(isEnabled) {
             if (isEnabled) {
                 this.$('.slider-widget').removeClass('disabled');
+                this.$slider.prop('disabled', false);
+                this.$slider.rangeslider('update', true);
             } else {
                 this.$('.slider-widget').addClass('disabled');
+                this.$slider.prop('disabled', true);
+                this.$slider.rangeslider('update', true);
             }
         },
 
@@ -140,7 +156,7 @@ define([
 
         mapIndexToPixels: function(value, $widthObject) {
             var numberOfItems = this.model.get('_items').length,
-                width = $widthObject ? $widthObject.width() : this.$('.slider-sliderange').width();
+                width = $widthObject ? $widthObject.width() : this.$('.slider-scaler').width();
 
             return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
         },
@@ -279,6 +295,8 @@ define([
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index, $scaler));
             this.setAltText(itemValue);
+
+            this.setSliderValue(itemValue)
         },
 
         getValueFromIndex: function(index) {
@@ -293,6 +311,8 @@ define([
             this.$('.slider-handle').empty();
             this.showScaleMarker(false);
             this.$('.slider-bar').animate({width:'0px'});
+
+            this.setSliderValue(this.model.get('_items')[0].value);
         },
 
         /**
@@ -331,6 +351,12 @@ define([
             var questionWeight = this.model.get('_questionWeight');
             var score = questionWeight * numberOfCorrectAnswers;
             this.model.set('_score', score);
+        },
+
+        setSliderValue: function (value) {
+          if (this.$slider) {
+            this.$slider.val(value).change();
+          }
         },
 
         // This is important and should give the user feedback on how they answered the question
@@ -446,6 +472,7 @@ define([
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
             this.showModelAnswers(answers);
+            this.setSliderValue(middleAnswer);
         },
 
         showModelAnswers: function(correctAnswerArray) {
@@ -474,6 +501,7 @@ define([
             this.showScaleMarker(true);
             this.selectItem(userAnswerIndex, true);
             this.animateToPosition(this.mapIndexToPixels(userAnswerIndex));
+            this.setSliderValue(this.model.get('_userAnswer'));
         },
 
         // according to given item index this should make the item as selected

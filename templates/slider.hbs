@@ -11,19 +11,20 @@
                     <button tabindex="0" role="button" class="base slider-scale-number" data-id="{{value}}">{{value}}</button>
                 {{/each}}
             </div>
-             <div class="slider-scaler component-item-color">
-                <div class="slider-modelranges"></div>
-                <div class="slider-markers"></div>
-                <div class="slider-answer component-item-color component-item-text-color"></div>
-                <div class="slider-scale-marker component-item-color component-item-text-color a11y-ignore" aria-hidden="true" tabindex="-1"></div>
-            </div>
+            <div class="slider-scaler-wrapper">
+               <div class="slider-scaler component-item-color">
+                  <div class="slider-modelranges"></div>
+                  <div class="slider-markers"></div>
+                  <div class="slider-answer component-item-color component-item-text-color"></div>
+                  <div class="slider-scale-marker component-item-color component-item-text-color a11y-ignore" aria-hidden="true" tabindex="-1"></div>
+              </div>
+          </div>
 
             <div class="slider-background">
                 <div class="slider-item component-item {{#unless _isEnabled}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/unless}}">
-                  <input type="range" name="" value="" min="{{_scaleStart}}" max="{{_scaleEnd}}">
+                  <input type="range" name="" value="{{_scaleStart}}" min="{{_scaleStart}}" max="{{_scaleEnd}}">
                 </div>
             </div>
-            
         </div>
         <div class="buttons">
         </div>
