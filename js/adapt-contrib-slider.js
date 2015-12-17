@@ -7,13 +7,9 @@ define([
     var Slider = QuestionView.extend({
 
         events: {
-            'click .slider-sliderange': 'onSliderSelected',
-            'click .slider-handle': 'preventEvent',
             'click .slider-scale-number': 'onNumberSelected',
-            'touchstart .slider-handle':'onHandlePressed',
-            'mousedown .slider-handle': 'onHandlePressed',
-            'focus .slider-handle':'onHandleFocus',
-            'blur .slider-handle':'onHandleBlur'
+            'focus input[type="range"]':'onHandleFocus',
+            'blur input[type="range"]':'onHandleBlur'
         },
 
         // Used by the question to reset the question when revisiting the component
@@ -103,11 +99,6 @@ define([
 
         // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
-            // var value = this.$slider.val();
-            // var index = this.getIndexFromValue(value);
-            // var item = this.model.get('_items')[index];
-            // this.model.set('_selectedItem', item);
-            // this.selectItem(index);
             this.setAllItemsEnabled(false);
         },
 
@@ -189,65 +180,14 @@ define([
             return normal * (outputHigh - outputLow) + outputLow;
         },
 
-        onDragReleased: function (event) {
-            event.preventDefault();
-
-            if (Modernizr.touch) {
-                this.$('.slider-handle').off('touchmove');
-            } else {
-                $(document).off('mousemove.adapt-contrib-slider');
-            }
-
-            var itemValue = this.model.get('_selectedItem').value;
-            var itemIndex = this.getIndexFromValue(itemValue);
-            this.animateToPosition(this.mapIndexToPixels(itemIndex));
-            this.setAltText(itemValue);
-        },
-
-        onHandleDragged: function (event) {
-            event.preventDefault();
-            var left = (event.pageX || event.originalEvent.touches[0].pageX) - event.data.offsetLeft;
-            left = Math.max(Math.min(left, event.data.width), 0);
-
-            this.$('.slider-handle').css({
-                left: left + 'px'
-            });
-
-            this.$('.slider-scale-marker').css({
-                left: left + 'px'
-            });
-
-            this.selectItem(this.mapPixelsToIndex(left));
-        },
-
         onHandleFocus: function(event) {
             event.preventDefault();
-            this.$('.slider-handle').on('keydown', _.bind(this.onKeyDown, this));
+            this.$slider.on('keydown', _.bind(this.onKeyDown, this));
         },
 
         onHandleBlur: function(event) {
             event.preventDefault();
-            this.$('.slider-handle').off('keydown');
-        },
-
-        onHandlePressed: function (event) {
-            event.preventDefault();
-            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) return;
-
-            this.showScaleMarker(true);
-
-            var eventData = {
-                width:this.$('.slider-sliderange').width(),
-                offsetLeft: this.$('.slider-sliderange').offset().left
-            };
-
-            if(Modernizr.touch) {
-                this.$('.slider-handle').on('touchmove', eventData, _.bind(this.onHandleDragged, this));
-                this.$('.slider-handle').one('touchend', eventData, _.bind(this.onDragReleased, this));
-            } else {
-                $(document).on('mousemove.adapt-contrib-slider', eventData, _.bind(this.onHandleDragged, this));
-                $(document).one('mouseup', eventData, _.bind(this.onDragReleased, this));
-            }
+            this.$slider.off('keydown');
         },
 
         onKeyDown: function(event) {
@@ -270,27 +210,8 @@ define([
             this.selectItem(newItemIndex);
             if(typeof newItemIndex == 'number') this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
+            this.setSliderValue(this.getValueFromIndex(newItemIndex));
             this.setAltText(this.getValueFromIndex(newItemIndex));
-        },
-
-        onSliderSelected: function (event) {
-            event.preventDefault();
-
-            if (!this.model.get('_isEnabled') || this.model.get('_isSubmitted')) {
-              return;
-            }
-
-            this.showScaleMarker(true);
-
-            var offsetLeft = this.$('.slider-sliderange').offset().left;
-            var width = this.$('.slider-sliderange').width();
-            var left = (event.pageX || event.originalEvent.touches[0].pageX) - offsetLeft;
-
-            left = Math.max(Math.min(left, width), 0);
-            var itemIndex = this.mapPixelsToIndex(left);
-            this.selectItem(itemIndex);
-            this.animateToPosition(this.mapIndexToPixels(itemIndex));
-            this.setAltText(this.getValueFromIndex(itemIndex));
         },
 
         onNumberSelected: function(event) {
@@ -317,10 +238,6 @@ define([
 
         getValueFromIndex: function(index) {
           return this.model.get('_items')[index].value;
-        },
-
-        preventEvent: function(event) {
-            event.preventDefault();
         },
 
         resetControlStyles: function() {
