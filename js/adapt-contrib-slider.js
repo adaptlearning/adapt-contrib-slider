@@ -412,7 +412,7 @@ define(function(require) {
 
         showCorrectAnswer: function() {
             var answers = [];
-            var botton,
+            var bottom,
                 top;
             if (this.model.has('_correctRange')) {
               bottom = this.model.get('_correctRange')._bottom;
