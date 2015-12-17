@@ -282,9 +282,49 @@
 
 .slider-widget {
     .slider-holder {
+        // reset rangeslider styes
+        .rangeslider__handle {
+          background-image: none;
+          border: none;
+          background-color: @item-color;
+          &:after {
+            content: none;
+          }
+          &:hover {
+            .no-touch & {
+              background-color: @item-color-hover;
+            }
+          }
+        }
+        .rangeslider__fill {
+          background-color: @item-color;
+          transition: background-color linear 200ms;
+        }
+        .rangeslider {
+          background-color: @background-color;
+        }
 
+        .rangeslider--disabled {
+          filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+          opacity: 1;
+          .rangeslider__handle {
+            border: none;
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+            opacity: 0;
+          }
+        }
+
+        input[type="range"]:focus + .rangeslider .rangeslider__handle {
+          -moz-box-shadow: none;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+
+          outline: @focus-outline; // todo: test if works with Builder
+        }
+
+        // other styles
         .slider-item {
-            margin-top: 5em; // remove
+            direction: ltr; // force direction to fix missing rangeslider rtl support
         }
 
         .slider-scale-numbers {
@@ -296,7 +336,8 @@
           margin-left: 6px;
         }
 
-        .slider-scale-marker {
+        .slider-scale-marker,
+        .slider-model-answer {
           width: 30px;
           height: 30px;
           line-height: 30px;
@@ -305,6 +346,7 @@
 
         .slider-scaler-wrapper {
             margin: 0 21px;
+            min-height: 50px;
 
             .slider-scaler {
               width: 100%;
@@ -313,4 +355,31 @@
         }
 
     }
+}
+
+.slider-widget.show-user-answer.correct {
+  .slider-scale-marker {
+    background-color: @icon-correct-color;
+  }
+  .rangeslider__fill {
+    background-color: @icon-correct-color;
+  }
+}
+.slider-widget.show-user-answer.incorrect {
+  .slider-scale-marker {
+    background-color: @icon-incorrect-color;
+  }
+  .rangeslider__fill {
+    background-color: @icon-incorrect-color;
+  }
+}
+
+.slider-widget.show-correct-answer {
+  .slider-scale-marker,
+  .slider-model-answer {
+    background-color: @icon-correct-color;
+  }
+  .rangeslider__fill {
+    background-color: @icon-correct-color;
+  }
 }

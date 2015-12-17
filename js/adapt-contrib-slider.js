@@ -40,17 +40,26 @@ define([
         },
 
         setupRangeslider: function () {
-            window.$slider = this.$slider = this.$('input[type="range"]');
+            this.$sliderScaleMarker = this.$('.slider-scale-marker');
+            this.$slider = this.$('input[type="range"]');
             this.$slider.rangeslider({
                 polyfill: false,
                 onSlide: _.bind(this.handleSlide, this)
             });
+            this.oldValue = 0;
         },
 
         handleSlide: function (position, value) {
-          // var itemIndex = this.getIndexFromValue(value);
-          // var pixels = this.mapIndexToPixels(itemIndex);
-          // this.animateToPosition(pixels);
+          if (this.oldValue === value) {
+            return;
+          }
+          var itemIndex = this.getIndexFromValue(value);
+          var pixels = this.mapIndexToPixels(itemIndex);
+
+          this.selectItem(itemIndex, false);
+
+          this.animateToPosition(pixels);
+          this.oldValue = value;
         },
 
         setupModelItems: function() {
@@ -94,11 +103,11 @@ define([
 
         // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
-            var value = this.$slider.val();
-            var index = this.getIndexFromValue(value);
-            var item = this.model.get('_items')[index];
+            // var value = this.$slider.val();
+            // var index = this.getIndexFromValue(value);
+            // var item = this.model.get('_items')[index];
             // this.model.set('_selectedItem', item);
-            this.selectItem(index);
+            // this.selectItem(index);
             this.setAllItemsEnabled(false);
         },
 
@@ -132,14 +141,16 @@ define([
 
         // this should make the slider handle, slider marker and slider bar to animate to give position
         animateToPosition: function(newPosition) {
-            this.$('.slider-handle').stop(true).animate({
-                left: newPosition + 'px'
-            },200);
-            this.$('.slider-bar').stop(true).animate({width:newPosition + 'px'});
-            this.$('.slider-scale-marker').stop(true).animate({
-                left: newPosition + 'px'
-            },200);
-            this.$('.slider-bar').stop(true).animate({width:newPosition + 'px'});
+            if (!this.$sliderScaleMarker) return;
+
+            this.$sliderScaleMarker
+              .velocity('stop')
+              .velocity({
+                left: newPosition
+              }, {
+                duration: 200,
+                easing: "linear"
+              });
         },
 
         // this shoud give the index of item using given slider value
@@ -289,6 +300,11 @@ define([
               return;
             }
 
+            // when component is not reset, selecting a number should be prevented
+            if (this.$slider.prop('disabled')) {
+              return;
+            }
+
             var itemValue = parseInt($(event.currentTarget).attr('data-id'));
             var index = this.getIndexFromValue(itemValue);
             var $scaler = this.$('.slider-scaler');
@@ -362,7 +378,7 @@ define([
         // This is important and should give the user feedback on how they answered the question
         // Normally done through ticks and crosses by adding classes
         showMarking: function() {
-            this.$('.slider-item').removeClass('correct incorrect')
+            this.$('.slider-widget').removeClass('correct incorrect')
                 .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
 
