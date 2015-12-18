@@ -394,13 +394,13 @@ define([
             if (correctAnswer) {
                 // Check that correctAnswer is neither undefined nor empty
                 answers.push(correctAnswer);
-            } else if (bottom && top) {
+            } else if (bottom !== undefined && top !== undefined) {
                 var range = top - bottom;
                 for (var i = 0; i <= range; i++) {
                   answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
                 }
             } else {
-                console.log(this.constructor + "::WARNING: no correct answer or correct range set in JSON")
+                console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON")
             }
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
