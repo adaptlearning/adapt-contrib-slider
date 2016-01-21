@@ -190,3 +190,12 @@
     background-color: @icon-correct-color;
   }
 }
+
+// assessment adds no-marking class to article to hide marking icons
+.no-marking {
+    .component-inner .component-widget.disabled.submitted.complete .rangeslider__fill,
+    .component-inner .component-widget.disabled.submitted.complete .slider-scale-marker {
+      color: @item-text-color;
+      background-color: @item-color;
+    }
+}
