@@ -380,7 +380,12 @@ define([
                 for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
                     var $number = $numbers.eq(i),
                         newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    $number.css({left: newLeft});
+                    if($('html').hasClass('ie9') && this.model.get('_marginDir')=='right'){
+						$number.css({right: newLeft});
+					}
+					else{
+						$number.css({left: newLeft});
+                    }
                 }
             }
         },
