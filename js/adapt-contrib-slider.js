@@ -363,18 +363,19 @@ define([
         remapSliderBar: function() {
             var $scaler = this.$('.slider-scaler');
             var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
-            this.$('.slider-handle').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
-            this.$('.slider-scale-marker').css({left: this.mapIndexToPixels(currentIndex, $scaler) + 'px'});
-            this.$('.slider-bar').width(this.mapIndexToPixels(currentIndex, $scaler));
+            var left = this.mapIndexToPixels(currentIndex, $scaler);
+            this.$('.slider-handle').css({left: left + 'px'});
+            this.$('.slider-scale-marker').css({left: left + 'px'});
+            this.$('.slider-bar').width(left);
         },
 
         onScreenSizeChanged: function() {
             this.showScale();
             this.showLabels();
             this.remapSliderBar();
-            if (this.$('.slider-widget.user .button.model').css('display') === 'inline-block') {
+            if (this.$('.slider-widget').hasClass('show-user-answer')) {
                 this.hideCorrectAnswer();
-            } else if (this.$('.slider-widget.model .button.user ').css('display') === 'inline-block') {
+            } else if (this.$('.slider-widget').hasClass('show-correct-answer')) {
                 this.showCorrectAnswer();
             }
         },
