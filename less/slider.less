@@ -66,7 +66,7 @@
         .slider-scaler {
           width: 100%;
           height: 2px;
-          background-color: @item-body-text-color;
+          background-color: @foreground-color;
           float: left;
           position: relative;
           border: none;
@@ -107,7 +107,7 @@
         width: 2px;
         height: 13px;
         top: -11px;
-        background-color: @item-body-text-color;
+        background-color: @foreground-color;
         position: absolute;
         z-index: 0;
         margin-left: -2px;
@@ -145,7 +145,7 @@
           }
           &:hover {
             .no-touch & {
-              background-color: @item-color-hover;
+              background-color: @item-hover-color;
             }
           }
         }
@@ -178,7 +178,7 @@
           -moz-box-shadow: none;
           -webkit-box-shadow: none;
           box-shadow: none;
-          outline: @focus-outline; // todo: test if works with Builder
+          outline: 3px solid orange;
           /*.dir-rtl & {
             transform: rotateY(180deg);
           }*/
