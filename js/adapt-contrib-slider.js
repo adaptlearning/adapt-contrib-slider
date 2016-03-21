@@ -6,6 +6,8 @@ define([
 
     var Slider = QuestionView.extend({
 
+        tempValue:true,
+
         events: {
             'click .slider-scale-number': 'onNumberSelected',
             'focus input[type="range"]':'onHandleFocus',
@@ -26,7 +28,8 @@ define([
             }
 
             this.model.set({
-                _selectedItem: {}
+                _selectedItem: {},
+                _userAnswer: undefined
             });
 
             this.restoreUserAnswers();
@@ -46,16 +49,29 @@ define([
         },
 
         handleSlide: function (position, value) {
-          if (this.oldValue === value) {
-            return;
-          }
-          var itemIndex = this.getIndexFromValue(value);
-          var pixels = this.mapIndexToPixels(itemIndex);
-
-          this.selectItem(itemIndex, false);
-
-          this.animateToPosition(pixels);
-          this.oldValue = value;
+            if (this.oldValue === value) {
+               return;
+             }
+            if(this.model.get('_marginDir') == 'right'){
+                if(this.tempValue && (this.model.get('_userAnswer') == undefined)){
+                    value = this.model.get('_items').length - value + 1;
+                    this.tempValue = false;
+                    var tempPixels = this.mapIndexToPixels(value);
+                    var rangeSliderWidth = this.$('.rangeslider').width();
+                    var handleLeft = parseInt(this.$('.rangeslider__handle').css('left'));
+                    var sliderWidth = this.$('.rangeslider__fill').width();
+                    handleLeft = rangeSliderWidth - handleLeft -this.$('.rangeslider__handle').width();
+                    sliderWidth = rangeSliderWidth - sliderWidth;
+                    this.$('.rangeslider__handle').css('left',handleLeft);
+                    this.$('.rangeslider__fill').width(sliderWidth);
+                }
+            }
+            var itemIndex = this.getIndexFromValue(value);
+            var pixels = this.mapIndexToPixels(itemIndex);
+            this.selectItem(itemIndex, false);
+            this.animateToPosition(pixels);
+            this.oldValue = value;
+            this.tempValue = true;
         },
 
         setupModelItems: function() {
@@ -64,6 +80,11 @@ define([
             var range = this.model.get('_correctRange');
             var start = this.model.get('_scaleStart');
             var end = this.model.get('_scaleEnd');
+
+            this.model.set('_marginDir', 'left');
+            if (Adapt.config.get('_defaultDirection') == 'rtl') {
+                this.model.set('_marginDir', 'right');
+            }
 
             for (var i = start; i <= end; i++) {
                 if (answer) {
@@ -128,20 +149,33 @@ define([
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
             this.setAltText(this.model.get('_scaleStart'));
             this.setReadyStatus();
+            this.animateToPosition(0);
         },
 
         // this should make the slider handle, slider marker and slider bar to animate to give position
         animateToPosition: function(newPosition) {
             if (!this.$sliderScaleMarker) return;
 
-            this.$sliderScaleMarker
-              .velocity('stop')
-              .velocity({
-                left: newPosition
-              }, {
-                duration: 200,
-                easing: "linear"
-              });
+            if(this.model.get('_marginDir') == 'right'){
+                this.$sliderScaleMarker
+                  .velocity('stop')
+                  .velocity({
+                    right: newPosition
+                  }, {
+                    duration: 200,
+                    easing: "linear"
+                  });
+            }
+            else{
+                this.$sliderScaleMarker
+                  .velocity('stop')
+                  .velocity({
+                    left: newPosition
+                  }, {
+                    duration: 200,
+                    easing: "linear"
+                  });
+            }
         },
 
         // this shoud give the index of item using given slider value
@@ -216,6 +250,7 @@ define([
 
         onNumberSelected: function(event) {
             event.preventDefault();
+            this.tempValue = false;
 
             if (this.model.get('_isComplete')) {
               return;
@@ -228,11 +263,9 @@ define([
 
             var itemValue = parseInt($(event.currentTarget).attr('data-id'));
             var index = this.getIndexFromValue(itemValue);
-            var $scaler = this.$('.slider-scaler');
             this.selectItem(index);
-            this.animateToPosition(this.mapIndexToPixels(index, $scaler));
+            this.animateToPosition(this.mapIndexToPixels(index));
             this.setAltText(itemValue);
-
             this.setSliderValue(itemValue)
         },
 
@@ -244,7 +277,6 @@ define([
             this.$('.slider-handle').empty();
             this.showScaleMarker(false);
             this.$('.slider-bar').animate({width:'0px'});
-
             this.setSliderValue(this.model.get('_items')[0].value);
         },
 
@@ -348,7 +380,12 @@ define([
                 for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
                     var $number = $numbers.eq(i),
                         newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    $number.css({left: newLeft});
+                    if($('html').hasClass('ie9') && this.model.get('_marginDir')=='right'){
+						$number.css({right: newLeft});
+					}
+					else{
+						$number.css({left: newLeft});
+                    }
                 }
             }
         },
