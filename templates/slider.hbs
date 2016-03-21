@@ -22,7 +22,7 @@
 
             <div class="slider-background">
                 <div class="slider-item component-item {{#unless _isEnabled}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/unless}}">
-                  <input type="range" name="" value="{{_scaleStart}}" min="{{_scaleStart}}" max="{{_scaleEnd}}">
+                  <input type="range" name="" value="{{#if _userAnswer}}{{_userAnswer}}{{else}}{{_scaleStart}}{{/if}}" min="{{_scaleStart}}" max="{{_scaleEnd}}" {{#unless _isEnabled}} disabled{{/unless}}>
                 </div>
             </div>
         </div>
