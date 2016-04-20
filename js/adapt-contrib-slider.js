@@ -402,7 +402,8 @@ define([
             var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             var left = this.mapIndexToPixels(currentIndex, $scaler);
             this.$('.slider-handle').css({left: left + 'px'});
-            this.$('.slider-scale-marker').css({left: left + 'px'});
+            var pixels = this.$(".rangeslider").width()-left-this.$('.rangeslider__handle').width();
+            this.animateToPosition(pixels);
             this.$('.slider-bar').width(left);
         },
 
