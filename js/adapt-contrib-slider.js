@@ -41,6 +41,11 @@ define([
         setupRangeslider: function () {
             this.$sliderScaleMarker = this.$('.slider-scale-marker');
             this.$slider = this.$('input[type="range"]');
+            
+            if(this.model.has('_scaleStep')) {
+                this.$slider.attr({"step": this.model.get('_scaleStep')});
+            }
+            
             this.$slider.rangeslider({
                 polyfill: false,
                 onSlide: _.bind(this.handleSlide, this)
@@ -51,7 +56,7 @@ define([
         handleSlide: function (position, value) {
             if (this.oldValue === value) {
                return;
-             }
+            }
             if(this.model.get('_marginDir') == 'right'){
                 if(this.tempValue && (this.model.get('_userAnswer') == undefined)){
                     value = this.model.get('_items').length - value + 1;
@@ -80,13 +85,9 @@ define([
             var range = this.model.get('_correctRange');
             var start = this.model.get('_scaleStart');
             var end = this.model.get('_scaleEnd');
-
-            this.model.set('_marginDir', 'left');
-            if (Adapt.config.get('_defaultDirection') == 'rtl') {
-                this.model.set('_marginDir', 'right');
-            }
-
-            for (var i = start; i <= end; i++) {
+            var step = this.model.get('_scaleStep') || 1;
+            
+            for (var i = start; i <= end; i += step) {
                 if (answer) {
                     items.push({value: i, selected: false, correct: (i == answer)});
                 } else {
@@ -95,6 +96,7 @@ define([
             }
 
             this.model.set('_items', items);
+            this.model.set('_marginDir', (Adapt.config.get('_defaultDirection') === 'rtl' ? 'right' : 'left'));
         },
 
         restoreUserAnswers: function() {
@@ -419,30 +421,38 @@ define([
 
         showCorrectAnswer: function() {
             var answers = [];
-            var bottom,
-                top;
-            if (this.model.has('_correctRange')) {
-              bottom = this.model.get('_correctRange')._bottom;
-              top = this.model.get('_correctRange')._top;
+            
+            if(this.model.has('_correctAnswer')) {
+                var correctAnswer = this.model.get('_correctAnswer');
             }
-            var correctAnswer = this.model.get('_correctAnswer');
+                
+            if (this.model.has('_correctRange')) {
+                var bottom = this.model.get('_correctRange')._bottom;
+                var top = this.model.get('_correctRange')._top;
+                var step = (this.model.has('_scaleStep') ? this.model.get('_scaleStep') : 1);
+            }
 
             this.showScaleMarker(false);
 
+            //are we dealing with a single correct answer or a range?
             if (correctAnswer) {
-                // Check that correctAnswer is neither undefined nor empty
                 answers.push(correctAnswer);
             } else if (bottom !== undefined && top !== undefined) {
-                var range = top - bottom;
-                for (var i = 0; i <= range; i++) {
-                  answers.push(this.model.get('_items')[this.getIndexFromValue(bottom) + i].value);
+                var answer = this.model.get('_correctRange')._bottom;
+                var topOfRange = this.model.get('_correctRange')._top;
+                while(answer <= topOfRange) {
+                    answers.push(answer);
+                    answer += step;
                 }
             } else {
                 console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON")
             }
+            
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
+            
             this.showModelAnswers(answers);
+            
             this.setSliderValue(middleAnswer);
         },
 
