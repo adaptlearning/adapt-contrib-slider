@@ -27,11 +27,6 @@ define([
                 this.setupModelItems();
             }
 
-            this.model.set({
-                _selectedItem: {},
-                _userAnswer: undefined
-            });
-
             this.restoreUserAnswers();
             if (this.model.get('_isSubmitted')) return;
 
@@ -41,11 +36,11 @@ define([
         setupRangeslider: function () {
             this.$sliderScaleMarker = this.$('.slider-scale-marker');
             this.$slider = this.$('input[type="range"]');
-            
+
             if(this.model.has('_scaleStep')) {
                 this.$slider.attr({"step": this.model.get('_scaleStep')});
             }
-            
+
             this.$slider.rangeslider({
                 polyfill: false,
                 onSlide: _.bind(this.handleSlide, this)
@@ -86,7 +81,7 @@ define([
             var start = this.model.get('_scaleStart');
             var end = this.model.get('_scaleEnd');
             var step = this.model.get('_scaleStep') || 1;
-            
+
             for (var i = start; i <= end; i += step) {
                 if (answer) {
                     items.push({value: i, selected: false, correct: (i == answer)});
@@ -100,7 +95,13 @@ define([
         },
 
         restoreUserAnswers: function() {
-            if (!this.model.get('_isSubmitted')) return;
+            if (!this.model.get('_isSubmitted')) {
+                this.model.set({
+                    _selectedItem: {},
+                    _userAnswer: undefined
+                });
+                return;
+            };
 
             var items = this.model.get('_items');
             var userAnswer = this.model.get('_userAnswer');
@@ -151,7 +152,6 @@ define([
             this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
             this.setAltText(this.model.get('_scaleStart'));
             this.setReadyStatus();
-            this.animateToPosition(0);
         },
 
         // this should make the slider handle, slider marker and slider bar to animate to give position
@@ -421,11 +421,11 @@ define([
 
         showCorrectAnswer: function() {
             var answers = [];
-            
+
             if(this.model.has('_correctAnswer')) {
                 var correctAnswer = this.model.get('_correctAnswer');
             }
-                
+
             if (this.model.has('_correctRange')) {
                 var bottom = this.model.get('_correctRange')._bottom;
                 var top = this.model.get('_correctRange')._top;
@@ -447,12 +447,12 @@ define([
             } else {
                 console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON")
             }
-            
+
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
-            
+
             this.showModelAnswers(answers);
-            
+
             this.setSliderValue(middleAnswer);
         },
 
