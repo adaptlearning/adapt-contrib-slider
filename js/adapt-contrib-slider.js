@@ -46,6 +46,10 @@ define([
                 onSlide: _.bind(this.handleSlide, this)
             });
             this.oldValue = 0;
+            
+            if (this._deferEnable) {
+                this.setAllItemsEnabled(true);
+            }
         },
 
         handleSlide: function (position, value) {
@@ -133,9 +137,13 @@ define([
 
         setAllItemsEnabled: function(isEnabled) {
             if (isEnabled) {
-                this.$('.slider-widget').removeClass('disabled');
-                this.$slider.prop('disabled', false);
-                this.$slider.rangeslider('update', true);
+                if (this.$slider) {
+                    this.$('.slider-widget').removeClass('disabled');
+                    this.$slider.prop('disabled', false);
+                    this.$slider.rangeslider('update', true);
+                } else {
+                    this._deferEnable = true; // slider is not yet ready
+                }
             } else {
                 this.$('.slider-widget').addClass('disabled');
                 this.$slider.prop('disabled', true);
