@@ -188,7 +188,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "QuestionButton",
+              "inputType": "Text",
               "validators": [],
               "help": "Aria label for the submit button"
             }
@@ -212,7 +212,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "QuestionButton",
+              "inputType": "Text",
               "validators": [],
               "help": "Aria label for the reset button"
             }
@@ -236,7 +236,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "QuestionButton",
+              "inputType": "Text",
               "validators": [],
               "help": "Aria label for the show model answer button"
             }
@@ -260,7 +260,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "QuestionButton",
+              "inputType": "Text",
               "validators": [],
               "help": "Aria label for the hide model answer button"
             }
@@ -284,7 +284,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "QuestionButton",
+              "inputType": "Text",
               "validators": [],
               "help": "Aria label for the show feedback button"
             }
