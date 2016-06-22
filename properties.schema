@@ -295,7 +295,7 @@
           "required": false,
           "default": "",
           "title": "Attempts Remaining Text",
-          "inputType": "Text",
+          "inputType": "QuestionButton",
           "validators": [],
           "help": "Shown when there are multiple attempts left"
         },
@@ -304,7 +304,7 @@
           "required": false,
           "default": "",
           "title": "Final Attempt Text",
-          "inputType": "Text",
+          "inputType": "QuestionButton",
           "validators": [],
           "help": "Shown when there is one attempt left"
         }
