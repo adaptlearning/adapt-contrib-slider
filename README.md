@@ -61,6 +61,8 @@ guide the learner’s interaction with the component.
 
 **_scaleEnd** (number): This value is the numeric end of the scale. It is used to calculate the slider's position on the scale.  
 
+**_scaleStep** (number): Defines the amount the scale should be incremented by.  
+
 **_correctAnswer** (string): Used to set a single value on the slider scale as the correct answer. (Since the attribute expects a string, numeric values must appear in JSON within quotes.)
 
 **_correctRange** (object):  Used to set a range of values on the slider scale as the correct answer. The range is determined by **_bottom** and **_top**.  
