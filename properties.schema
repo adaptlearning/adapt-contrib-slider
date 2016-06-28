@@ -37,6 +37,15 @@
       "validators": ["required", "number"],
       "help": "How many attempts the learner is allow"
     },
+    "_canShowModelAnswer": {
+      "type":"boolean",
+      "required":true,
+      "default": true,
+      "title": "Display Model Answer",
+      "inputType": {"type": "Boolean", "options": [true, false]},
+      "validators": [],
+      "help": "Select 'true' to allow the user to view the 'model answer' should they answer the question incorrectly"
+    },
     "_shouldDisplayAttempts": {
       "type":"boolean",
       "required":false,
@@ -188,7 +197,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "Text",
+              "inputType": "QuestionButton",
               "validators": [],
               "help": "Aria label for the submit button"
             }
@@ -212,7 +221,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "Text",
+              "inputType": "QuestionButton",
               "validators": [],
               "help": "Aria label for the reset button"
             }
@@ -236,7 +245,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "Text",
+              "inputType": "QuestionButton",
               "validators": [],
               "help": "Aria label for the show model answer button"
             }
@@ -260,7 +269,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "Text",
+              "inputType": "QuestionButton",
               "validators": [],
               "help": "Aria label for the hide model answer button"
             }
@@ -284,7 +293,7 @@
               "required": false,
               "default": "",
               "title": "",
-              "inputType": "Text",
+              "inputType": "QuestionButton",
               "validators": [],
               "help": "Aria label for the show feedback button"
             }
@@ -295,7 +304,7 @@
           "required": false,
           "default": "",
           "title": "Attempts Remaining Text",
-          "inputType": "Text",
+          "inputType": "QuestionButton",
           "validators": [],
           "help": "Shown when there are multiple attempts left"
         },
@@ -304,7 +313,7 @@
           "required": false,
           "default": "",
           "title": "Final Attempt Text",
-          "inputType": "Text",
+          "inputType": "QuestionButton",
           "validators": [],
           "help": "Shown when there is one attempt left"
         }
