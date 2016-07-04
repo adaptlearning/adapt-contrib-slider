@@ -109,6 +109,15 @@
       "validators": ["required", "number"],
       "help": "What number the scale should end on"
     },
+    "_scaleStep": {
+      "type":"number",
+      "required":false,
+      "default": 1,
+      "title": "Scale Step",
+      "inputType": "Number",
+      "validators": ["number"],
+      "help": "The amount the scale should increment by"
+    },
     "_correctAnswer": {
       "type": "string",
       "default": "",
