@@ -262,7 +262,7 @@ define([
             event.preventDefault();
             this.tempValue = false;
 
-            if (this.model.get('_isComplete')) {
+            if (this.model.get('_isInteractionComplete')) {
               return;
             }
 
