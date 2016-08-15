@@ -337,6 +337,8 @@ define([
         // This is important and should give the user feedback on how they answered the question
         // Normally done through ticks and crosses by adding classes
         showMarking: function() {
+            if (!this.model.get('_canShowMarking')) return;
+
             this.$('.slider-widget').removeClass('correct incorrect')
                 .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
