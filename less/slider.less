@@ -57,7 +57,7 @@
         .slider-scaler {
             width: 100%;
             height: 2px;
-            background-color: @foreground-color;
+            background-color: @item-body-text-color;
             float: left;
             position: relative;
             border: none;
@@ -95,7 +95,7 @@
         width: 2px;
         height: 13px;
         top: -11px;
-        background-color: @foreground-color;
+        background-color: @item-body-text-color;
         position: absolute;
         z-index: 0;
         margin-left: -2px;
@@ -125,6 +125,7 @@
             background-image: none;
             border: none;
             background-color: @item-color;
+
             &:after {
                 content: none;
             }
@@ -143,7 +144,7 @@
             .dir-rtl & {
                 transform: rotateY(180deg);
                 -webkit-transform: rotateY(180deg);
-                -ms-transform: rotateY(180deg);
+                -ms-transform: rotate(180deg);
                 /*IE9 does not support 3D transform*/
                 -moz-transform: rotateY(180deg);
                 -o-transform: rotateY(180deg);
@@ -163,7 +164,7 @@
             -webkit-box-shadow: none;
             box-shadow: none;
             .accessibility & {
-                outline: 3px solid orange;
+                outline: @focus-outline;
             }
         }
         // other styles
@@ -174,24 +175,24 @@
 }
 .slider-widget.show-user-answer.correct {
     .slider-scale-marker {
-        background-color: @icon-correct-color;
+        background-color: @validation-success;
     }
     .rangeslider__fill {
-        background-color: @icon-correct-color;
+        background-color: @validation-success;
     }
 }
 .slider-widget.show-user-answer.incorrect {
     .slider-scale-marker {
-        background-color: @icon-incorrect-color;
+        background-color:  @validation-error;
     }
     .rangeslider__fill {
-        background-color: @icon-incorrect-color;
+        background-color:  @validation-error;
     }
 }
 .slider-widget.show-correct-answer {
     .slider-model-answer,
     .slider-scale-marker {
-        background-color: @icon-correct-color;
+        background-color: @validation-success;
         .dir-rtl & {
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
