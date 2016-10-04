@@ -1,7 +1,7 @@
 define([
   'coreViews/questionView',
   'coreJS/adapt',
-  './rangeslider.js'
+  'libraries/rangeslider.js'
 ], function(QuestionView, Adapt, Rangeslider) {
 
     var Slider = QuestionView.extend({
