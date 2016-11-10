@@ -16,7 +16,7 @@ define([
 
         // Used by the question to reset the question when revisiting the component
         resetQuestionOnRevisit: function() {
-            this.setAllItemsEnabled(true);
+            this.setAllItemsEnabled();
             this.deselectAllItems();
             this.resetQuestion();
         },
@@ -48,7 +48,7 @@ define([
             this.oldValue = 0;
             
             if (this._deferEnable) {
-                this.setAllItemsEnabled(true);
+                this.setAllItemsEnabled();
             }
         },
 
@@ -127,27 +127,30 @@ define([
 
         // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
-            this.setAllItemsEnabled(false);
+            this.setAllItemsEnabled();
         },
 
         // Used by question to enable the question during interactions
         enableQuestion: function() {
-            this.setAllItemsEnabled(true);
+            this.setAllItemsEnabled();
         },
 
-        setAllItemsEnabled: function(isEnabled) {
-            if (isEnabled) {
-                if (this.$slider) {
+        setAllItemsEnabled: function() {
+            var isEnabled = this.model.get('_isEnabled');
+
+            if (this.$slider) {
+                if (isEnabled) {
                     this.$('.slider-widget').removeClass('disabled');
                     this.$slider.prop('disabled', false);
                     this.$slider.rangeslider('update', true);
+                    
                 } else {
-                    this._deferEnable = true; // slider is not yet ready
+                    this.$('.slider-widget').addClass('disabled');
+                    this.$slider.prop('disabled', true);
+                    this.$slider.rangeslider('update', true);
                 }
             } else {
-                this.$('.slider-widget').addClass('disabled');
-                this.$slider.prop('disabled', true);
-                this.$slider.rangeslider('update', true);
+                this._deferEnable = true; // slider is not yet ready
             }
         },
 
