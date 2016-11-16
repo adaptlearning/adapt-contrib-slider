@@ -169,17 +169,6 @@ define([
         animateToPosition: function(newPosition) {
             if (!this.$sliderScaleMarker) return;
 
-            if(this.model.get('_marginDir') == 'right'){
-                this.$sliderScaleMarker
-                  .velocity('stop')
-                  .velocity({
-                    right: newPosition
-                  }, {
-                    duration: 200,
-                    easing: "linear"
-                  });
-            }
-            else{
                 this.$sliderScaleMarker
                   .velocity('stop')
                   .velocity({
@@ -188,7 +177,6 @@ define([
                     duration: 200,
                     easing: "linear"
                   });
-            }
         },
 
         // this shoud give the index of item using given slider value
@@ -341,7 +329,6 @@ define([
         // Normally done through ticks and crosses by adding classes
         showMarking: function() {
             if (!this.model.get('_canShowMarking')) return;
-
             this.$('.slider-widget').removeClass('correct incorrect')
                 .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
@@ -416,11 +403,21 @@ define([
             var $scaler = this.$('.slider-scaler');
             var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
             var left = this.mapIndexToPixels(currentIndex, $scaler);
-            this.$('.slider-handle').css({left: left + 'px'});
-            this.$('.slider-scale-marker').css({left: left + 'px'});
+            this.$('.slider-handle').css({
+                left: left + 'px'
+            });
+            this.$('.slider-scale-marker').css({
+                left: left + 'px'
+            });
             this.$('.slider-bar').width(left);
+            //update possition of rangeslider bar on window resize for RTL only
+            if (this.model.get('_marginDir') == 'right') {
+                _.delay(function() {
+                    this.$('.rangeslider__handle').css('left', left);
+                    this.$('.rangeslider__fill').css('width', left + (this.$('.rangeslider__handle').width() / 2));
+                }, 300, this);
+            }
         },
-
         onScreenSizeChanged: function() {
             this.showScale();
             this.showLabels();

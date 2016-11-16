@@ -17,7 +17,7 @@
         position: absolute;
         width: 50px;
         top: -32px;
-        text-align: center;
+        text-align: center !important;
         text-decoration: none;
         color: inherit;
         margin-left: -25px;
@@ -82,12 +82,17 @@
         text-align: center;
         z-index: 1;
         background-color: @item-color;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
     }
     .slider-scale-marker.display-block {
         display: block;
         .dir-rtl & {
             margin-right: -15px;
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
         }
     }
     .slider-line {
@@ -118,6 +123,7 @@
         z-index: 1;
     }
 }
+
 // reset rangeslider styles
 .slider-widget {
     .slider-holder {
@@ -172,6 +178,7 @@
         }
     }
 }
+
 .slider-widget.show-user-answer.correct {
     .slider-scale-marker {
         background-color: @icon-correct-color;
@@ -180,6 +187,7 @@
         background-color: @icon-correct-color;
     }
 }
+
 .slider-widget.show-user-answer.incorrect {
     .slider-scale-marker {
         background-color: @icon-incorrect-color;
@@ -188,6 +196,7 @@
         background-color: @icon-incorrect-color;
     }
 }
+
 .slider-widget.show-correct-answer {
     .slider-model-answer,
     .slider-scale-marker {
@@ -200,19 +209,11 @@
             -o-transform: rotateY(180deg);
         }
     }
-    .slider-modelranges {
-        .dir-rtl & {
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            -ms-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
-            -o-transform: rotateY(180deg);
-        }
-    }
     .rangeslider__fill {
         background-color: @icon-correct-color;
     }
 }
+
 // assessment adds no-marking class to article to hide marking icons
 .no-marking {
     .component-inner .component-widget.disabled.submitted.complete .rangeslider__fill,
