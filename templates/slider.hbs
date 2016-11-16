@@ -1,6 +1,6 @@
 <div class="slider-inner component-inner" role="region" aria-label="{{_globals._components._slider.ariaRegion}}" {{#if _globals._components._slider.ariaRegion}}tabindex="0"{{/if}}>
     {{> component this}}
-    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isInteractionComplete}} complete submitted show-user-answer {{#if ../_canShowMarking}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/if}} {{/if}} {{/unless}}">
+    <div class="slider-widget component-widget {{#unless _isEnabled}} disabled {{#if _isInteractionComplete}} complete submitted show-user-answer {{#if _canShowMarking}}{{#if _isCorrect}}correct{{else}}incorrect{{/if}}{{/if}} {{/if}} {{/unless}}">
         <div class="slider-holder clearfix">
             <div class="slider-scale-labels">
                 <div class="slider-scale-start" tabindex="0" role="region">{{labelStart}}</div>
