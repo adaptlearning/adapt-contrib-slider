@@ -46,7 +46,7 @@ define([
                 onSlide: _.bind(this.handleSlide, this)
             });
             this.oldValue = 0;
-            
+
             if (this._deferEnable) {
                 this.setAllItemsEnabled();
             }
@@ -143,7 +143,7 @@ define([
                     this.$('.slider-widget').removeClass('disabled');
                     this.$slider.prop('disabled', false);
                     this.$slider.rangeslider('update', true);
-                    
+
                 } else {
                     this.$('.slider-widget').addClass('disabled');
                     this.$slider.prop('disabled', true);
@@ -169,17 +169,6 @@ define([
         animateToPosition: function(newPosition) {
             if (!this.$sliderScaleMarker) return;
 
-            if(this.model.get('_marginDir') == 'right'){
-                this.$sliderScaleMarker
-                  .velocity('stop')
-                  .velocity({
-                    right: newPosition
-                  }, {
-                    duration: 200,
-                    easing: "linear"
-                  });
-            }
-            else{
                 this.$sliderScaleMarker
                   .velocity('stop')
                   .velocity({
@@ -188,7 +177,6 @@ define([
                     duration: 200,
                     easing: "linear"
                   });
-            }
         },
 
         // this shoud give the index of item using given slider value
@@ -419,6 +407,13 @@ define([
             this.$('.slider-handle').css({left: left + 'px'});
             this.$('.slider-scale-marker').css({left: left + 'px'});
             this.$('.slider-bar').width(left);
+            //updated position of rangeslider bar on window resize for RTL 
+            if (this.model.get('_marginDir') == 'right') {
+                _.delay(function() {
+                    this.$('.rangeslider__handle').css('left', left);
+                    this.$('.rangeslider__fill').css('width', left + (this.$('.rangeslider__handle').width() / 2));
+                }, 300, this);
+            }
         },
 
         onScreenSizeChanged: function() {
