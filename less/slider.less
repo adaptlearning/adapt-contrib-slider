@@ -22,6 +22,7 @@
         color: inherit;
         margin-left: -25px;
         .dir-rtl & {
+            text-align: center;
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
             -ms-transform: rotateY(180deg);
@@ -88,6 +89,11 @@
         display: block;
         .dir-rtl & {
             margin-right: -15px;
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
         }
     }
     .slider-line {
@@ -192,15 +198,6 @@
     .slider-model-answer,
     .slider-scale-marker {
         background-color: @icon-correct-color;
-        .dir-rtl & {
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            -ms-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
-            -o-transform: rotateY(180deg);
-        }
-    }
-    .slider-modelranges {
         .dir-rtl & {
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
