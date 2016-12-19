@@ -1,4 +1,4 @@
-/*! rangeslider.js - v2.1.1 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - 2.3.0 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -37,8 +37,10 @@
         defaults = {
             polyfill: true,
             orientation: 'horizontal',
+            isRTL:false,//RTL
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
+            activeClass: 'rangeslider--active',
             horizontalClass: 'rangeslider--horizontal',
             verticalClass: 'rangeslider--vertical',
             fillClass: 'rangeslider__fill',
@@ -224,8 +226,8 @@
         this.onSlide            = this.options.onSlide;
         this.onSlideEnd         = this.options.onSlideEnd;
         this.DIMENSION          = constants.orientation[this.orientation].dimension;
-        this.DIRECTION          = constants.orientation[this.orientation].direction;
-        this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
+        this.DIRECTION          = this.options.isRTL ? 'right' : 'left';
+        this.DIRECTION_STYLE    = this.options.isRTL ? 'right' : 'left';
         this.COORDINATE         = constants.orientation[this.orientation].coordinate;
 
         // Plugin should only be used as a polyfill
@@ -241,7 +243,7 @@
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + (this.options.isRTL?' rangeslider-rtl ':'')+' '+ this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
         this.$element.css({
@@ -315,8 +317,13 @@
     };
 
     Plugin.prototype.handleDown = function(e) {
+        e.preventDefault();
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
+
+        // add active class because Firefox is ignoring
+        // the handle:active pseudo selector because of `e.preventDefault();`
+        this.$range.addClass(this.options.activeClass);
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
@@ -347,6 +354,8 @@
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
 
+        this.$range.removeClass(this.options.activeClass);
+
         // Ok we're done fire the change event
         this.$element.trigger('change', { origin: this.identifier });
 
@@ -373,7 +382,7 @@
         newPos = this.getPositionFromValue(value);
 
         // Update ui
-        this.$fill[0].style[this.DIMENSION] = value == this.max ? '100%' : (newPos + this.grabPos) + 'px';
+        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
         this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
         this.setValue(value);
 
@@ -402,20 +411,21 @@
             rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION],
             pageCoordinate = 0;
 
-        if (typeof e['page' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e['client' + ucCoordinate];
-        }
-        else if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
+        if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
             pageCoordinate = e.originalEvent['client' + ucCoordinate];
         }
-        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined') {
+        else if (
+          e.originalEvent.touches &&
+          e.originalEvent.touches[0] &&
+          typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined'
+        ) {
             pageCoordinate = e.originalEvent.touches[0]['client' + ucCoordinate];
         }
         else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
             pageCoordinate = e.currentPoint[this.COORDINATE];
         }
 
-        return pageCoordinate - rangePos;
+        return this.options.isRTL?rangePos-pageCoordinate:pageCoordinate-rangePos;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
