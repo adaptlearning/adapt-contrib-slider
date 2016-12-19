@@ -43,6 +43,7 @@ define([
 
             this.$slider.rangeslider({
                 polyfill: false,
+                isRTL:this.model.get('_marginDir') == 'right',
                 onSlide: _.bind(this.handleSlide, this)
             });
             this.oldValue = 0;
@@ -53,22 +54,11 @@ define([
         },
 
         handleSlide: function (position, value) {
+            if(this.$('.rangeslider').hasClass('rangeslider--disabled')&&value==this.model.get('_scaleEnd')){
+                this.$('.rangeslider__fill').width("100%");
+            }
             if (this.oldValue === value) {
                return;
-            }
-            if(this.model.get('_marginDir') == 'right'){
-                if(this.tempValue && (this.model.get('_userAnswer') == undefined)){
-                    value = this.model.get('_items').length - value + 1;
-                    this.tempValue = false;
-                    var tempPixels = this.mapIndexToPixels(value);
-                    var rangeSliderWidth = this.$('.rangeslider').width();
-                    var handleLeft = parseInt(this.$('.rangeslider__handle').css('left'));
-                    var sliderWidth = this.$('.rangeslider__fill').width();
-                    handleLeft = rangeSliderWidth - handleLeft -this.$('.rangeslider__handle').width();
-                    sliderWidth = rangeSliderWidth - sliderWidth;
-                    this.$('.rangeslider__handle').css('left',handleLeft);
-                    this.$('.rangeslider__fill').width(sliderWidth);
-                }
             }
             var itemIndex = this.getIndexFromValue(value);
             var pixels = this.mapIndexToPixels(itemIndex);
@@ -407,13 +397,6 @@ define([
             this.$('.slider-handle').css({left: left + 'px'});
             this.$('.slider-scale-marker').css({left: left + 'px'});
             this.$('.slider-bar').width(left);
-            //updated position of rangeslider bar on window resize for RTL 
-            if (this.model.get('_marginDir') == 'right') {
-                _.delay(function() {
-                    this.$('.rangeslider__handle').css('left', left);
-                    this.$('.rangeslider__fill').css('width', left + (this.$('.rangeslider__handle').width() / 2));
-                }, 300, this);
-            }
         },
 
         onScreenSizeChanged: function() {
