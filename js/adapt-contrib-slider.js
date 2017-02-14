@@ -6,12 +6,12 @@ define([
 
     var Slider = QuestionView.extend({
 
-        tempValue:true,
+        tempValue: true,
 
         events: {
             'click .slider-scale-number': 'onNumberSelected',
-            'focus input[type="range"]':'onHandleFocus',
-            'blur input[type="range"]':'onHandleBlur'
+            'focus input[type="range"]': 'onHandleFocus',
+            'blur input[type="range"]': 'onHandleBlur'
         },
 
         // Used by the question to reset the question when revisiting the component
@@ -78,6 +78,13 @@ define([
             this.tempValue = true;
         },
 
+        /**
+         * Returns the number of decimal places in a specified number
+         */
+        getDecimalPlaces: function(num) {
+            return (num.toString().split('.')[1] || []).length;
+        },
+
         setupModelItems: function() {
             var items = [];
             var answer = this.model.get('_correctAnswer');
@@ -86,11 +93,22 @@ define([
             var end = this.model.get('_scaleEnd');
             var step = this.model.get('_scaleStep') || 1;
 
+            var dp = this.getDecimalPlaces(step);
+
             for (var i = start; i <= end; i += step) {
+                var value = i;
+
+                if (dp) {
+                    // Ensure that steps with decimal places are handled correctly.
+                    value = value.toFixed(dp);
+                    i = parseFloat(value);
+                }
+
+                // Format number
                 if (answer) {
-                    items.push({value: i, selected: false, correct: (i == answer)});
+                    items.push({value: value, selected: false, correct: (value == answer)});
                 } else {
-                    items.push({value: i, selected: false, correct: (i >= range._bottom && i <= range._top)});
+                    items.push({value: value, selected: false, correct: (i >= range._bottom && i <= range._top)});
                 }
             }
 
@@ -183,7 +201,7 @@ define([
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
-            return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
+            return Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
         },
 
         // this should set given value to slider handle
@@ -262,7 +280,7 @@ define([
               return;
             }
 
-            var itemValue = parseInt($(event.currentTarget).attr('data-id'));
+            var itemValue = parseFloat($(event.currentTarget).attr('data-id'));
             var index = this.getIndexFromValue(itemValue);
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index));
