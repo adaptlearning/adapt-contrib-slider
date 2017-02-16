@@ -96,19 +96,16 @@ define([
             var dp = this.getDecimalPlaces(step);
 
             for (var i = start; i <= end; i += step) {
-                var value = i;
-
-                if (dp) {
+                if (dp !== 0) {
                     // Ensure that steps with decimal places are handled correctly.
-                    value = value.toFixed(dp);
-                    i = parseFloat(value);
+                    i = parseFloat(i.toFixed(dp));
                 }
 
                 // Format number
                 if (answer) {
-                    items.push({value: value, selected: false, correct: (value == answer)});
+                    items.push({value: i, selected: false, correct: (i == answer)});
                 } else {
-                    items.push({value: value, selected: false, correct: (i >= range._bottom && i <= range._top)});
+                    items.push({value: i, selected: false, correct: (i >= range._bottom && i <= range._top)});
                 }
             }
 
