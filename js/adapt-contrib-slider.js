@@ -120,7 +120,7 @@ define([
                     _userAnswer: undefined
                 });
                 return;
-            };
+            }
 
             var items = this.model.get('_items');
             var userAnswer = this.model.get('_userAnswer');
@@ -282,7 +282,7 @@ define([
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index));
             this.setAltText(itemValue);
-            this.setSliderValue(itemValue)
+            this.setSliderValue(itemValue);
         },
 
         getValueFromIndex: function(index) {
@@ -468,7 +468,7 @@ define([
                     answer += step;
                 }
             } else {
-                console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON")
+                console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON");
             }
 
             var middleAnswer = answers[Math.floor(answers.length / 2)];
