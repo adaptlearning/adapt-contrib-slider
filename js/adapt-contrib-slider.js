@@ -1,7 +1,7 @@
 define([
-  'coreViews/questionView',
-  'coreJS/adapt',
-  'libraries/rangeslider'
+    'core/js/views/questionView',
+    'core/js/adapt',
+    'libraries/rangeslider'
 ], function(QuestionView, Adapt, Rangeslider) {
 
     var Slider = QuestionView.extend({
@@ -383,9 +383,9 @@ define([
             this.$('.slider-markers').empty();
             if (this.model.get('_showScale') === false) {
                 this.$('.slider-markers').eq(0).css({display: 'none'});
-                this.model.get('_showScaleIndicator')
-                    ? this.$('.slider-scale-numbers').eq(0).css({visibility: 'hidden'})
-                    : this.$('.slider-scale-numbers').eq(0).css({display: 'none'});
+                this.$('.slider-scale-numbers').eq(0).css(
+                    this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
+                );
             } else {
                 var $scaler = this.$('.slider-scaler');
                 var $markers = this.$('.slider-markers');
