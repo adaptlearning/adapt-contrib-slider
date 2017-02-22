@@ -391,7 +391,7 @@ define([
                 var $markers = this.$('.slider-markers');
                 for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
                     $markers.append("<div class='slider-line component-item-color'>");
-                    $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+                    this.$('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
                 }
                 var scaleWidth = $scaler.width(),
                     $numbers = this.$('.slider-scale-number');
