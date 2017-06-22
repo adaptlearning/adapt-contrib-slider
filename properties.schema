@@ -185,6 +185,76 @@
       "validators": [],
       "help": "Select 'true' to show the lines and numbers of the scale"
     },
+    "_feedback": {
+      "type": "object",
+      "required": false,
+      "title": "Feedback",
+      "properties": {
+        "correct": {
+          "type": "string",
+          "required": false,
+          "default": "",
+          "title": "Correct",
+          "inputType": "TextArea",
+          "validators": [],
+          "help": "Correct answer feedback for this question",
+          "translatable": true
+        },
+        "_incorrect": {
+          "type": "object",
+          "required": false,
+          "title": "Incorrect Feedback",
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect answer feedback for the final attempt",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type": "object",
+          "required": false,
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
+              "translatable": true
+            }
+          }
+        }
+      }
+    },
     "_buttons": {
       "type": "object",
       "title": "Buttons",
@@ -339,76 +409,6 @@
           "validators": [],
           "help": "Shown when there is one attempt left",
           "translatable": true
-        }
-      }
-    },
-    "_feedback": {
-      "type": "object",
-      "required": false,
-      "title": "Feedback",
-      "properties": {
-        "correct": {
-          "type": "string",
-          "required": false,
-          "default": "",
-          "title": "Correct",
-          "inputType": "TextArea",
-          "validators": [],
-          "help": "Correct answer feedback for this question",
-          "translatable": true
-        },
-        "_incorrect": {
-          "type": "object",
-          "required": false,
-          "title": "Incorrect Feedback",
-          "properties": {
-            "final": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Incorrect Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Incorrect answer feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Incorrect Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Incorrect answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
-              "translatable": true
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type": "object",
-          "required": false,
-          "properties": {
-            "final": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
-              "translatable": true
-            },
-            "notFinal": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
-              "translatable": true
-            }
-          }
         }
       }
     }
