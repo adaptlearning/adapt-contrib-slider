@@ -1,5 +1,5 @@
 {
-  "type":"object",
+  "type": "object",
   "$schema": "http://json-schema.org/draft-04/schema",
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
@@ -13,7 +13,7 @@
       "translatable": true
     }
   },
-  "properties":{
+  "properties": {
     "_supportedLayout": {
       "type": "string",
       "required": true,
@@ -31,17 +31,17 @@
       "translatable": true
     },
     "_attempts": {
-      "type":"number",
-      "required":true,
-      "default":1,
+      "type": "number",
+      "required": true,
+      "default": 1,
       "title": "Attempts",
-      "inputType":"Number",
+      "inputType": "Number",
       "validators": ["required", "number"],
       "help": "How many attempts the learner is allow"
     },
     "_canShowModelAnswer": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Display Model Answer",
       "inputType": "Checkbox",
@@ -56,8 +56,8 @@
       "validators": []
     },
     "_shouldDisplayAttempts": {
-      "type":"boolean",
-      "required":false,
+      "type": "boolean",
+      "required": false,
       "default": false,
       "title": "Display Attempts",
       "inputType": "Checkbox",
@@ -65,8 +65,8 @@
       "help": "Display the number of attempts remaining?"
     },
     "_questionWeight": {
-      "type":"number",
-      "required":false,
+      "type": "number",
+      "required": false,
       "default": 1,
       "title": "Question Weight",
       "inputType": "Number",
@@ -74,8 +74,8 @@
       "help": "How much this question is worth"
     },
     "_recordInteraction": {
-      "type":"boolean",
-      "required":false,
+      "type": "boolean",
+      "required": false,
       "default": true,
       "title": "Record interaction",
       "inputType": "Checkbox",
@@ -103,8 +103,8 @@
       "translatable": true
     },
     "_scaleStart": {
-      "type":"number",
-      "required":true,
+      "type": "number",
+      "required": true,
       "default": 1,
       "title": "Scale Start",
       "inputType": "Number",
@@ -112,8 +112,8 @@
       "help": "What number the scale should start on"
     },
     "_scaleEnd": {
-      "type":"number",
-      "required":true,
+      "type": "number",
+      "required": true,
       "default": 1,
       "title": "Scale End",
       "inputType": "Number",
@@ -121,8 +121,8 @@
       "help": "What number the scale should end on"
     },
     "_scaleStep": {
-      "type":"number",
-      "required":false,
+      "type": "number",
+      "required": false,
       "default": 1,
       "title": "Scale Step",
       "inputType": "Number",
@@ -139,7 +139,7 @@
     },
     "_correctRange": {
       "type": "object",
-      "properties":{
+      "properties": {
         "_bottom": {
           "type": "number",
           "default": 0,
@@ -159,8 +159,8 @@
       }
     },
     "_showNumber": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show number on indicator",
       "inputType": "Checkbox",
@@ -168,8 +168,8 @@
       "help": "Select 'true' to show the position number on the indicator"
     },
     "_showScaleIndicator": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show position indicator",
       "inputType": "Checkbox",
@@ -177,8 +177,8 @@
       "help": "Select 'true' to show a position indicator on the scale"
     },
     "_showScale": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show scale",
       "inputType": "Checkbox",
@@ -186,16 +186,16 @@
       "help": "Select 'true' to show the lines and numbers of the scale"
     },
     "_buttons": {
-      "type":"object",
+      "type": "object",
       "title": "Buttons",
       "required": false,
-      "properties":{
+      "properties": {
         "_submit": {
-          "type":"object",
+          "type": "object",
           "title": "Submit",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -205,7 +205,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -217,11 +217,11 @@
           }
         },
         "_reset": {
-          "type":"object",
+          "type": "object",
           "title": "Reset",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -231,7 +231,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -243,11 +243,11 @@
           }
         },
         "_showCorrectAnswer": {
-          "type":"object",
+          "type": "object",
           "title": "Show Correct Answer",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -257,7 +257,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -269,11 +269,11 @@
           }
         },
         "_hideCorrectAnswer": {
-          "type":"object",
+          "type": "object",
           "title": "Hide Correct Answer",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -283,7 +283,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -295,11 +295,11 @@
           }
         },
         "_showFeedback": {
-          "type":"object",
+          "type": "object",
           "title": "Show Feedback",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -309,7 +309,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -321,7 +321,7 @@
           }
         },
         "remainingAttemptsText": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Attempts Remaining Text",
@@ -331,7 +331,7 @@
           "translatable": true
         },
         "remainingAttemptText": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Final Attempt Text",
@@ -343,12 +343,12 @@
       }
     },
     "_feedback": {
-      "type":"object",
+      "type": "object",
       "required": false,
       "title": "Feedback",
-      "properties":{
+      "properties": {
         "correct": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Correct",
@@ -358,12 +358,12 @@
           "translatable": true
         },
         "_incorrect": {
-          "type":"object",
+          "type": "object",
           "required": false,
           "title": "Incorrect Feedback",
-          "properties":{
+          "properties": {
             "final": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Incorrect Final",
@@ -373,7 +373,7 @@
               "translatable": true
             },
             "notFinal": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Incorrect Not Final",
@@ -385,11 +385,11 @@
           }
         },
         "_partlyCorrect": {
-          "type":"object",
-          "required":false,
-          "properties":{
+          "type": "object",
+          "required": false,
+          "properties": {
             "final": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Partly Correct Final",
@@ -399,7 +399,7 @@
               "translatable": true
             },
             "notFinal": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "Partly Correct Not Final",
