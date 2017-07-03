@@ -165,7 +165,7 @@
       "title": "Show number on indicator",
       "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show the position number on the indicator"
+      "help": "Controls whether the position number on the indicator should be shown or not"
     },
     "_showScaleIndicator": {
       "type": "boolean",
@@ -174,7 +174,7 @@
       "title": "Show position indicator",
       "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show a position indicator on the scale"
+      "help": "Controls whether a position indicator on the scale should be shown or not"
     },
     "_showScale": {
       "type": "boolean",
@@ -183,7 +183,7 @@
       "title": "Show scale",
       "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show the lines and numbers of the scale"
+      "help": "Controls whether to show the lines and numbers of the scale or not"
     },
     "_feedback": {
       "type": "object",
