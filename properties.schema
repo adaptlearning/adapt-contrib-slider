@@ -37,7 +37,7 @@
       "title": "Attempts",
       "inputType": "Number",
       "validators": ["required", "number"],
-      "help": "How many attempts the learner is allow"
+      "help": "How many attempts the learner is allowed"
     },
     "_canShowModelAnswer": {
       "type": "boolean",
