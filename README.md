@@ -8,7 +8,7 @@ The component uses [rangeslider.js (v2.1.1)](http://rangeslider.js.org/), a libr
 
 [Visit the **Slider** wiki](https://github.com/adaptlearning/adapt-contrib-slider/wiki) for more information about its functionality and for explanations of key properties.
 
-##Installation
+## Installation
 
 As one of Adapt's *[core components](https://github.com/adaptlearning/adapt_framework/wiki/Core-Plug-ins-in-the-Adapt-Learning-Framework#components),* **Slider** is included with the [installation of the Adapt framework](https://github.com/adaptlearning/adapt_framework/wiki/Manual-installation-of-the-Adapt-framework#installation) and the [installation of the Adapt authoring tool](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-Adapt-Origin).
 
