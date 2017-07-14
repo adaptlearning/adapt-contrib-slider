@@ -55,7 +55,6 @@
       "title": "Display Feedback",
       "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to allow the user to view feedback on their answer"
     },
     "_canShowMarking": {
       "type": "boolean",
