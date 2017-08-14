@@ -553,6 +553,9 @@ define([
             }
         },
 
+    	/**
+         * Used by tracking extensions to return an object containing the component's specific interactions.
+         */
 	getInteractionObject: function() {
             var interactions = {
                 correctResponsesPattern: []
@@ -571,7 +574,7 @@ define([
                     _.min(correctValues) + '[:]' + _.max(correctValues)
                 ];
             } else {
-                interactions.correctResponsesPattern = correctValues;
+                interactions.correctResponsesPattern = [ correctValues[0].toString() ];
             }
 
             return interactions;
