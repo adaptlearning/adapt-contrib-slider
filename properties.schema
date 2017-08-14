@@ -54,7 +54,7 @@
       "default": true,
       "title": "Display Feedback",
       "inputType": "Checkbox",
-      "validators": [],
+      "validators": []
     },
     "_canShowMarking": {
       "type": "boolean",
