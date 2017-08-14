@@ -1,7 +1,7 @@
 define([
-  'coreViews/questionView',
-  'coreJS/adapt',
-  'libraries/rangeslider'
+    'core/js/views/questionView',
+    'core/js/adapt',
+    'libraries/rangeslider'
 ], function(QuestionView, Adapt, Rangeslider) {
 
     var Slider = QuestionView.extend({
@@ -380,29 +380,28 @@ define([
         },
 
         showScale: function () {
-            this.$('.slider-markers').empty();
+            var $markers = this.$('.slider-markers').empty();
             if (this.model.get('_showScale') === false) {
-                this.$('.slider-markers').eq(0).css({display: 'none'});
-                this.model.get('_showScaleIndicator')
-                    ? this.$('.slider-scale-numbers').eq(0).css({visibility: 'hidden'})
-                    : this.$('.slider-scale-numbers').eq(0).css({display: 'none'});
+                $markers.eq(0).css({display: 'none'});
+                this.$('.slider-scale-numbers').eq(0).css(
+                    this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
+                );
             } else {
                 var $scaler = this.$('.slider-scaler');
-                var $markers = this.$('.slider-markers');
                 for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
                     $markers.append("<div class='slider-line component-item-color'>");
-                    $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+                    $markers.find('.slider-line').eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
                 }
-                var scaleWidth = $scaler.width(),
-                    $numbers = this.$('.slider-scale-number');
-                for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
-                    var $number = $numbers.eq(i),
-                        newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    if($('html').hasClass('ie9') && this.model.get('_marginDir')=='right'){
-						$number.css({right: newLeft});
-					}
-					else{
-						$number.css({left: newLeft});
+                var scaleWidth = $scaler.width();
+                var $numbers = this.$('.slider-scale-number');
+                for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
+                    var $number = $numbers.eq(j);
+                    var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
+                    if($('html').hasClass('ie9') && this.model.get('_marginDir') === 'right') {
+                        $number.css({right: newLeft});
+                    }
+                    else{
+                        $number.css({left: newLeft});
                     }
                 }
             }
