@@ -1,5 +1,5 @@
 {
-  "type":"object",
+  "type": "object",
   "$schema": "http://json-schema.org/draft-04/schema",
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
@@ -7,13 +7,13 @@
     "ariaRegion": {
       "type": "string",
       "required": true,
-      "default": "This component requires you to answer the question by selecting the relevant value. After selecting a value select the submit button below.",
+      "default": "Answer the question by selecting a value from the range. Once you have done so, select the submit button below.",
       "inputType": "Text",
       "validators": [],
       "translatable": true
     }
   },
-  "properties":{
+  "properties": {
     "_supportedLayout": {
       "type": "string",
       "required": true,
@@ -31,43 +31,50 @@
       "translatable": true
     },
     "_attempts": {
-      "type":"number",
-      "required":true,
-      "default":1,
+      "type": "number",
+      "required": true,
+      "default": 1,
       "title": "Attempts",
-      "inputType":"Number",
+      "inputType": "Number",
       "validators": ["required", "number"],
-      "help": "How many attempts the learner is allow"
+      "help": "How many attempts the learner is allowed"
     },
     "_canShowModelAnswer": {
+      "type": "boolean",
+      "required": true,
+      "default": true,
+      "title": "Display Model Answer",
+      "inputType": "Checkbox",
+      "validators": [],
+      "help": "Allow the user to view the 'model answer' if they answer the question incorrectly?"
+    },
+    "_canShowFeedback": {
       "type":"boolean",
       "required":true,
       "default": true,
-      "title": "Display Model Answer",
-      "inputType": {"type": "Boolean", "options": [true, false]},
-      "validators": [],
-      "help": "Select 'true' to allow the user to view the 'model answer' should they answer the question incorrectly"
+      "title": "Display Feedback",
+      "inputType": "Checkbox",
+      "validators": []
     },
     "_canShowMarking": {
       "type": "boolean",
       "default": true,
       "title": "Display Marking",
-      "inputType": { "type": "Boolean", "options": [ true, false ] },
-      "validators": [],
-      "help": "Select 'true' to display ticks and crosses on question completion"
+      "inputType": "Checkbox",
+      "validators": []
     },
     "_shouldDisplayAttempts": {
-      "type":"boolean",
-      "required":false,
+      "type": "boolean",
+      "required": false,
       "default": false,
       "title": "Display Attempts",
-      "inputType": {"type": "Boolean", "options": [true, false]},
+      "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to display the numbers of attempts left"
+      "help": "Display the number of attempts remaining?"
     },
     "_questionWeight": {
-      "type":"number",
-      "required":false,
+      "type": "number",
+      "required": false,
       "default": 1,
       "title": "Question Weight",
       "inputType": "Number",
@@ -75,13 +82,13 @@
       "help": "How much this question is worth"
     },
     "_recordInteraction": {
-      "type":"boolean",
-      "required":false,
+      "type": "boolean",
+      "required": false,
       "default": true,
       "title": "Record interaction",
-      "inputType": {"type": "Boolean", "options": [true, false]},
+      "inputType": "Checkbox",
       "validators": [],
-      "help": "If set to 'true', the user's answer(s) will be recorded to cmi.interactions on the LMS (where supported)."
+      "help": "If disabled, recording the user's answer(s) to this question to cmi.interactions on the LMS will be disabled for this component only."
     },
     "labelStart": {
       "type": "string",
@@ -104,8 +111,8 @@
       "translatable": true
     },
     "_scaleStart": {
-      "type":"number",
-      "required":true,
+      "type": "number",
+      "required": true,
       "default": 1,
       "title": "Scale Start",
       "inputType": "Number",
@@ -113,8 +120,8 @@
       "help": "What number the scale should start on"
     },
     "_scaleEnd": {
-      "type":"number",
-      "required":true,
+      "type": "number",
+      "required": true,
       "default": 1,
       "title": "Scale End",
       "inputType": "Number",
@@ -122,8 +129,8 @@
       "help": "What number the scale should end on"
     },
     "_scaleStep": {
-      "type":"number",
-      "required":false,
+      "type": "number",
+      "required": false,
       "default": 1,
       "title": "Scale Step",
       "inputType": "Number",
@@ -140,7 +147,7 @@
     },
     "_correctRange": {
       "type": "object",
-      "properties":{
+      "properties": {
         "_bottom": {
           "type": "number",
           "default": 0,
@@ -160,43 +167,113 @@
       }
     },
     "_showNumber": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show number on indicator",
-      "inputType": {"type": "Boolean", "options": [true, false]},
+      "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show the position number on the indicator"
+      "help": "Controls whether the position number on the indicator should be shown or not"
     },
     "_showScaleIndicator": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show position indicator",
-      "inputType": {"type": "Boolean", "options": [true, false]},
+      "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show a position indicator on the scale"
+      "help": "Controls whether a position indicator on the scale should be shown or not"
     },
     "_showScale": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Show scale",
-      "inputType": {"type": "Boolean", "options": [true, false]},
+      "inputType": "Checkbox",
       "validators": [],
-      "help": "Select 'true' to show the lines and numbers of the scale"
+      "help": "Controls whether to show the lines and numbers of the scale or not"
+    },
+    "_feedback": {
+      "type": "object",
+      "required": false,
+      "title": "Feedback",
+      "properties": {
+        "correct": {
+          "type": "string",
+          "required": false,
+          "default": "",
+          "title": "Correct",
+          "inputType": "TextArea",
+          "validators": [],
+          "help": "Correct answer feedback for this question",
+          "translatable": true
+        },
+        "_incorrect": {
+          "type": "object",
+          "required": false,
+          "title": "Incorrect Feedback",
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect answer feedback for the final attempt",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Incorrect Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Incorrect answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            }
+          }
+        },
+        "_partlyCorrect": {
+          "type": "object",
+          "required": false,
+          "properties": {
+            "final": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
+              "translatable": true
+            },
+            "notFinal": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Partly Correct Not Final",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
+              "translatable": true
+            }
+          }
+        }
+      }
     },
     "_buttons": {
-      "type":"object",
+      "type": "object",
       "title": "Buttons",
       "required": false,
-      "properties":{
+      "properties": {
         "_submit": {
-          "type":"object",
+          "type": "object",
           "title": "Submit",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -206,7 +283,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -218,11 +295,11 @@
           }
         },
         "_reset": {
-          "type":"object",
+          "type": "object",
           "title": "Reset",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -232,7 +309,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -244,11 +321,11 @@
           }
         },
         "_showCorrectAnswer": {
-          "type":"object",
+          "type": "object",
           "title": "Show Correct Answer",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -258,7 +335,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -270,11 +347,11 @@
           }
         },
         "_hideCorrectAnswer": {
-          "type":"object",
+          "type": "object",
           "title": "Hide Correct Answer",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -284,7 +361,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -296,11 +373,11 @@
           }
         },
         "_showFeedback": {
-          "type":"object",
+          "type": "object",
           "title": "Show Feedback",
-          "properties":{
+          "properties": {
             "buttonText": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -310,7 +387,7 @@
               "translatable": true
             },
             "ariaLabel": {
-              "type":"string",
+              "type": "string",
               "required": false,
               "default": "",
               "title": "",
@@ -322,7 +399,7 @@
           }
         },
         "remainingAttemptsText": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Attempts Remaining Text",
@@ -332,7 +409,7 @@
           "translatable": true
         },
         "remainingAttemptText": {
-          "type":"string",
+          "type": "string",
           "required": false,
           "default": "",
           "title": "Final Attempt Text",
@@ -340,76 +417,6 @@
           "validators": [],
           "help": "Shown when there is one attempt left",
           "translatable": true
-        }
-      }
-    },
-    "_feedback": {
-      "type":"object",
-      "required":true,
-      "title": "Feedback",
-      "properties":{
-        "correct": {
-          "type":"string",
-          "required":true,
-          "default": "",
-          "title": "Correct",
-          "inputType": "TextArea",
-          "validators": ["required"],
-          "help": "Correct feedback for this question",
-          "translatable": true
-        },
-        "_incorrect": {
-          "type":"object",
-          "required":true,
-          "title": "Incorrect Feedback",
-          "properties":{
-            "final": {
-              "type":"string",
-              "required": true,
-              "default": "",
-              "title": "Incorrect Final",
-              "inputType": "TextArea",
-              "validators": ["required"],
-              "help": "Incorrect feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Incorrect Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Incorrect feedback for any attempt apart from the last attempt",
-              "translatable": true
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type":"object",
-          "required":false,
-          "properties":{
-            "final": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for the final attempt",
-              "translatable": true
-            },
-            "notFinal": {
-              "type":"string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct feedback for any attempt apart from the last attempt",
-              "translatable": true
-            }
-          }
         }
       }
     }

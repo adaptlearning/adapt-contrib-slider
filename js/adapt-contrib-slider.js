@@ -1,17 +1,17 @@
 define([
-  'coreViews/questionView',
-  'coreJS/adapt',
-  'libraries/rangeslider'
+    'core/js/views/questionView',
+    'core/js/adapt',
+    'libraries/rangeslider'
 ], function(QuestionView, Adapt, Rangeslider) {
 
     var Slider = QuestionView.extend({
 
-        tempValue:true,
+        tempValue: true,
 
         events: {
             'click .slider-scale-number': 'onNumberSelected',
-            'focus input[type="range"]':'onHandleFocus',
-            'blur input[type="range"]':'onHandleBlur'
+            'focus input[type="range"]': 'onHandleFocus',
+            'blur input[type="range"]': 'onHandleBlur'
         },
 
         // Used by the question to reset the question when revisiting the component
@@ -36,14 +36,12 @@ define([
         setupRangeslider: function () {
             this.$sliderScaleMarker = this.$('.slider-scale-marker');
             this.$slider = this.$('input[type="range"]');
-
             if(this.model.has('_scaleStep')) {
                 this.$slider.attr({"step": this.model.get('_scaleStep')});
             }
 
             this.$slider.rangeslider({
                 polyfill: false,
-                isRTL:this.model.get('_marginDir') == 'right',
                 onSlide: _.bind(this.handleSlide, this)
             });
             this.oldValue = 0;
@@ -54,9 +52,6 @@ define([
         },
 
         handleSlide: function (position, value) {
-            if(this.$('.rangeslider').hasClass('rangeslider--disabled')&&value==this.model.get('_scaleEnd')){
-                this.$('.rangeslider__fill').width("100%");
-            }
             if (this.oldValue === value) {
                return;
             }
@@ -68,6 +63,13 @@ define([
             this.tempValue = true;
         },
 
+        /**
+         * Returns the number of decimal places in a specified number
+         */
+        getDecimalPlaces: function(num) {
+            return (num.toString().split('.')[1] || []).length;
+        },
+
         setupModelItems: function() {
             var items = [];
             var answer = this.model.get('_correctAnswer');
@@ -76,7 +78,15 @@ define([
             var end = this.model.get('_scaleEnd');
             var step = this.model.get('_scaleStep') || 1;
 
+            var dp = this.getDecimalPlaces(step);
+
             for (var i = start; i <= end; i += step) {
+                if (dp !== 0) {
+                    // Ensure that steps with decimal places are handled correctly.
+                    i = parseFloat(i.toFixed(dp));
+                }
+
+                // Format number
                 if (answer) {
                     items.push({value: i, selected: false, correct: (i == answer)});
                 } else {
@@ -95,7 +105,7 @@ define([
                     _userAnswer: undefined
                 });
                 return;
-            };
+            }
 
             var items = this.model.get('_items');
             var userAnswer = this.model.get('_userAnswer');
@@ -173,7 +183,7 @@ define([
         getIndexFromValue: function(itemValue) {
             var scaleStart = this.model.get('_scaleStart'),
                 scaleEnd = this.model.get('_scaleEnd');
-            return Math.floor(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
+            return Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
         },
 
         // this should set given value to slider handle
@@ -252,12 +262,12 @@ define([
               return;
             }
 
-            var itemValue = parseInt($(event.currentTarget).attr('data-id'));
+            var itemValue = parseFloat($(event.currentTarget).attr('data-id'));
             var index = this.getIndexFromValue(itemValue);
             this.selectItem(index);
             this.animateToPosition(this.mapIndexToPixels(index));
             this.setAltText(itemValue);
-            this.setSliderValue(itemValue)
+            this.setSliderValue(itemValue);
         },
 
         getValueFromIndex: function(index) {
@@ -355,30 +365,24 @@ define([
         },
 
         showScale: function () {
-            this.$('.slider-markers').empty();
+            var $markers = this.$('.slider-markers').empty();
             if (this.model.get('_showScale') === false) {
-                this.$('.slider-markers').eq(0).css({display: 'none'});
-                this.model.get('_showScaleIndicator')
-                    ? this.$('.slider-scale-numbers').eq(0).css({visibility: 'hidden'})
-                    : this.$('.slider-scale-numbers').eq(0).css({display: 'none'});
+                $markers.eq(0).css({display: 'none'});
+                this.$('.slider-scale-numbers').eq(0).css(
+                    this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
+                );
             } else {
                 var $scaler = this.$('.slider-scaler');
-                var $markers = this.$('.slider-markers');
                 for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
                     $markers.append("<div class='slider-line component-item-color'>");
-                    $('.slider-line', $markers).eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
+                    $markers.find('.slider-line').eq(i).css({left: this.mapIndexToPixels(i, $scaler) + 'px'});
                 }
-                var scaleWidth = $scaler.width(),
-                    $numbers = this.$('.slider-scale-number');
-                for (var i = 0, count = this.model.get('_items').length; i < count; i++) {
-                    var $number = $numbers.eq(i),
-                        newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    if($('html').hasClass('ie9') && this.model.get('_marginDir')=='right'){
-						$number.css({right: newLeft});
-					}
-					else{
-						$number.css({left: newLeft});
-                    }
+                var scaleWidth = $scaler.width();
+                var $numbers = this.$('.slider-scale-number');
+                for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
+                    var $number = $numbers.eq(j);
+                    var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
+                        $number.css({left: newLeft});
                 }
             }
         },
@@ -436,7 +440,7 @@ define([
                     answer += step;
                 }
             } else {
-                console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON")
+                console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON");
             }
 
             var middleAnswer = answers[Math.floor(answers.length / 2)];
