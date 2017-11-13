@@ -382,7 +382,8 @@ define([
                 for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
                     var $number = $numbers.eq(j);
                     var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                        $number.css({left: newLeft});
+                  
+                    $number.css({left: newLeft});
                 }
             }
         },
