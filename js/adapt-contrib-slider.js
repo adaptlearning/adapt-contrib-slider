@@ -36,7 +36,6 @@ define([
         setupRangeslider: function () {
             this.$sliderScaleMarker = this.$('.slider-scale-marker');
             this.$slider = this.$('input[type="range"]');
-
             if(this.model.has('_scaleStep')) {
                 this.$slider.attr({"step": this.model.get('_scaleStep')});
             }
@@ -55,20 +54,6 @@ define([
         handleSlide: function (position, value) {
             if (this.oldValue === value) {
                return;
-            }
-            if(this.model.get('_marginDir') == 'right'){
-                if(this.tempValue && (this.model.get('_userAnswer') == undefined)){
-                    value = this.model.get('_items').length - value + 1;
-                    this.tempValue = false;
-                    var tempPixels = this.mapIndexToPixels(value);
-                    var rangeSliderWidth = this.$('.rangeslider').width();
-                    var handleLeft = parseInt(this.$('.rangeslider__handle').css('left'));
-                    var sliderWidth = this.$('.rangeslider__fill').width();
-                    handleLeft = rangeSliderWidth - handleLeft -this.$('.rangeslider__handle').width();
-                    sliderWidth = rangeSliderWidth - sliderWidth;
-                    this.$('.rangeslider__handle').css('left',handleLeft);
-                    this.$('.rangeslider__fill').width(sliderWidth);
-                }
             }
             var itemIndex = this.getIndexFromValue(value);
             var pixels = this.mapIndexToPixels(itemIndex);
@@ -397,12 +382,7 @@ define([
                 for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
                     var $number = $numbers.eq(j);
                     var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    if($('html').hasClass('ie9') && this.model.get('_marginDir') === 'right') {
-                        $number.css({right: newLeft});
-                    }
-                    else{
-                        $number.css({left: newLeft});
-                    }
+                    $number.css({left: newLeft});
                 }
             }
         },
@@ -421,13 +401,6 @@ define([
             this.$('.slider-handle').css({left: left + 'px'});
             this.$('.slider-scale-marker').css({left: left + 'px'});
             this.$('.slider-bar').width(left);
-            //updated position of rangeslider bar on window resize for RTL 
-            if (this.model.get('_marginDir') == 'right') {
-                _.delay(function() {
-                    this.$('.rangeslider__handle').css('left', left);
-                    this.$('.rangeslider__fill').css('width', left + (this.$('.rangeslider__handle').width() / 2));
-                }, 300, this);
-            }
         },
 
         onScreenSizeChanged: function() {
