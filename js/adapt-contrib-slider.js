@@ -354,6 +354,7 @@ define([
             this.resetControlStyles();
             this.showScaleMarker(true);
             this.setAltText(this.model.get('_scaleStart'));
+            this.model.set('_isAtLeastOneCorrectSelection', false);
         },
 
         setScalePositions: function() {
