@@ -175,7 +175,8 @@ define([
                     left: newPosition
                   }, {
                     duration: 200,
-                    easing: "linear"
+                    easing: "linear",
+                    mobileHA: false
                   });
         },
 
