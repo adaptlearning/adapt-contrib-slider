@@ -527,6 +527,33 @@ define([
             }
         },
 
+    	/**
+         * Used by tracking extensions to return an object containing the component's specific interactions.
+         */
+	getInteractionObject: function() {
+            var interactions = {
+                correctResponsesPattern: []
+            };
+
+            var correctValues = _.chain(this.model.get('_items'))
+                .filter(function(item) {
+                    return item.correct;
+                })
+                .pluck('value')
+                .value();
+
+            if (_.isEmpty(this.model.get('_correctAnswer'))) {
+                // A range of correct values is defined.
+                interactions.correctResponsesPattern = [
+                    _.min(correctValues) + '[:]' + _.max(correctValues)
+                ];
+            } else {
+                interactions.correctResponsesPattern = [ correctValues[0].toString() ];
+            }
+
+            return interactions;
+        },
+
         /**
         * Used by adapt-contrib-spoor to get the user's answers in the format required by the cmi.interactions.n.student_response data field
         */
