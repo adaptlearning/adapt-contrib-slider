@@ -484,12 +484,14 @@ define([
 
         // according to given item index this should make the item as selected
         selectItem: function(itemIndex, noFocus) {
-            this.$el.a11y_selected(false);
             _.each(this.model.get('_items'), function(item, index) {
                 item.selected = (index == itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
-                    this.$('.slider-scale-number[data-id="'+item.value+'"]').a11y_selected(true, noFocus);
+                    this.$('input').attr({
+                        "value": item.value,
+                        "aria-valuenow": item.value
+                    });
                 }
             }, this);
             this.showNumber(true);
