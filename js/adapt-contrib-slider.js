@@ -373,28 +373,30 @@ define([
                 this.$('.slider-scale-numbers *:not(".slider-scale-marker")').css(
                     this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
                 );
-            } else {
-                var $scaler = this.$('.slider-scaler');
-                for (var i = 1, count = this.model.get('_items').length - 1; i < count; i++) {
-                    $markers.append("<div class='slider-line component-item-color' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
-                }
-                // Do we show scale numbers
-                this.showScaleNumbers();
+                return;
             }
+
+            var $scaler = this.$('.slider-scaler');
+            for (var i = 1, count = this.model.get('_items').length - 1; i < count; i++) {
+                $markers.append("<div class='slider-line component-item-color' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
+            }
+            // Do we show scale numbers
+            this.showScaleNumbers();
         },
 
         showScaleNumbers: function () {
             var $scaler = this.$('.slider-scaler');
             if (this.model.get('_showScaleNumbers') === false) {
                 this.$('.slider-scale-numbers *:not(".slider-scale-marker")').css('display', 'none');
-            } else {
-                var scaleWidth = $scaler.width();
-                var $numbers = this.$('.slider-scale-number');
-                for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
-                    var $number = $numbers.eq(j);
-                    var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
-                    $number.css({left: newLeft});
-                }
+                return;
+            }
+
+            var scaleWidth = $scaler.width();
+            var $numbers = this.$('.slider-scale-number');
+            for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
+                var $number = $numbers.eq(j);
+                var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
+                $number.css({left: newLeft});
             }
         },
 
