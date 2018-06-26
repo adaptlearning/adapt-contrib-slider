@@ -393,11 +393,11 @@ define([
 
             var scaleWidth = $scaler.width();
             var $numbers = this.$('.slider-scale-number');
-            for (var j = 0, len = this.model.get('_items').length; j < len; j++) {
-                var $number = $numbers.eq(j);
+            this.model.get('_items').forEach(function(item, index) {
+                var $number = $numbers.eq(index);
                 var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
                 $number.css({left: newLeft});
-            }
+            });
         },
 
         //Labels are enabled in slider.hbs. Here we manage their containing div.
