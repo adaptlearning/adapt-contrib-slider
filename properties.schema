@@ -7,7 +7,7 @@
     "ariaRegion": {
       "type": "string",
       "required": true,
-      "default": "Answer the question by selecting a value from the range. Once you have done so, select the submit button below.",
+      "default": "Slider. Respond to the question by selecting your place on the scale.",
       "inputType": "Text",
       "validators": [],
       "translatable": true
