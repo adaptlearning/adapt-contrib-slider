@@ -166,15 +166,6 @@
         }
       }
     },
-    "_showNumber": {
-      "type": "boolean",
-      "required": true,
-      "default": true,
-      "title": "Show number on indicator",
-      "inputType": "Checkbox",
-      "validators": [],
-      "help": "Controls whether the position number on the indicator should be shown or not"
-    },
     "_showScaleIndicator": {
       "type": "boolean",
       "required": true,
@@ -184,6 +175,15 @@
       "validators": [],
       "help": "Controls whether a position indicator on the scale should be shown or not"
     },
+    "_showNumber": {
+      "type": "boolean",
+      "required": true,
+      "default": true,
+      "title": "Show number on indicator",
+      "inputType": "Checkbox",
+      "validators": [],
+      "help": "Controls whether the position number on the indicator should be shown or not"
+    },
     "_showScale": {
       "type": "boolean",
       "required": true,
@@ -192,6 +192,15 @@
       "inputType": "Checkbox",
       "validators": [],
       "help": "Controls whether to show the lines and numbers of the scale or not"
+    },
+    "_showScaleNumbers": {
+      "type": "boolean",
+      "required": true,
+      "default": true,
+      "title": "Show indicator numbers",
+      "inputType": "Checkbox",
+      "validators": [],
+      "help": "Controls whether the numbers on the scale should be shown or not"
     },
     "_feedback": {
       "type": "object",
