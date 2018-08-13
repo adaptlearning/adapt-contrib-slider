@@ -38,14 +38,16 @@ define([
 
                 // Format number
                 if (answer) {
-                    items.push({value: i, selected: false, correct: (i == answer)});
+                    items.push({value: i, selected: false, correct: (i === answer)});
                 } else {
                     items.push({value: i, selected: false, correct: (i >= range._bottom && i <= range._top)});
                 }
             }
 
-            this.set('_items', items);
-            this.set('_marginDir', (Adapt.config.get('_defaultDirection') === 'rtl' ? 'right' : 'left'));
+            this.set({
+                '_items': items,
+                '_marginDir': Adapt.config.get('_defaultDirection') === 'rtl' ? 'right' : 'left'
+            });
         },
 
         /**
@@ -68,7 +70,7 @@ define([
             var userAnswer = this.get('_userAnswer');
             for (var i = 0, l = items.length; i < l; i++) {
                 var item = items[i];
-                if (item.value == userAnswer) {
+                if (item.value === userAnswer) {
                     item.selected = true;
                     this.set('_selectedItem', item);
                     break;
@@ -104,7 +106,7 @@ define([
             var numberOfCorrectAnswers = 0;
 
             _.each(this.get('_items'), function(item, index) {
-                if(item.selected && item.correct)  {
+                if (item.selected && item.correct) {
                     this.set('_isAtLeastOneCorrectSelection', true);
                     numberOfCorrectAnswers++;
                 }

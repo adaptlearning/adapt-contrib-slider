@@ -67,20 +67,19 @@ define([
         setAllItemsEnabled: function() {
             var isEnabled = this.model.get('_isEnabled');
 
-            if (this.$slider) {
-                if (isEnabled) {
-                    this.$('.slider-widget').removeClass('disabled');
-                    this.$slider.prop('disabled', false);
-                    this.$slider.rangeslider('update', true);
-
-                } else {
-                    this.$('.slider-widget').addClass('disabled');
-                    this.$slider.prop('disabled', true);
-                    this.$slider.rangeslider('update', true);
-                }
-            } else {
+            if (!this.$slider) {
                 this._deferEnable = true; // slider is not yet ready
+                return;
             }
+
+            if (!isEnabled) {
+                this.$('.slider-widget').addClass('disabled');
+                this.$slider.prop('disabled', true).rangeslider('update', true);
+                return;
+            }
+
+            this.$('.slider-widget').removeClass('disabled');
+            this.$slider.prop('disabled', false).rangeslider('update', true);
         },
 
         onQuestionRendered: function() {
