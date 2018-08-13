@@ -36,12 +36,11 @@ define([
                     i = parseFloat(i.toFixed(dp));
                 }
 
-                // Format number
-                if (answer) {
-                    items.push({value: i, selected: false, correct: (i === answer)});
-                } else {
-                    items.push({value: i, selected: false, correct: (i >= range._bottom && i <= range._top)});
-                }
+                items.push({
+                    value: i,
+                    selected: false,
+                    correct : answer ? i === answer : (i >= range._bottom && i <= range._top)
+                });
             }
 
             this.set({
