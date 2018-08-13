@@ -2,7 +2,7 @@ define([
 	'core/js/adapt',
     'core/js/views/questionView'
 ], function(Adapt, QuestionView) {
-    
+
     var SliderView = QuestionView.extend({
     	tempValue: true,
 
@@ -22,7 +22,7 @@ define([
         // Used by question to setup itself just before rendering
         setupQuestion: function() {
             if (this.model.get('_isSubmitted')) return;
-            
+
             this.selectItem(this.getIndexFromValue(this.model.get('_selectedItem').value), true);
         },
 
@@ -46,7 +46,7 @@ define([
 
         handleSlide: function (position, value) {
             if (this.oldValue === value) {
-               return;
+                return;
             }
             var itemIndex = this.getIndexFromValue(value);
             var pixels = this.mapIndexToPixels(itemIndex);
@@ -56,12 +56,10 @@ define([
             this.tempValue = true;
         },
 
-        // Used by question to disable the question during submit and complete stages
         disableQuestion: function() {
             this.setAllItemsEnabled();
         },
 
-        // Used by question to enable the question during interactions
         enableQuestion: function() {
             this.setAllItemsEnabled();
         },
@@ -85,7 +83,6 @@ define([
             }
         },
 
-        // Used by question to setup itself just after rendering
         onQuestionRendered: function() {
             this.setupRangeslider();
             this.setScalePositions();
@@ -100,21 +97,21 @@ define([
         animateToPosition: function(newPosition) {
             if (!this.$sliderScaleMarker) return;
 
-                this.$sliderScaleMarker
-                  .velocity('stop')
-                  .velocity({
+            this.$sliderScaleMarker
+                .velocity('stop')
+                .velocity({
                     left: newPosition
-                  }, {
+                }, {
                     duration: 200,
                     easing: "linear",
                     mobileHA: false
-                  });
+                });
         },
 
         // this shoud give the index of item using given slider value
         getIndexFromValue: function(itemValue) {
-            var scaleStart = this.model.get('_scaleStart'),
-                scaleEnd = this.model.get('_scaleEnd');
+            var scaleStart = this.model.get('_scaleStart');
+            var scaleEnd = this.model.get('_scaleEnd');
             return Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
         },
 
@@ -124,15 +121,15 @@ define([
         },
 
         mapIndexToPixels: function(value, $widthObject) {
-            var numberOfItems = this.model.get('_items').length,
-                width = $widthObject ? $widthObject.width() : this.$('.slider-scaler').width();
+            var numberOfItems = this.model.get('_items').length;
+            var width = $widthObject ? $widthObject.width() : this.$('.slider-scaler').width();
 
             return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
         },
 
         mapPixelsToIndex: function(value) {
-            var numberOfItems = this.model.get('_items').length,
-                width = this.$('.slider-sliderange').width();
+            var numberOfItems = this.model.get('_items').length;
+            var width = this.$('.slider-sliderange').width();
 
             return Math.round(this.mapValue(value, 0, width, 0, numberOfItems - 1));
         },
@@ -186,12 +183,12 @@ define([
             this.tempValue = false;
 
             if (this.model.get('_isInteractionComplete')) {
-              return;
+                return;
             }
 
             // when component is not reset, selecting a number should be prevented
             if (this.$slider.prop('disabled')) {
-              return;
+                return;
             }
 
             var itemValue = parseFloat($(event.currentTarget).attr('data-id'));
@@ -203,7 +200,7 @@ define([
         },
 
         getValueFromIndex: function(index) {
-          return this.model.get('_items')[index].value;
+            return this.model.get('_items')[index].value;
         },
 
         resetControlStyles: function() {
@@ -213,17 +210,14 @@ define([
             this.setSliderValue(this.model.get('_items')[0].value);
         },
 
-        // Blank method for question to fill out when the question cannot be submitted
         onCannotSubmit: function() {},
 
         setSliderValue: function (value) {
-          if (this.$slider) {
-            this.$slider.val(value).change();
-          }
+            if (this.$slider) {
+                this.$slider.val(value).change();
+            }
         },
 
-        // This is important and should give the user feedback on how they answered the question
-        // Normally done through ticks and crosses by adding classes
         showMarking: function() {
             if (!this.model.get('_canShowMarking')) return;
 
@@ -231,8 +225,6 @@ define([
                 .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
         },
 
-        // Used by the question view to reset the look and feel of the component.
-        // This could also include resetting item data
         resetQuestion: function() {
             this.selectItem(0, true);
             this.animateToPosition(0);
@@ -352,8 +344,8 @@ define([
             _.each(correctAnswerArray, function(correctAnswer, index) {
                 $parentDiv.append($("<div class='slider-model-answer component-item-color component-item-text-color'>"));
 
-                var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]),
-                    startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
+                var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]);
+                var startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
 
                 if(this.model.get('_showNumber')) $element.html(correctAnswer);
 
@@ -363,9 +355,6 @@ define([
             }, this);
         },
 
-        // Used by the question to display the users answer and
-        // hide the correct answer
-        // Should use the values stored in storeUserAnswer
         hideCorrectAnswer: function() {
             var userAnswerIndex = this.getIndexFromValue(this.model.get('_userAnswer'));
             this.$('.slider-modelranges').empty();
@@ -390,8 +379,6 @@ define([
             }, this);
             this.showNumber(true);
         },
-
-        
 
         // this makes the marker visible or hidden
         showScaleMarker: function(show) {
@@ -419,5 +406,5 @@ define([
         }
     });
 
-	return SliderView;
+    return SliderView;
 });

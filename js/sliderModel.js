@@ -1,19 +1,19 @@
 define([
-	'core/js/adapt',
+    'core/js/adapt',
     'core/js/models/questionModel'
 ], function(Adapt, QuestionModel) {
-    
+
     var SliderModel = QuestionModel.extend({
 
-    	init:function() {
-    		QuestionModel.prototype.init.call(this);
+        init:function() {
+            QuestionModel.prototype.init.call(this);
 
-    		this.setupModelItems();
+            this.setupModelItems();
 
             this.set('_selectedItem', this.get('_items')[0]);
-    	},
+        },
 
-    	/**
+        /**
          * Returns the number of decimal places in a specified number
          */
         getDecimalPlaces: function(num) {
@@ -86,7 +86,6 @@ define([
             this.set('_userAnswer', this.get('_selectedItem').value);
         },
 
-        // Used by the question view to reset the stored user answer
         resetUserAnswer: function() {
             this.set({
                 _isAtLeastOneCorrectSelection: false,
@@ -95,7 +94,6 @@ define([
             });
         },
 
-        // this should reset the selected state of each item
         deselectAllItems: function() {
             _.each(this.get('_items'), function(item) {
                 item.selected = false;
