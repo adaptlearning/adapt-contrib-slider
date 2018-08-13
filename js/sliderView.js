@@ -4,7 +4,6 @@ define([
 ], function(Adapt, QuestionView) {
 
     var SliderView = QuestionView.extend({
-    	tempValue: true,
 
         events: {
             'click .slider-scale-number': 'onNumberSelected',
@@ -53,7 +52,6 @@ define([
             this.selectItem(itemIndex, false);
             this.animateToPosition(pixels);
             this.oldValue = value;
-            this.tempValue = true;
         },
 
         disableQuestion: function() {
@@ -179,7 +177,6 @@ define([
 
         onNumberSelected: function(event) {
             event.preventDefault();
-            this.tempValue = false;
 
             if (this.model.get('_isInteractionComplete')) {
                 return;
