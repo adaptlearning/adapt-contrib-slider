@@ -154,7 +154,7 @@ define([
         },
 
         onKeyDown: function(event) {
-            if(event.which == 9) return; // tab key
+            if(event.which === 9) return; // tab key
             event.preventDefault();
 
             var newItemIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
@@ -171,7 +171,7 @@ define([
             }
 
             this.selectItem(newItemIndex);
-            if(typeof newItemIndex == 'number') this.showScaleMarker(true);
+            if(typeof newItemIndex === 'number') this.showScaleMarker(true);
             this.animateToPosition(this.mapIndexToPixels(newItemIndex));
             this.setSliderValue(this.getValueFromIndex(newItemIndex));
             this.setAltText(this.getValueFromIndex(newItemIndex));
@@ -367,7 +367,7 @@ define([
         // according to given item index this should make the item as selected
         selectItem: function(itemIndex, noFocus) {
             _.each(this.model.get('_items'), function(item, index) {
-                item.selected = (index == itemIndex);
+                item.selected = (index === itemIndex);
                 if(item.selected) {
                     this.model.set('_selectedItem', item);
                     this.$('input').attr({
