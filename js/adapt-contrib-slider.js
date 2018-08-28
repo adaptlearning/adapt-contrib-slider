@@ -27,10 +27,27 @@ define([
                 this.setupModelItems();
             }
 
+            this.setupLabels();
             this.restoreUserAnswers();
             if (this.model.get('_isSubmitted')) return;
 
             this.selectItem(0, true);
+        },
+
+        setupLabels: function() {
+            if (this.model.get('_labels')) return;
+
+            // Backwards compatibility
+            var labels = {
+                _start: {
+                    text: this.model.get('labelStart')
+                },
+                _end: {
+                    text: this.model.get('labelEnd')
+                }
+            };
+
+            this.model.set({ _labels: labels });
         },
 
         setupRangeslider: function () {
