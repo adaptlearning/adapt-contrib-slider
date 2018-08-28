@@ -402,8 +402,9 @@ define([
 
         //Labels are enabled in slider.hbs. Here we manage their containing div.
         showLabels: function () {
-            if(!this.model.get('labelStart') && !this.model.get('labelEnd')) {
-                this.$('.slider-scale-labels').eq(0).css({display: 'none'});
+            var labels = this.model.get('_labels');
+            if(!labels._start.text && !labels._end.text) {
+                this.$('.slider-scale-labels').css({height: 0, padding: 0, overflow: 'hidden'});
             }
         },
 

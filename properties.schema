@@ -110,6 +110,65 @@
       "help": "Label for the end of the slider scale",
       "translatable": true
     },
+    "_labels": {
+      "type": "object",
+      "required": false,
+      "title": "Scale Labels",
+      "properties": {
+        "_start": {
+          "type": "object",
+          "required": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Scale Label - start",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Label for the start of the slider scale",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Scale Label - start aria label",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the start of the slider scale",
+              "translatable": true
+            }
+          }
+        },
+        "_end": {
+          "type": "object",
+          "required": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Scale Label - end",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Label for the end of the slider scale",
+              "translatable": true
+            },
+            "ariaLabel": {
+              "type": "string",
+              "required": false,
+              "default": "",
+              "title": "Scale Label - end aria label",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Aria label for the end of the slider scale",
+              "translatable": true
+            }
+          }
+        }
+      }
+    },
     "_scaleStart": {
       "type": "number",
       "required": true,

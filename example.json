@@ -20,8 +20,16 @@
     "_showScaleIndicator": true,
     "_showScale": true,
     "_showScaleNumbers": true,
-    "labelStart": "incomplete",
-    "labelEnd": "complete",
+    "_labels": {
+        "_start": {
+            "text": "Start label",
+            "ariaLabel": "Start aria label"
+        },
+        "_end": {
+            "text": "End label",
+            "ariaLabel": "End aria label"
+        }
+    },
     "_scaleStart": 1,
     "_scaleEnd": 10,
     "_scaleStep": 1,
