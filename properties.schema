@@ -165,7 +165,7 @@
           "help": "Correct top range answer on the scale -- ignored when 'Correct Answer' is set"
         }
       }
-    }, 
+    },
     "_showScaleIndicator": {
       "type": "boolean",
       "required": true,
