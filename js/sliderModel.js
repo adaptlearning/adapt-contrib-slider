@@ -39,7 +39,7 @@ define([
                 items.push({
                     value: i,
                     selected: false,
-                    correct : answer ? i === answer : (i >= range._bottom && i <= range._top)
+                    correct : answer ? i == answer : (i >= range._bottom && i <= range._top)
                 });
             }
 
