@@ -39,6 +39,8 @@ define([
                 items.push({
                     value: i,
                     selected: false,
+                    // _correctAnswer/answer is a String - this allows AAT users to assign it no value when _correctRange needs to be used instead
+                    // we therefore need to convert it to Number when checking the answer (see https://github.com/adaptlearning/adapt_framework/issues/2259)
                     correct : answer ? i === Number(answer) : (i >= range._bottom && i <= range._top)
                 });
             }
