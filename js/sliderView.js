@@ -244,6 +244,9 @@ define([
                 this.$('.slider-scale-numbers *:not(".slider-scale-marker")').css(
                     this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
                 );
+                this.$('.slider-scale-numbers .slider-modelranges').css(
+                    this.model.get('_showScaleIndicator') ? {visibility: 'visible'} : {display: 'none'}
+                ); 
                 return;
             }
 
