@@ -197,7 +197,7 @@
       "type": "boolean",
       "required": true,
       "default": true,
-      "title": "Show indicator numbers",
+      "title": "Show scale numbers",
       "inputType": "Checkbox",
       "validators": [],
       "help": "Controls whether the numbers on the scale should be shown or not"
