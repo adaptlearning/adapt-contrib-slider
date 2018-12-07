@@ -239,7 +239,7 @@ define([
 
         showScale: function () {
             var $markers = this.$('.slider-markers').empty();
-            
+
             if (this.model.get('_showScale') === false) {
               $markers.eq(0).css({display: 'none'});
               this.$('.slider-scale-number').css(
