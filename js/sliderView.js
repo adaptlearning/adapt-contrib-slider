@@ -239,7 +239,7 @@ define([
 
         showScale: function () {
             var $markers = this.$('.slider-markers').empty();
-
+            
             if (this.model.get('_showScale') === false) {
               $markers.eq(0).css({display: 'none'});
               this.$('.slider-scale-number').css(
@@ -332,7 +332,9 @@ define([
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
 
-            this.showModelAnswers(answers);
+            if (this.model.get('_showScaleIndicator') === true) {
+              this.showModelAnswers(answers);
+            }
 
             this.setSliderValue(middleAnswer);
         },
