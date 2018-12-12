@@ -239,9 +239,10 @@ define([
 
         showScale: function () {
             var $markers = this.$('.slider-markers').empty();
+
             if (this.model.get('_showScale') === false) {
                 $markers.eq(0).css({display: 'none'});
-                this.$('.slider-scale-numbers *:not(".slider-scale-marker")').css(
+                this.$('.slider-scale-number').css(
                     this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
                 );
                 return;
@@ -257,13 +258,14 @@ define([
 
         showScaleNumbers: function () {
             var $scaler = this.$('.slider-scaler');
+            var $numbers = this.$('.slider-scale-number');
+
             if (this.model.get('_showScaleNumbers') === false) {
-                this.$('.slider-scale-numbers *:not(".slider-scale-marker")').css('display', 'none');
+                $numbers.css('display', 'none');
                 return;
             }
 
             var scaleWidth = $scaler.width();
-            var $numbers = this.$('.slider-scale-number');
             this.model.get('_items').forEach(function(item, index) {
                 var $number = $numbers.eq(index);
                 var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
