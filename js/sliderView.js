@@ -239,13 +239,13 @@ define([
 
         showScale: function () {
             var $markers = this.$('.slider-markers').empty();
-            
+
             if (this.model.get('_showScale') === false) {
-              $markers.eq(0).css({display: 'none'});
-              this.$('.slider-scale-number').css(
-                this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
-              );
-              return;
+                $markers.eq(0).css({display: 'none'});
+                this.$('.slider-scale-number').css(
+                    this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
+                );
+                return;
             }
 
             var $scaler = this.$('.slider-scaler');
@@ -261,8 +261,8 @@ define([
             var $numbers = this.$('.slider-scale-number');
 
             if (this.model.get('_showScaleNumbers') === false) {
-              $numbers.css('display', 'none');
-              return;
+                $numbers.css('display', 'none');
+                return;
             }
 
             var scaleWidth = $scaler.width();
@@ -332,9 +332,7 @@ define([
             var middleAnswer = answers[Math.floor(answers.length / 2)];
             this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
 
-            if (this.model.get('_showScaleIndicator') === true) {
-              this.showModelAnswers(answers);
-            }
+            this.showModelAnswers(answers);
 
             this.setSliderValue(middleAnswer);
         },
