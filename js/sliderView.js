@@ -6,9 +6,9 @@ define([
   var SliderView = QuestionView.extend({
 
     events: {
-      'click .slider-scale-number': 'onNumberSelected',
-      'focus input[type="range"]': 'onHandleFocus',
-      'blur input[type="range"]': 'onHandleBlur'
+      'click .js-slider-number-click': 'onNumberSelected',
+      'focus .js-slider-item-input': 'onHandleFocus',
+      'blur .js-slider-item-input': 'onHandleBlur'
     },
 
     // Used by the question to reset the question when revisiting the component
@@ -26,8 +26,8 @@ define([
     },
 
     setupRangeslider: function () {
-      this.$sliderScaleMarker = this.$('.slider-scale-marker');
-      this.$slider = this.$('input[type="range"]');
+      this.$sliderScaleMarker = this.$('.js-slider-number-selection');
+      this.$slider = this.$('.js-slider-item-input');
       if (this.model.has('_scaleStep')) {
         this.$slider.attr({"step": this.model.get('_scaleStep')});
       }
@@ -71,12 +71,12 @@ define([
       }
 
       if (!isEnabled) {
-        this.$('.slider-widget').addClass('disabled');
+        this.$('.slider__widget').addClass('is-disabled');
         this.$slider.prop('disabled', true).rangeslider('update', true);
         return;
       }
 
-      this.$('.slider-widget').removeClass('disabled');
+      this.$('.slider__widget').removeClass('is-disabled');
       this.$slider.prop('disabled', false).rangeslider('update', true);
     },
 
@@ -119,7 +119,7 @@ define([
 
     mapIndexToPixels: function(value, $widthObject) {
       var numberOfItems = this.model.get('_items').length;
-      var width = $widthObject ? $widthObject.width() : this.$('.slider-scaler').width();
+      var width = $widthObject ? $widthObject.width() : this.$('.js-slider-scale').width();
 
       return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
     },
@@ -217,8 +217,8 @@ define([
     showMarking: function() {
       if (!this.model.get('_canShowMarking')) return;
 
-      this.$('.slider-widget').removeClass('correct incorrect')
-          .addClass(this.model.get('_selectedItem').correct ? 'correct' : 'incorrect');
+      this.$('.slider__widget').removeClass('is-correct is-incorrect')
+          .addClass(this.model.get('_selectedItem').correct ? 'is-correct' : 'is-incorrect');
     },
 
     resetQuestion: function() {
@@ -233,32 +233,32 @@ define([
       var numberOfItems = this.model.get('_items').length;
       _.each(this.model.get('_items'), function(item, index) {
         var normalisedPosition = this.normalise(index, 0, numberOfItems -1);
-        this.$('.slider-scale-number').eq(index).data('normalisedPosition', normalisedPosition);
+        this.$('.js-slider-number').eq(index).data('normalisedPosition', normalisedPosition);
       }, this);
     },
 
     showScale: function () {
-      var $markers = this.$('.slider-markers').empty();
+      var $markers = this.$('.js-slider-scale-notch-container').empty();
 
       if (this.model.get('_showScale') === false) {
         $markers.eq(0).css({display: 'none'});
-        this.$('.slider-scale-number').css(
+        this.$('.js-slider-number').css(
           this.model.get('_showScaleIndicator') ? {visibility: 'hidden'} : {display: 'none'}
         );
         return;
       }
 
-      var $scaler = this.$('.slider-scaler');
+      var $scaler = this.$('.js-slider-scale');
       for (var i = 1, count = this.model.get('_items').length - 1; i < count; i++) {
-        $markers.append("<div class='slider-line component-item-color' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
+        $markers.append("<div class='slider__scale-notch' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
       }
       // Do we show scale numbers
       this.showScaleNumbers();
     },
 
     showScaleNumbers: function () {
-      var $scaler = this.$('.slider-scaler');
-      var $numbers = this.$('.slider-scale-number');
+      var $scaler = this.$('.js-slider-scale');
+      var $numbers = this.$('.js-slider-number');
 
       if (this.model.get('_showScaleNumbers') === false) {
         $numbers.css('display', 'none');
@@ -276,16 +276,16 @@ define([
     //Labels are enabled in slider.hbs. Here we manage their containing div.
     showLabels: function () {
       if (!this.model.get('labelStart') && !this.model.get('labelEnd')) {
-        this.$('.slider-scale-labels').eq(0).css({display: 'none'});
+        this.$('.js-slider-label-container').eq(0).css({display: 'none'});
       }
     },
 
     remapSliderBar: function() {
-      var $scaler = this.$('.slider-scaler');
+      var $scaler = this.$('.js-slider-scale');
       var currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
       var left = this.mapIndexToPixels(currentIndex, $scaler);
       this.$('.slider-handle').css({left: left + 'px'});
-      this.$('.slider-scale-marker').css({left: left + 'px'});
+      this.$('.js-slider-number-selection').css({left: left + 'px'});
       this.$('.slider-bar').width(left);
     },
 
@@ -293,9 +293,9 @@ define([
       this.showScale();
       this.showLabels();
       this.remapSliderBar();
-      if (this.$('.slider-widget').hasClass('show-user-answer')) {
+      if (this.$('.slider__widget').hasClass('show-user-answer')) {
         this.hideCorrectAnswer();
-      } else if (this.$('.slider-widget').hasClass('show-correct-answer')) {
+      } else if (this.$('.slider__widget').hasClass('show-correct-answer')) {
         this.showCorrectAnswer();
       }
     },
@@ -338,11 +338,11 @@ define([
     },
 
     showModelAnswers: function(correctAnswerArray) {
-      var $parentDiv = this.$('.slider-modelranges');
+      var $parentDiv = this.$('.js-slider-model-range');
       _.each(correctAnswerArray, function(correctAnswer, index) {
-        $parentDiv.append($("<div class='slider-model-answer component-item-color component-item-text-color'>"));
+        $parentDiv.append($("<div class='slider__number-model-answer'>"));
 
-        var $element = $(this.$('.slider-modelranges .slider-model-answer')[index]);
+        var $element = $(this.$('.js-slider-model-range .slider__number-model-answer')[index]);
         var startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
 
         if (this.model.get('_showNumber')) $element.html(correctAnswer);
@@ -355,7 +355,7 @@ define([
 
     hideCorrectAnswer: function() {
       var userAnswerIndex = this.getIndexFromValue(this.model.get('_userAnswer'));
-      this.$('.slider-modelranges').empty();
+      this.$('.js-slider-model-range').empty();
 
       this.showScaleMarker(true);
       this.selectItem(userAnswerIndex, true);
@@ -369,7 +369,7 @@ define([
         item.selected = (index === itemIndex);
         if (item.selected) {
           this.model.set('_selectedItem', item);
-          this.$('input').attr({
+          this.$('.js-slider-item-input').attr({
             "value": item.value,
             "aria-valuenow": item.value
           });
@@ -380,7 +380,7 @@ define([
 
     // this makes the marker visible or hidden
     showScaleMarker: function(show) {
-      var $scaleMarker = this.$('.slider-scale-marker');
+      var $scaleMarker = this.$('.js-slider-number-selection');
       if (this.model.get('_showScaleIndicator')) {
         this.showNumber(show);
         if(show) {
@@ -393,7 +393,7 @@ define([
 
     // this should add the current slider value to the marker
     showNumber: function(show) {
-      var $scaleMarker = this.$('.slider-scale-marker');
+      var $scaleMarker = this.$('.js-slider-number-selection');
       if (this.model.get('_showNumber')) {
         if (show) {
           $scaleMarker.html(this.model.get('_selectedItem').value);
