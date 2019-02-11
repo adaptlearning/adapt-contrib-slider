@@ -11,6 +11,26 @@
       "inputType": "Text",
       "validators": [],
       "translatable": true
+    },
+    "labelStart": {
+      "type": "string",
+      "required": false,
+      "default": "Start of the scale",
+      "title": "Scale Label - start aria label",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Aria label for the start of the slider scale",
+      "translatable": true
+    },
+    "labelEnd": {
+      "type": "string",
+      "required": false,
+      "default": "End of the scale",
+      "title": "Scale Label - end aria label",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Aria label for the end of the slider scale",
+      "translatable": true
     }
   },
   "properties": {
