@@ -1,6 +1,6 @@
 {
   "name": "adapt-contrib-slider",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "framework": ">=2.0.16",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
   "issues": "https://github.com/adaptlearning/adapt_framework/issues/new",
