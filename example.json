@@ -1,72 +1,72 @@
 {
-    "_id": "c-110",
-    "_parentId": "b-55",
-    "_type": "component",
-    "_component": "slider",
-    "_classes": "",
-    "_layout": "right",
-    "title": "Slider type component",
-    "displayTitle": "Slider type component",
-    "body": "Question text here",
-    "instruction": "",
-    "_attempts": 2,
-    "_shouldDisplayAttempts": false,
-    "_questionWeight": 1,
-    "_canShowModelAnswer": true,
-    "_canShowFeedback": true,
-    "_canShowMarking": true,
-    "_recordInteraction": true,
-    "_showNumber": true,
-    "_showScaleIndicator": true,
-    "_showScale": true,
-    "_showScaleNumbers": true,
-    "labelStart": "incomplete",
-    "labelEnd": "complete",
-    "_scaleStart": 1,
-    "_scaleEnd": 10,
-    "_scaleStep": 1,
-    "_correctAnswer": "",
-    "_correctRange": {
-        "_bottom": 4,
-        "_top": 9
+  "_id": "c-110",
+  "_parentId": "b-55",
+  "_type": "component",
+  "_component": "slider",
+  "_classes": "",
+  "_layout": "right",
+  "title": "Slider type component",
+  "displayTitle": "Slider type component",
+  "body": "Question text here",
+  "instruction": "",
+  "_attempts": 2,
+  "_shouldDisplayAttempts": false,
+  "_questionWeight": 1,
+  "_canShowModelAnswer": true,
+  "_canShowFeedback": true,
+  "_canShowMarking": true,
+  "_recordInteraction": true,
+  "_showNumber": true,
+  "_showScaleIndicator": true,
+  "_showScale": true,
+  "_showScaleNumbers": true,
+  "labelStart": "incomplete",
+  "labelEnd": "complete",
+  "_scaleStart": 1,
+  "_scaleEnd": 10,
+  "_scaleStep": 1,
+  "_correctAnswer": "",
+  "_correctRange": {
+    "_bottom": 4,
+    "_top": 9
+  },
+  "_buttons": {
+    "_submit": {
+    "buttonText": "Submit",
+    "ariaLabel": "Select here to submit your answer."
     },
-    "_buttons": {
-      "_submit": {
-        "buttonText": "Submit",
-        "ariaLabel": "Select here to submit your answer."
-      },
-      "_reset": {
-        "buttonText": "Reset",
-        "ariaLabel": ""
-      },
-      "_showCorrectAnswer": {
-        "buttonText": "Correct Answer",
-        "ariaLabel": ""
-      },
-      "_hideCorrectAnswer": {
-        "buttonText": "My Answer",
-        "ariaLabel": ""
-      },
-      "_showFeedback": {
-        "buttonText": "Show feedback",
-        "ariaLabel": ""
-      },
-      "remainingAttemptsText": "attempts remaining",
-      "remainingAttemptText": "final attempt"
+    "_reset": {
+    "buttonText": "Reset",
+    "ariaLabel": ""
     },
-    "_feedback": {
-        "title": "Feedback",
-        "correct": "This feedback will appear if you answered the question correctly.",
-        "_incorrect": {
-            "notFinal": "",
-            "final": "This feedback will appear if you answered the question incorrectly."
-        },
-        "_partlyCorrect": {
-            "notFinal": "",
-            "final": "This feedback will appear if you answered part of the question correctly."
-        }
+    "_showCorrectAnswer": {
+    "buttonText": "Correct Answer",
+    "ariaLabel": ""
     },
-    "_pageLevelProgress": {
-        "_isEnabled": true
+    "_hideCorrectAnswer": {
+    "buttonText": "My Answer",
+    "ariaLabel": ""
+    },
+    "_showFeedback": {
+    "buttonText": "Show feedback",
+    "ariaLabel": ""
+    },
+    "remainingAttemptsText": "attempts remaining",
+    "remainingAttemptText": "final attempt"
+  },
+  "_feedback": {
+    "title": "Feedback",
+    "correct": "This feedback will appear if you answered the question correctly.",
+    "_incorrect": {
+      "notFinal": "",
+      "final": "This feedback will appear if you answered the question incorrectly."
+    },
+    "_partlyCorrect": {
+      "notFinal": "",
+      "final": "This feedback will appear if you answered part of the question correctly."
     }
+  },
+  "_pageLevelProgress": {
+    "_isEnabled": true
+  }
 }
