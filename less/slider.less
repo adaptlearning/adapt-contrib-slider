@@ -15,7 +15,7 @@
   &__number-container {
     position: relative;
     min-height: 1em;
-    margin: 0 20px;
+    margin: 0 1em;
     // Indent half the width of the range slider handle either side
 
     .dir-rtl & {
@@ -41,8 +41,8 @@
   &__scale-container {
     position: relative;
     height: 2px;
-    width: calc(~'100% - 40px');
-    margin: 0.5em 20px 1.5em;
+    width: calc(~'100% - 2em');
+    margin: 0.5em 1em 1.5em;
     // Indent half the width of the range slider handle either side
     background-color: blue;
   }
@@ -50,8 +50,10 @@
   &__scale-notch {
     position: absolute;
     top: 0;
-    height: 0.75em;
-    width: 0.125em;
+    // height: 0.75em;
+    // width: 0.125em;
+    height: 12px;
+    width: 2px;
     .transform(translateX(-50%));
     background-color: red;
   }
@@ -77,14 +79,22 @@
   // Class to show whether the users selection is in/correct
   // --------------------------------------------------
   &__widget.show-user-answer.is-correct {
-    .slider__number-selection,
+    .slider__number-selection {
+      background-color: @validation-success;
+      color: @validation-success-inverted;
+    }
+
     .rangeslider__fill {
       background-color: @validation-success;
     }
   }
 
   &__widget.show-user-answer.is-incorrect {
-    .slider__number-selection,
+    .slider__number-selection {
+      background-color: @validation-error;
+      color: @validation-error-inverted;
+    }
+
     .rangeslider__fill {
       background-color: @validation-error;
     }
@@ -95,10 +105,42 @@
   // Class to show the correct answers
   // --------------------------------------------------
   &__widget.show-correct-answer {
-    .slider__number-model-answer,
+    .slider__number-model-answer {
+      background-color: @validation-success;
+      color: @validation-success-inverted;
+    }
+
     .rangeslider__fill {
       background-color: @validation-success;
     }
   }
   // --------------------------------------------------
 }
+
+// --------------------------------------------------
+// Rangeslider overrides
+// --------------------------------------------------
+.rangeslider {
+  &--horizontal {
+    height: 0.375em;
+  }
+
+  &--horizontal .rangeslider__handle {
+    top: -0.875em;
+  }
+
+  &__handle {
+    height: 2em;
+    width: 2em;
+
+    &:after {
+      height: 1em;
+      width: 1em;
+    }
+
+    .slider__widget.is-disabled & {
+      cursor: default;
+    }
+  }
+}
+// --------------------------------------------------
