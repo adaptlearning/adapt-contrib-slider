@@ -40,7 +40,7 @@
   // --------------------------------------------------
   &__scale-container {
     position: relative;
-    height: 2px;
+    height: 1px;
     width: calc(~'100% - 2em');
     margin: 0.5em 1em 1.5em;
     // Indent half the width of the range slider handle either side
@@ -49,11 +49,9 @@
 
   &__scale-notch {
     position: absolute;
-    top: 0;
-    // height: 0.75em;
-    // width: 0.125em;
-    height: 12px;
-    width: 2px;
+    top: -5px;
+    height: 10px;
+    width: 1px;
     .transform(translateX(-50%));
     background-color: red;
   }
@@ -104,7 +102,12 @@
   // --------------------------------------------------
   // Class to show the correct answers
   // --------------------------------------------------
-  &__widget.show-correct-answer {
+  &__widget.show-correct-answer .slider__number-selection {
+    .u-display-none;
+  }
+
+  &__widget.show-correct-answer.is-correct,
+  &__widget.show-correct-answer.is-incorrect {
     .slider__number-model-answer {
       background-color: @validation-success;
       color: @validation-success-inverted;
