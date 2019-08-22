@@ -69,8 +69,8 @@
       "help": "Allow the user to view the 'model answer' if they answer the question incorrectly?"
     },
     "_canShowFeedback": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Display Feedback",
       "inputType": "Checkbox",

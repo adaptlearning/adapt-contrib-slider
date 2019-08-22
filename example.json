@@ -9,17 +9,13 @@
         "displayTitle": "Slider type component",
         "body": "Question text here",
         "instruction": "",
-        "_attempts": 2,
+        "_attempts": 1,
         "_shouldDisplayAttempts": false,
         "_questionWeight": 1,
         "_canShowModelAnswer": true,
         "_canShowFeedback": true,
         "_canShowMarking": true,
         "_recordInteraction": true,
-        "_showNumber": true,
-        "_showScaleIndicator": true,
-        "_showScale": true,
-        "_showScaleNumbers": true,
         "labelStart": "incomplete",
         "labelEnd": "complete",
         "_scaleStart": 1,
@@ -30,6 +26,23 @@
             "_bottom": 4,
             "_top": 9
         },
+        "_showNumber": true,
+        "_showScaleIndicator": true,
+        "_showScale": true,
+        "_showScaleNumbers": true,
+        "_feedback": {
+            "title": "Feedback",
+            "correct": "This feedback will appear if you answered the question correctly.",
+            "_incorrect": {
+                "notFinal": "",
+                "final": "This feedback will appear if you answered the question incorrectly."
+            },
+            "_partlyCorrect": {
+                "notFinal": "",
+                "final": "This feedback will appear if you answered part of the question correctly."
+            }
+        },
+        "_comment": "You only need to include _buttons if you want to override the button labels that are set in course.json",
         "_buttons": {
             "_submit": {
                 "buttonText": "Submit",
@@ -53,18 +66,6 @@
             },
             "remainingAttemptsText": "attempts remaining",
             "remainingAttemptText": "final attempt"
-        },
-        "_feedback": {
-            "title": "Feedback",
-            "correct": "This feedback will appear if you answered the question correctly.",
-            "_incorrect": {
-                "notFinal": "",
-                "final": "This feedback will appear if you answered the question incorrectly."
-            },
-            "_partlyCorrect": {
-                "notFinal": "",
-                "final": "This feedback will appear if you answered part of the question correctly."
-            }
         },
         "_pageLevelProgress": {
             "_isEnabled": true
