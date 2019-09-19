@@ -86,7 +86,6 @@ define([
       this.onScreenSizeChanged();
       this.showScaleMarker(true);
       this.listenTo(Adapt, 'device:resize', this.onScreenSizeChanged);
-      this.setAltText(this.model.get('_scaleStart'));
       this.setReadyStatus();
     },
 
@@ -110,11 +109,6 @@ define([
       var scaleStart = this.model.get('_scaleStart');
       var scaleEnd = this.model.get('_scaleEnd');
       return Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
-    },
-
-    // this should set given value to slider handle
-    setAltText: function(value) {
-      this.$('.slider-handle').attr('aria-valuenow', value);
     },
 
     mapIndexToPixels: function(value, $widthObject) {
@@ -172,7 +166,6 @@ define([
       if (typeof newItemIndex === 'number') this.showScaleMarker(true);
       this.animateToPosition(this.mapIndexToPixels(newItemIndex));
       this.setSliderValue(this.getValueFromIndex(newItemIndex));
-      this.setAltText(this.getValueFromIndex(newItemIndex));
     },
 
     onNumberSelected: function(event) {
@@ -191,7 +184,6 @@ define([
       var index = this.getIndexFromValue(itemValue);
       this.selectItem(index);
       this.animateToPosition(this.mapIndexToPixels(index));
-      this.setAltText(itemValue);
       this.setSliderValue(itemValue);
     },
 
@@ -226,7 +218,6 @@ define([
       this.animateToPosition(0);
       this.resetControlStyles();
       this.showScaleMarker(true);
-      this.setAltText(this.model.get('_scaleStart'));
     },
 
     setScalePositions: function() {

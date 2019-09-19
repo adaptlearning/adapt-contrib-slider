@@ -36,10 +36,6 @@
             "_incorrect": {
                 "notFinal": "",
                 "final": "This feedback will appear if you answered the question incorrectly."
-            },
-            "_partlyCorrect": {
-                "notFinal": "",
-                "final": "This feedback will appear if you answered part of the question correctly."
             }
         },
         "_comment": "You only need to include _buttons if you want to override the button labels that are set in course.json",
