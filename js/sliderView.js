@@ -29,7 +29,7 @@ define([
       this.$sliderScaleMarker = this.$('.js-slider-number-selection');
       this.$slider = this.$('.js-slider-item-input');
       if (this.model.has('_scaleStep')) {
-        this.$slider.attr({"step": this.model.get('_scaleStep')});
+        this.$slider.attr({'step': this.model.get('_scaleStep')});
       }
 
       this.$slider.rangeslider({
@@ -99,7 +99,7 @@ define([
           left: newPosition
         }, {
           duration: 200,
-          easing: "linear",
+          easing: 'linear',
           mobileHA: false
         });
     },
@@ -241,7 +241,7 @@ define([
 
       var $scaler = this.$('.js-slider-scale');
       for (var i = 1, count = this.model.get('_items').length - 1; i < count; i++) {
-        $markers.append("<div class='slider__scale-notch' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
+        $markers.append('<div class="slider__scale-notch" style="left: ' + this.mapIndexToPixels(i, $scaler) + 'px">');
       }
       // Do we show scale numbers
       this.showScaleNumbers();
@@ -317,7 +317,7 @@ define([
           answer += step;
         }
       } else {
-        console.log("adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON");
+        console.log('adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON');
       }
 
       var middleAnswer = answers[Math.floor(answers.length / 2)];
@@ -331,7 +331,7 @@ define([
     showModelAnswers: function(correctAnswerArray) {
       var $parentDiv = this.$('.js-slider-model-range');
       _.each(correctAnswerArray, function(correctAnswer, index) {
-        $parentDiv.append($("<div class='slider__number-model-answer'>"));
+        $parentDiv.append($('<div class="slider__number-model-answer">'));
 
         var $element = $(this.$('.js-slider-model-range .slider__number-model-answer')[index]);
         var startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
@@ -361,8 +361,8 @@ define([
         if (item.selected) {
           this.model.set('_selectedItem', item);
           this.$('.js-slider-item-input').attr({
-            "value": item.value,
-            "aria-valuenow": item.value
+            'value': item.value,
+            'aria-valuenow': item.value
           });
         }
       }, this);
@@ -389,7 +389,7 @@ define([
         if (show) {
           $scaleMarker.html(this.model.get('_selectedItem').value);
         } else {
-          $scaleMarker.html = "";
+          $scaleMarker.html = '';
         }
       }
     }

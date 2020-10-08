@@ -273,32 +273,6 @@
               "translatable": true
             }
           }
-        },
-        "_partlyCorrect": {
-          "type": "object",
-          "required": false,
-          "properties": {
-            "final": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
-              "translatable": true
-            },
-            "notFinal": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
-              "translatable": true
-            }
-          }
         }
       }
     },
