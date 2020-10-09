@@ -1,26 +1,29 @@
 define([
   'core/js/adapt',
   'core/js/models/questionModel'
-], function(Adapt, QuestionModel) {
+], function (Adapt, QuestionModel) {
 
   var SliderModel = QuestionModel.extend({
 
-    init:function() {
+    init: function () {
       QuestionModel.prototype.init.call(this);
 
       this.setupModelItems();
+      this.selectDefaultItem();
+    },
 
+    selectDefaultItem: function () {
       this.set('_selectedItem', this.get('_items')[0]);
     },
 
     /**
      * Returns the number of decimal places in a specified number
      */
-    getDecimalPlaces: function(num) {
+    getDecimalPlaces: function (num) {
       return (num.toString().split('.')[1] || []).length;
     },
 
-    setupModelItems: function() {
+    setupModelItems: function () {
       var items = [];
       var answer = this.get('_correctAnswer');
       var range = this.get('_correctRange');
@@ -41,7 +44,7 @@ define([
           selected: false,
           // _correctAnswer/answer is a String - this allows AAT users to assign it no value when _correctRange needs to be used instead
           // we therefore need to convert it to Number when checking the answer (see https://github.com/adaptlearning/adapt_framework/issues/2259)
-          correct : answer ? i === Number(answer) : (i >= range._bottom && i <= range._top)
+          correct: answer ? i === Number(answer) : (i >= range._bottom && i <= range._top)
         });
       }
 
@@ -54,16 +57,16 @@ define([
     /**
     * allow the user to submit immediately; the slider handle may already be in the position they want to choose
     */
-    canSubmit: function() {
+    canSubmit: function () {
       return true;
     },
 
-    restoreUserAnswers: function() {
+    restoreUserAnswers: function () {
       if (!this.get('_isSubmitted')) {
         this.set({
-          _selectedItem: {},
           _userAnswer: undefined
         });
+        this.selectDefaultItem();
         return;
       }
 
@@ -85,28 +88,28 @@ define([
     },
 
     //This preserves the state of the users answers for returning or showing the users answer
-    storeUserAnswer: function() {
+    storeUserAnswer: function () {
       this.set('_userAnswer', this.get('_selectedItem').value);
     },
 
-    resetUserAnswer: function() {
+    resetUserAnswer: function () {
       this.set({
         _isAtLeastOneCorrectSelection: false,
-        _selectedItem: {},
         _userAnswer: undefined
       });
+      this.selectDefaultItem();
     },
 
-    deselectAllItems: function() {
-      _.each(this.get('_items'), function(item) {
+    deselectAllItems: function () {
+      _.each(this.get('_items'), function (item) {
         item.selected = false;
       }, this);
     },
 
-    isCorrect: function() {
+    isCorrect: function () {
       var numberOfCorrectAnswers = 0;
 
-      _.each(this.get('_items'), function(item, index) {
+      _.each(this.get('_items'), function (item, index) {
         if (item.selected && item.correct) {
           this.set('_isAtLeastOneCorrectSelection', true);
           numberOfCorrectAnswers++;
@@ -118,12 +121,12 @@ define([
       return this.get('_isAtLeastOneCorrectSelection') ? true : false;
     },
 
-    isPartlyCorrect: function() {
+    isPartlyCorrect: function () {
       return this.get('_isAtLeastOneCorrectSelection');
     },
 
     // Used to set the score based upon the _questionWeight
-    setScore: function() {
+    setScore: function () {
       var numberOfCorrectAnswers = this.get('_numberOfCorrectAnswers');
       var questionWeight = this.get('_questionWeight');
       var score = questionWeight * numberOfCorrectAnswers;
@@ -133,14 +136,14 @@ define([
     /**
     * Used by adapt-contrib-spoor to get the user's answers in the format required by the cmi.interactions.n.student_response data field
     */
-    getResponse:function() {
+    getResponse: function () {
       return this.get('_userAnswer').toString();
     },
 
     /**
     * Used by adapt-contrib-spoor to get the type of this question in the format required by the cmi.interactions.n.type data field
     */
-    getResponseType:function() {
+    getResponseType: function () {
       return 'numeric';
     }
 
