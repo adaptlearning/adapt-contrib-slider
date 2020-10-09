@@ -8,7 +8,10 @@ define([
       QuestionModel.prototype.init.call(this);
 
       this.setupModelItems();
+      this.selectDefaultItem();
+    }
 
+    selectDefaultItem() {
       this.set('_selectedItem', this.get('_items')[0]);
     }
 
@@ -26,7 +29,7 @@ define([
       const start = this.get('_scaleStart');
       const end = this.get('_scaleEnd');
       const step = this.get('_scaleStep') || 1;
-
+      
       const dp = this.getDecimalPlaces(step);
 
       for (let i = start; i <= end; i += step) {
@@ -60,9 +63,9 @@ define([
     restoreUserAnswers() {
       if (!this.get('_isSubmitted')) {
         this.set({
-          _selectedItem: {},
           _userAnswer: undefined
         });
+        this.selectDefaultItem();
         return;
       }
 
@@ -91,9 +94,9 @@ define([
     resetUserAnswer() {
       this.set({
         _isAtLeastOneCorrectSelection: false,
-        _selectedItem: {},
         _userAnswer: undefined
       });
+      this.selectDefaultItem();
     }
 
     deselectAllItems() {
@@ -101,7 +104,7 @@ define([
         item.selected = false;
       });
     }
-
+    
     isCorrect() {
       let numberOfCorrectAnswers = 0;
 
