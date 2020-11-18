@@ -39,12 +39,7 @@
           "type": "number",
           "title": "Attempts",
           "description": "How many attempts the learner is allowed",
-          "default": 1,
-          "_backboneForms": {
-            "validators": [
-              "number"
-            ]
-          }
+          "default": 1
         },
         "_canShowModelAnswer": {
           "type": "boolean",
@@ -72,12 +67,7 @@
           "type": "number",
           "title": "Question Weight",
           "description": "How much this question is worth",
-          "default": 1,
-          "_backboneForms": {
-            "validators": [
-              "number"
-            ]
-          }
+          "default": 1
         },
         "_recordInteraction": {
           "type": "boolean",
@@ -107,34 +97,19 @@
           "type": "number",
           "title": "Scale Start",
           "description": "What number the scale should start on",
-          "default": 1,
-          "_backboneForms": {
-            "validators": [
-              "number"
-            ]
-          }
+          "default": 1
         },
         "_scaleEnd": {
           "type": "number",
           "title": "Scale End",
           "description": "What number the scale should end on",
-          "default": 1,
-          "_backboneForms": {
-            "validators": [
-              "number"
-            ]
-          }
+          "default": 1
         },
         "_scaleStep": {
           "type": "number",
           "title": "Scale Step",
           "description": "The amount the scale should increment by",
-          "default": 1,
-          "_backboneForms": {
-            "validators": [
-              "number"
-            ]
-          }
+          "default": 1
         },
         "_correctAnswer": {
           "type": "string",
@@ -151,23 +126,13 @@
               "type": "number",
               "title": "Correct Range - Bottom",
               "description": "Correct bottom range answer on the scale -- ignored when 'Correct Answer' is set",
-              "default": 0,
-              "_backboneForms": {
-                "validators": [
-                  "number"
-                ]
-              }
+              "default": 0
             },
             "_top": {
               "type": "number",
               "title": "Correct Range - Top",
               "description": "Correct top range answer on the scale -- ignored when 'Correct Answer' is set",
-              "default": 0,
-              "_backboneForms": {
-                "validators": [
-                  "number"
-                ]
-              }
+              "default": 0
             }
           }
         },
