@@ -148,4 +148,3 @@ define([
     return SliderModel;
   
   });
-  
