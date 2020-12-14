@@ -9,7 +9,10 @@ define([
       QuestionModel.prototype.init.call(this);
 
       this.setupModelItems();
+      this.selectDefaultItem();
+    },
 
+    selectDefaultItem:function() {
       this.set('_selectedItem', this.get('_items')[0]);
     },
 
@@ -61,9 +64,9 @@ define([
     restoreUserAnswers: function() {
       if (!this.get('_isSubmitted')) {
         this.set({
-          _selectedItem: {},
           _userAnswer: undefined
         });
+        this.selectDefaultItem();
         return;
       }
 
@@ -92,9 +95,9 @@ define([
     resetUserAnswer: function() {
       this.set({
         _isAtLeastOneCorrectSelection: false,
-        _selectedItem: {},
         _userAnswer: undefined
       });
+      this.selectDefaultItem();
     },
 
     deselectAllItems: function() {
