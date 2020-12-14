@@ -1,7 +1,7 @@
 define([
   'core/js/adapt',
   'core/js/models/questionModel'
-], function (Adapt, QuestionModel) {
+], function(Adapt, QuestionModel) {
   class SliderModel extends QuestionModel {
 
     init() {

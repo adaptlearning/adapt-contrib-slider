@@ -1,7 +1,7 @@
 define([
   'core/js/adapt',
   'core/js/views/questionView'
-], function (Adapt, QuestionView) {
+], function(Adapt, QuestionView) {
 
   class SliderView extends QuestionView {
 
