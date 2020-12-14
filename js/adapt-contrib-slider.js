@@ -3,7 +3,7 @@ define([
   './sliderView',
   './sliderModel',
   'libraries/rangeslider'
-], function (Adapt, SliderView, SliderModel) {
+], function(Adapt, SliderView, SliderModel) {
 
   return Adapt.register('slider', {
     view: SliderView,
