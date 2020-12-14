@@ -11,6 +11,26 @@
       "inputType": "Text",
       "validators": [],
       "translatable": true
+    },
+    "labelStart": {
+      "type": "string",
+      "required": false,
+      "default": "Start of the scale",
+      "title": "Scale Label - start aria label",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Aria label for the start of the slider scale",
+      "translatable": true
+    },
+    "labelEnd": {
+      "type": "string",
+      "required": false,
+      "default": "End of the scale",
+      "title": "Scale Label - end aria label",
+      "inputType": "Text",
+      "validators": [],
+      "help": "Aria label for the end of the slider scale",
+      "translatable": true
     }
   },
   "properties": {
@@ -49,8 +69,8 @@
       "help": "Allow the user to view the 'model answer' if they answer the question incorrectly?"
     },
     "_canShowFeedback": {
-      "type":"boolean",
-      "required":true,
+      "type": "boolean",
+      "required": true,
       "default": true,
       "title": "Display Feedback",
       "inputType": "Checkbox",
@@ -197,7 +217,7 @@
       "type": "boolean",
       "required": true,
       "default": true,
-      "title": "Show indicator numbers",
+      "title": "Show scale numbers",
       "inputType": "Checkbox",
       "validators": [],
       "help": "Controls whether the numbers on the scale should be shown or not"
@@ -250,32 +270,6 @@
               "inputType": "TextArea",
               "validators": [],
               "help": "Incorrect answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
-              "translatable": true
-            }
-          }
-        },
-        "_partlyCorrect": {
-          "type": "object",
-          "required": false,
-          "properties": {
-            "final": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for the final attempt. If you leave this blank, the 'Incorrect Final' feedback will be used instead.",
-              "translatable": true
-            },
-            "notFinal": {
-              "type": "string",
-              "required": false,
-              "default": "",
-              "title": "Partly Correct Not Final",
-              "inputType": "TextArea",
-              "validators": [],
-              "help": "Partly correct answer feedback for any attempt apart from the last attempt. If you leave this blank, the 'Partly Correct Final' feedback will be used instead.",
               "translatable": true
             }
           }
