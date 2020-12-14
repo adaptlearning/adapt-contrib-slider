@@ -10,7 +10,7 @@ define([
         'click .js-slider-number-click': 'onNumberSelected',
         'focus .js-slider-item-input': 'onHandleFocus',
         'blur .js-slider-item-input': 'onHandleBlur'
-      }
+      };
     }
 
     // Used by the question to reset the question when revisiting the component
@@ -24,7 +24,7 @@ define([
     setupQuestion() {
       if (this.model.get('_isSubmitted')) return;
 
-      this.selectItem(this.getIndexFromValue(this.model.get('_selectedItem').value), true);
+      this.selectItem(this.getIndexFromValue(this.model.get('_selectedItem').value));
     }
 
     setupRangeslider() {
@@ -51,7 +51,7 @@ define([
       }
       const itemIndex = this.getIndexFromValue(value);
       const pixels = this.mapIndexToPixels(itemIndex);
-      this.selectItem(itemIndex, false);
+      this.selectItem(itemIndex);
       this.animateToPosition(pixels);
       this.oldValue = value;
     }
@@ -216,7 +216,7 @@ define([
     }
 
     resetQuestion() {
-      this.selectItem(0, true);
+      this.selectItem(0);
       this.animateToPosition(0);
       this.resetControlStyles();
       this.showScaleMarker(true);
@@ -354,13 +354,13 @@ define([
       this.$('.js-slider-model-range').empty();
 
       this.showScaleMarker(true);
-      this.selectItem(userAnswerIndex, true);
+      this.selectItem(userAnswerIndex);
       this.animateToPosition(this.mapIndexToPixels(userAnswerIndex));
       this.setSliderValue(this.model.get('_userAnswer'));
     }
 
     // according to given item index this should make the item as selected
-    selectItem(itemIndex, noFocus) {
+    selectItem(itemIndex) {
       this.model.get('_items').forEach((item, index) => {
         item.selected = (index === itemIndex);
         if (item.selected) {
