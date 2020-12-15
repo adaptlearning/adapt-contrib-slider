@@ -320,7 +320,7 @@ define([
       let answer = bottom;
       const step = this.model.get('_scaleStep') || 1;
       while (answer <= top) {
-        answersArray.push(answer);
+        answers.push(answer);
         answer += step;
       }
       return answers;
@@ -354,6 +354,8 @@ define([
 
     // according to given item index this should make the item as selected
     selectItem(itemIndex) {
+      // deselect all items before selecting the chosen item
+      this.model.deselectAllItems();
       const item = this.model.get('_items')[itemIndex];
       if (!item) return;
       item.selected = true;
