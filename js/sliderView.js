@@ -36,7 +36,7 @@ define([
 
       this.$slider.rangeslider({
         polyfill: false,
-        onSlide: _.bind(this.handleSlide, this)
+        onSlide: this.handleSlide.bind(this)
       });
       this.oldValue = 0;
 
@@ -72,14 +72,9 @@ define([
         return;
       }
 
-      if (!isEnabled) {
-        this.$('.slider__widget').addClass('is-disabled');
-        this.$slider.prop('disabled', true).rangeslider('update', true);
-        return;
-      }
-
-      this.$('.slider__widget').removeClass('is-disabled');
-      this.$slider.prop('disabled', false).rangeslider('update', true);
+      this.$('.slider__widget').toggleClass('is-disabled', !isEnabled);
+      this.$slider.prop('disabled', !isEnabled).rangeslider('update', true);
+      return;
     }
 
     onQuestionRendered() {
@@ -139,7 +134,7 @@ define([
 
     onHandleFocus(event) {
       event.preventDefault();
-      this.$slider.on('keydown', _.bind(this.onKeyDown, this));
+      this.$slider.on('keydown', this.onKeyDown.bind(this));
     }
 
     onHandleBlur(event) {
@@ -196,16 +191,15 @@ define([
     resetControlStyles() {
       this.$('.slider-handle').empty();
       this.showScaleMarker(false);
-      this.$('.slider-bar').animate({ width: '0px' });
+      this.$('.slider-bar').animate({ width: '0' });
       this.setSliderValue(this.model.get('_items')[0].value);
     }
 
     onCannotSubmit() { }
 
     setSliderValue(value) {
-      if (this.$slider) {
-        this.$slider.val(value).change();
-      }
+      if (!this.$slider) return;
+      this.$slider.val(value).change();
     }
 
     showMarking() {
@@ -234,16 +228,16 @@ define([
       const $markers = this.$('.js-slider-scale-notch-container').empty();
 
       if (this.model.get('_showScale') === false) {
-        $markers.eq(0).css({ display: 'none' });
-        this.$('.js-slider-number').css(
-          this.model.get('_showScaleIndicator') ? { visibility: 'hidden' } : { display: 'none' }
+        $markers.eq(0).addClass('u-display-none');
+        this.$('.js-slider-number').addClass(
+          this.model.get('_showScaleIndicator') ? 'visibility-hidden' : 'u-display-none'
         );
         return;
       }
 
       const $scaler = this.$('.js-slider-scale');
       for (let i = 1, count = this.model.get('_items').length - 1; i < count; i++) {
-        $markers.append(`<div class="slider__scale-notch" style="left: ${this.mapIndexToPixels(i, $scaler)} px">`);
+        $markers.append(`<div class="slider__scale-notch" style="left: ${this.mapIndexToPixels(i, $scaler)}px">`);
       }
       // Do we show scale numbers
       this.showScaleNumbers();
@@ -254,7 +248,7 @@ define([
       const $numbers = this.$('.js-slider-number');
 
       if (this.model.get('_showScaleNumbers') === false) {
-        $numbers.css('display', 'none');
+        $numbers.addClass('u-display-none');
         return;
       }
 
@@ -268,17 +262,16 @@ define([
 
     //Labels are enabled in slider.hbs. Here we manage their containing div.
     showLabels() {
-      if (!this.model.get('labelStart') && !this.model.get('labelEnd')) {
-        this.$('.js-slider-label-container').eq(0).css({ display: 'none' });
-      }
+      if (this.model.get('labelStart') && this.model.get('labelEnd')) return;
+      this.$('.js-slider-label-container').eq(0).addClass('u-display-none');
     }
 
     remapSliderBar() {
       const $scaler = this.$('.js-slider-scale');
       const currentIndex = this.getIndexFromValue(this.model.get('_selectedItem').value);
       const left = this.mapIndexToPixels(currentIndex, $scaler);
-      this.$('.slider-handle').css({ left: `${left} px` });
-      this.$('.js-slider-number-selection').css({ left: `${left} px` });
+      this.$('.slider-handle').css({ left: `${left}px` });
+      this.$('.js-slider-number-selection').css({ left: `${left}px` });
       this.$('.slider-bar').width(left);
     }
 
@@ -294,43 +287,43 @@ define([
     }
 
     showCorrectAnswer() {
-      const answers = [];
       this.showScaleMarker(false);
 
-      //are we dealing with a single correct answer or a range?
-      if (this.model.has('_correctAnswer')) {
-        const correctAnswer = this.model.get('_correctAnswer');
-
-        if (correctAnswer) {
-          answers.push(correctAnswer);
-        }
-      }
-
+      const answers = this.getCorrectAnswers();
       if (answers.length === 0) {
-        if (this.model.has('_correctRange')) {
-          const bottom = this.model.get('_correctRange')._bottom;
-          const top = this.model.get('_correctRange')._top;
-          const step = (this.model.has('_scaleStep') ? this.model.get('_scaleStep') : 1);
-
-          if (bottom !== undefined && top !== undefined) {
-            const answer = this.model.get('_correctRange')._bottom;
-            const topOfRange = this.model.get('_correctRange')._top;
-            while (answer <= topOfRange) {
-              answers.push(answer);
-              answer += step;
-            }
-          }
-        } else {
-          console.log('adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON');
-        }
+        console.log('adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON');
+        return;
       }
 
       const middleAnswer = answers[Math.floor(answers.length / 2)];
       this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
-
       this.showModelAnswers(answers);
-
       this.setSliderValue(middleAnswer);
+    }
+
+    getCorrectAnswers() {
+      //are we dealing with a single correct answer or a range?
+      const answerSingle = this.model.get('_correctAnswer');
+      const answers = [];
+      if (answerSingle) {
+        return [ answerSingle ];
+      }
+      const answerMultiple = this.model.get('_correctRange');
+      if (!answerMultiple) {
+        return answers;
+      }
+      const bottom = answerMultiple._bottom;
+      const top = answerMultiple._top;
+      if (bottom === undefined || top === undefined) {
+        return answers;
+      }
+      let answer = bottom;
+      const step = this.model.get('_scaleStep') || 1;
+      while (answer <= top) {
+        answersArray.push(answer);
+        answer += step;
+      }
+      return answers;
     }
 
     showModelAnswers(correctAnswerArray) {
@@ -361,15 +354,13 @@ define([
 
     // according to given item index this should make the item as selected
     selectItem(itemIndex) {
-      this.model.get('_items').forEach((item, index) => {
-        item.selected = (index === itemIndex);
-        if (item.selected) {
-          this.model.set('_selectedItem', item);
-          this.$('.js-slider-item-input').attr({
-            'value': item.value,
-            'aria-valuenow': item.value
-          });
-        }
+      const item = this.model.get('_items')[itemIndex];
+      if (!item) return;
+      item.selected = true;
+      this.model.set('_selectedItem', item);
+      this.$('.js-slider-item-input').attr({
+        'value': item.value,
+        'aria-valuenow': item.value
       });
       this.showNumber(true);
     }
@@ -379,11 +370,7 @@ define([
       const $scaleMarker = this.$('.js-slider-number-selection');
       if (this.model.get('_showScaleIndicator')) {
         this.showNumber(show);
-        if (show) {
-          $scaleMarker.addClass('display-block');
-        } else {
-          $scaleMarker.removeClass('display-block');
-        }
+        $scaleMarker.toggleClass('display-block', show);
       }
     }
 

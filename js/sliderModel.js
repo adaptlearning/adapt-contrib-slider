@@ -71,13 +71,10 @@ define([
 
       const items = this.get('_items');
       const userAnswer = this.get('_userAnswer');
-      for (let i = 0, l = items.length; i < l; i++) {
-        const item = items[i];
-        if (item.value === userAnswer) {
-          item.selected = true;
-          this.set('_selectedItem', item);
-          break;
-        }
+      const selectedItem = items.find(({ value }) => value === userAnswer);
+      if (selectedItem) {
+        selectedItem.selected = true;
+        this.set('_selectedItem', selectedItem);
       }
 
       this.setQuestionAsSubmitted();
@@ -100,14 +97,11 @@ define([
     }
 
     deselectAllItems() {
-      this.get('_items').forEach(item => {
-        item.selected = false;
-      });
+      this.get('_items').forEach(item => item.selected = false);
     }
     
     isCorrect() {
       let numberOfCorrectAnswers = 0;
-
       this.get('_items').forEach(item => {
         if (item.selected && item.correct) {
           this.set('_isAtLeastOneCorrectSelection', true);
