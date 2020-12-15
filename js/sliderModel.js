@@ -102,6 +102,7 @@ define([
     
     isCorrect() {
       let numberOfCorrectAnswers = 0;
+      this.set('_isAtLeastOneCorrectSelection', false);
       this.get('_items').forEach(item => {
         if (item.selected && item.correct) {
           this.set('_isAtLeastOneCorrectSelection', true);
@@ -111,7 +112,7 @@ define([
 
       this.set('_numberOfCorrectAnswers', numberOfCorrectAnswers);
 
-      return this.get('_isAtLeastOneCorrectSelection') ? true : false;
+      return this.get('_isAtLeastOneCorrectSelection');
     }
 
     isPartlyCorrect() {

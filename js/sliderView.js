@@ -230,7 +230,7 @@ define([
       if (this.model.get('_showScale') === false) {
         $markers.eq(0).addClass('u-display-none');
         this.$('.js-slider-number').addClass(
-          this.model.get('_showScaleIndicator') ? 'visibility-hidden' : 'u-display-none'
+          this.model.get('_showScaleIndicator') ? 'u-visibility-hidden' : 'u-display-none'
         );
         return;
       }
@@ -262,7 +262,7 @@ define([
 
     //Labels are enabled in slider.hbs. Here we manage their containing div.
     showLabels() {
-      if (this.model.get('labelStart') && this.model.get('labelEnd')) return;
+      if (this.model.get('labelStart') || this.model.get('labelEnd')) return;
       this.$('.js-slider-label-container').eq(0).addClass('u-display-none');
     }
 
@@ -331,7 +331,7 @@ define([
       correctAnswerArray.forEach((correctAnswer, index) => {
         $parentDiv.append($('<div class="slider__number-model-answer">'));
 
-        const $element = $(this.$('.js-slider-model-range .slider__number-model-answer')[index]);
+        const $element = this.$('.js-slider-model-range .slider__number-model-answer').eq(index);
         const startingLeft = this.mapIndexToPixels(this.getIndexFromValue(this.model.get('_selectedItem').value));
 
         if (this.model.get('_showNumber')) $element.html(correctAnswer);
