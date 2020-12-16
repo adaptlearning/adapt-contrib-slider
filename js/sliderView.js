@@ -74,7 +74,6 @@ define([
 
       this.$('.slider__widget').toggleClass('is-disabled', !isEnabled);
       this.$slider.prop('disabled', !isEnabled).rangeslider('update', true);
-      return;
     }
 
     onQuestionRendered() {
@@ -302,7 +301,8 @@ define([
     }
 
     getCorrectAnswers() {
-      //are we dealing with a single correct answer or a range?
+
+      // are we dealing with a single correct answer or a range?
       const answerSingle = this.model.get('_correctAnswer');
       const answers = [];
       if (answerSingle) {
