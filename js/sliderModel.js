@@ -2,6 +2,7 @@ define([
   'core/js/adapt',
   'core/js/models/questionModel'
 ], function(Adapt, QuestionModel) {
+
   class SliderModel extends QuestionModel {
 
     init() {
@@ -29,7 +30,7 @@ define([
       const start = this.get('_scaleStart');
       const end = this.get('_scaleEnd');
       const step = this.get('_scaleStep') || 1;
-      
+
       const dp = this.getDecimalPlaces(step);
 
       for (let i = start; i <= end; i += step) {
@@ -83,7 +84,7 @@ define([
       this.setupFeedback();
     }
 
-    //This preserves the state of the users answers for returning or showing the users answer
+    // This preserves the state of the users answers for returning or showing the users answer
     storeUserAnswer() {
       this.set('_userAnswer', this.get('_selectedItem').value);
     }
@@ -97,15 +98,15 @@ define([
     }
 
     deselectAllItems() {
-      this.get('_items').forEach(item => item.selected = false);
+      this.get('_items').forEach(item => (item.selected = false));
     }
-    
+
     isCorrect() {
       const numberOfCorrectAnswers = this.get('_items').filter(({ selected, correct }) => selected && correct).length;
-    
+
       this.set('_isAtLeastOneCorrectSelection', numberOfCorrectAnswers > 0);
       this.set('_numberOfCorrectAnswers', numberOfCorrectAnswers);
-    
+
       return this.get('_isAtLeastOneCorrectSelection');
     }
 

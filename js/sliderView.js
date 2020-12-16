@@ -259,7 +259,7 @@ define([
       });
     }
 
-    //Labels are enabled in slider.hbs. Here we manage their containing div.
+    // Labels are enabled in slider.hbs. Here we manage their containing div.
     showLabels() {
       if (this.model.get('labelStart') || this.model.get('labelEnd')) return;
       this.$('.js-slider-label-container').eq(0).addClass('u-display-none');
