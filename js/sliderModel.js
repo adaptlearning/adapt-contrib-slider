@@ -135,7 +135,7 @@ define([
       return 'numeric';
     }
 
-  };
+  }
 
   return SliderModel;
 

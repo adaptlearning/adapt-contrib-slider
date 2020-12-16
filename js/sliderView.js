@@ -388,7 +388,7 @@ define([
       }
     }
 
-  };
+  }
 
   return SliderView;
 
