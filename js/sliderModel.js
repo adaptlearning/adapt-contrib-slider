@@ -136,6 +136,32 @@ define([
       return 'numeric';
     }
 
+    getCorrectAnswers() {
+
+      // are we dealing with a single correct answer or a range?
+      const answerSingle = this.get('_correctAnswer');
+      const answers = [];
+      if (answerSingle) {
+        return [ answerSingle ];
+      }
+      const answerMultiple = this.get('_correctRange');
+      if (!answerMultiple) {
+        return answers;
+      }
+      const bottom = answerMultiple._bottom;
+      const top = answerMultiple._top;
+      if (bottom === undefined || top === undefined) {
+        return answers;
+      }
+      let answer = bottom;
+      const step = this.get('_scaleStep') || 1;
+      while (answer <= top) {
+        answers.push(answer);
+        answer += step;
+      }
+      return answers;
+    }
+
   }
 
   return SliderModel;

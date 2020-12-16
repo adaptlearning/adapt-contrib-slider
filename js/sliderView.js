@@ -288,7 +288,7 @@ define([
     showCorrectAnswer() {
       this.showScaleMarker(false);
 
-      const answers = this.getCorrectAnswers();
+      const answers = this.model.getCorrectAnswers();
       if (answers.length === 0) {
         console.log('adapt-contrib-slider::WARNING: no correct answer or correct range set in JSON');
         return;
@@ -298,32 +298,6 @@ define([
       this.animateToPosition(this.mapIndexToPixels(this.getIndexFromValue(middleAnswer)));
       this.showModelAnswers(answers);
       this.setSliderValue(middleAnswer);
-    }
-
-    getCorrectAnswers() {
-
-      // are we dealing with a single correct answer or a range?
-      const answerSingle = this.model.get('_correctAnswer');
-      const answers = [];
-      if (answerSingle) {
-        return [ answerSingle ];
-      }
-      const answerMultiple = this.model.get('_correctRange');
-      if (!answerMultiple) {
-        return answers;
-      }
-      const bottom = answerMultiple._bottom;
-      const top = answerMultiple._top;
-      if (bottom === undefined || top === undefined) {
-        return answers;
-      }
-      let answer = bottom;
-      const step = this.model.get('_scaleStep') || 1;
-      while (answer <= top) {
-        answers.push(answer);
-        answer += step;
-      }
-      return answers;
     }
 
     showModelAnswers(correctAnswerArray) {
