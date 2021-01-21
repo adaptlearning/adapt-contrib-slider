@@ -18,7 +18,7 @@
               "properties": {
                 "ariaRegion": {
                   "type": "string",
-                  "title": "Aria region",
+                  "title": "ARIA region",
                   "default": "Slider. Respond to the question by selecting a value on the scale and then submit.",
                   "_adapt": {
                     "translatable": true
@@ -26,8 +26,8 @@
                 },
                 "labelStart": {
                   "type": "string",
-                  "title": "Scale Label - start aria label",
-                  "description": "Aria label for the start of the slider scale",
+                  "title": "Scale Label - start ARIA label",
+                  "description": "ARIA label for the start of the slider scale",
                   "default": "Start of the scale",
                   "_adapt": {
                     "translatable": true
@@ -35,8 +35,8 @@
                 },
                 "labelEnd": {
                   "type": "string",
-                  "title": "Scale Label - end aria label",
-                  "description": "Aria label for the end of the slider scale",
+                  "title": "Scale Label - end ARIA label",
+                  "description": "ARIA label for the end of the slider scale",
                   "default": "End of the scale",
                   "_adapt": {
                     "translatable": true
