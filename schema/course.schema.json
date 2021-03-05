@@ -26,8 +26,7 @@
                 },
                 "labelStart": {
                   "type": "string",
-                  "title": "Scale Label - start ARIA label",
-                  "description": "ARIA label for the start of the slider scale",
+                  "title": "Scale start ARIA label",
                   "default": "Start of the scale",
                   "_adapt": {
                     "translatable": true
@@ -35,8 +34,7 @@
                 },
                 "labelEnd": {
                   "type": "string",
-                  "title": "Scale Label - end ARIA label",
-                  "description": "ARIA label for the end of the slider scale",
+                  "title": "Scale end ARIA label",
                   "default": "End of the scale",
                   "_adapt": {
                     "translatable": true
