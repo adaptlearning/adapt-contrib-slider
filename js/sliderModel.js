@@ -162,6 +162,36 @@ define([
       return answers;
     }
 
+    /**
+     * Creates a string explaining the answer (or answer range) the learner should have chosen
+     * Used by ButtonsView to retrieve question-specific correct answer text for the ARIA
+     * 'live region' that gets updated when the learner selects the 'show correct answer' button
+     * @return {string}
+     */
+    getCorrectAnswerAsText() {
+      const globals = Adapt.course.get('_globals')._components._slider;
+      const answers = this.getCorrectAnswers();
+      if (answers.length > 1) {
+        return Handlebars.compile(globals.ariaCorrectAnswerRange)({
+          bottom: answers.shift(),
+          top: answers.pop()
+        });
+      }
+
+      return Handlebars.compile(globals.ariaCorrectAnswer)({ correctAnswer: answers[0] });
+    }
+
+    /**
+     * Creates a string listing the answer the learner chose
+     * Used by ButtonsView to retrieve question-specific user answer text for the ARIA
+     * 'live region' that gets updated when the learner selects the 'hide correct answer' button
+     * @return {string}
+     */
+    getUserAnswerAsText() {
+      const answerTemplate = Adapt.course.get('_globals')._components._slider.ariaUserAnswer;
+      return Handlebars.compile(answerTemplate)({ userAnswer: this.get('_userAnswer') });
+    }
+
   }
 
   return SliderModel;
