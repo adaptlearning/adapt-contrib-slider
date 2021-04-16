@@ -162,7 +162,7 @@
             "title": {
               "type": "string",
               "title": "Title",
-              "description": "Leave blank to have the component's title shown instead.",
+              "description": "Leave blank to have the component's title shown instead",
               "default": "",
               "_adapt": {
                 "translatable": true
