@@ -1,0 +1,50 @@
+{
+  "$anchor": "slider-course",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "$patch": {
+    "source": {
+      "$ref": "course"
+    },
+    "with": {
+      "properties": {
+        "_globals": {
+          "type": "object",
+          "default": {},
+          "properties": {
+            "_slider": {
+              "type": "object",
+              "default": {},
+              "properties": {
+                "ariaRegion": {
+                  "type": "string",
+                  "title": "ARIA region",
+                  "default": "Slider. Respond to the question by selecting a value on the scale and then submit.",
+                  "_adapt": {
+                    "translatable": true
+                  }
+                },
+                "labelStart": {
+                  "type": "string",
+                  "title": "Scale start ARIA label",
+                  "default": "Start of the scale",
+                  "_adapt": {
+                    "translatable": true
+                  }
+                },
+                "labelEnd": {
+                  "type": "string",
+                  "title": "Scale end ARIA label",
+                  "default": "End of the scale",
+                  "_adapt": {
+                    "translatable": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

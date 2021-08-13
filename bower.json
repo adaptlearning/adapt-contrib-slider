@@ -5,6 +5,7 @@
   "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
   "issues": "https://github.com/adaptlearning/adapt_framework/issues/new",
   "component" : "slider",
+  "targetAttribute": "_slider",
   "displayName" : "Slider",
   "description": "A question component that allows the learner to position a slider on scale",
   "main": "/js/adapt-contrib-slider.js",
