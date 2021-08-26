@@ -1,6 +1,7 @@
 define([
   'core/js/adapt',
-  'core/js/views/questionView'
+  'core/js/views/questionView',
+  'libraries/rangeslider'
 ], function(Adapt, QuestionView) {
 
   class SliderView extends QuestionView {

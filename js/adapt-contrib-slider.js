@@ -1,8 +1,7 @@
 define([
   'core/js/adapt',
   './sliderView',
-  './sliderModel',
-  'libraries/rangeslider'
+  './sliderModel'
 ], function(Adapt, SliderView, SliderModel) {
 
   return Adapt.register('slider', {
