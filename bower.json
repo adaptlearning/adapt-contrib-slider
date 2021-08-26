@@ -1,9 +1,9 @@
 {
   "name": "adapt-contrib-slider",
-  "version": "3.3.1",
+  "version": "3.3.0",
   "framework": ">=5.5",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
-  "issues": "https://github.com/adaptlearning/adapt_framework/issues/new",
+  "bugs": "https://github.com/adaptlearning/adapt-contrib-slider/issues",
   "component" : "slider",
   "targetAttribute": "_slider",
   "displayName" : "Slider",
