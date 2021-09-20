@@ -12,6 +12,19 @@ define([
       this.selectDefaultItem();
     }
 
+    /**
+    * @param {string} [type] 'hard' resets _isComplete and _isInteractionComplete, 'soft' resets _isInteractionComplete only.
+    * @param {boolean} [canReset] Defaults to this.get('_canReset')
+    * @returns {boolean}
+    */
+    reset(type = 'hard', canReset = this.get('_canReset')) {
+      const wasReset = super.reset(type, canReset);
+      if (!wasReset) return false;
+      this.deselectAllItems();
+      this.selectDefaultItem();
+      return true;
+    }
+
     selectDefaultItem() {
       this.set('_selectedItem', this.get('_items')[0]);
     }
@@ -49,8 +62,8 @@ define([
       }
 
       this.set({
-        '_items': items,
-        '_marginDir': Adapt.config.get('_defaultDirection') === 'rtl' ? 'right' : 'left'
+        _items: items,
+        _marginDir: Adapt.config.get('_defaultDirection') === 'rtl' ? 'right' : 'left'
       });
     }
 
