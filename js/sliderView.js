@@ -14,13 +14,6 @@ define([
       };
     }
 
-    // Used by the question to reset the question when revisiting the component
-    resetQuestionOnRevisit() {
-      this.setAllItemsEnabled();
-      this.model.deselectAllItems();
-      this.resetQuestion();
-    }
-
     // Used by question to setup itself just before rendering
     setupQuestion() {
       if (this.model.get('_isSubmitted')) return;
@@ -32,7 +25,7 @@ define([
       this.$sliderScaleMarker = this.$('.js-slider-number-selection');
       this.$slider = this.$('.js-slider-item-input');
       if (this.model.has('_scaleStep')) {
-        this.$slider.attr({ 'step': this.model.get('_scaleStep') });
+        this.$slider.attr({ step: this.model.get('_scaleStep') });
       }
 
       this.$slider.rangeslider({
@@ -336,7 +329,7 @@ define([
       item.selected = true;
       this.model.set('_selectedItem', item);
       this.$('.js-slider-item-input').attr({
-        'value': item.value,
+        value: item.value,
         'aria-valuenow': item.value
       });
       this.showNumber(true);
