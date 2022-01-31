@@ -1,6 +1,6 @@
 import Adapt from 'core/js/adapt';
 import QuestionView from 'core/js/views/questionView';
-import rangeslider from 'libraries/rangeslider';
+import 'libraries/rangeslider';
 
 export default class SliderView extends QuestionView {
 
@@ -20,7 +20,6 @@ export default class SliderView extends QuestionView {
   }
 
   setupRangeslider() {
-    this.rangeslider = rangeslider;
     this.$sliderScaleMarker = this.$('.js-slider-number-selection');
     this.$slider = this.$('.js-slider-item-input');
     if (this.model.has('_scaleStep')) {
