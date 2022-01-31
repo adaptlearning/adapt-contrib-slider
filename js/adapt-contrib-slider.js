@@ -1,12 +1,8 @@
-define([
-  'core/js/adapt',
-  './sliderView',
-  './sliderModel'
-], function(Adapt, SliderView, SliderModel) {
+import Adapt from 'core/js/adapt';
+import SliderView from './sliderView';
+import SliderModel from './sliderModel';
 
-  return Adapt.register('slider', {
-    view: SliderView,
-    model: SliderModel
-  });
-
+export default Adapt.register('slider', {
+  view: SliderView,
+  model: SliderModel
 });
