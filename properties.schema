@@ -71,7 +71,7 @@
     "instruction": {
       "type": "string",
       "required": false,
-      "default": "",
+      "default": "Drag the slider to make your choice and select Submit.",
       "inputType": "Text",
       "validators": [],
       "help": "This is the instruction text",

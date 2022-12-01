@@ -8,7 +8,7 @@
         "title": "Slider type component",
         "displayTitle": "Slider type component",
         "body": "Question text here",
-        "instruction": "",
+        "instruction": "Drag the slider to make your choice and select Submit.",
         "_attempts": 1,
         "_shouldDisplayAttempts": false,
         "_questionWeight": 1,
