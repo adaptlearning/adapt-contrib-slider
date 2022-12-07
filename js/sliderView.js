@@ -2,7 +2,7 @@ import Adapt from 'core/js/adapt';
 import QuestionView from 'core/js/views/questionView';
 import 'libraries/rangeslider';
 
-export default class SliderView extends QuestionView {
+class SliderView extends QuestionView {
 
   events() {
     return {
@@ -355,3 +355,7 @@ export default class SliderView extends QuestionView {
   }
 
 }
+
+SliderView.template = 'slider.jsx';
+
+export default SliderView;
