@@ -29,7 +29,7 @@
         "instruction": {
           "type": "string",
           "title": "Instruction",
-          "default": "",
+          "default": "Drag the slider to make your choice and select Submit.",
           "_adapt": {
             "translatable": true
           }
