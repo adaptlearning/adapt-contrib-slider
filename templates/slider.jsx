@@ -3,11 +3,16 @@ import { classes, templates } from 'core/js/reactHelpers';
 
 export default function Slider (props) {
   const {
+    _id,
     _globals,
     _shouldShowMarking,
     _isInteractionComplete,
     _isEnabled,
     _isCorrect,
+    displayTitle,
+    body,
+    instruction,
+    ariaQuestion,
     labelStart,
     labelEnd,
     _userAnswer,
@@ -21,13 +26,17 @@ export default function Slider (props) {
 
       <templates.header {...props} />
 
-      <div className={classes([
-        'component__widget slider__widget',
-        !_isEnabled && 'is-disabled',
-        _isInteractionComplete && 'is-complete is-submitted show-user-answer',
-        _shouldShowMarking && _isCorrect && 'is-correct',
-        _shouldShowMarking && !_isCorrect && 'is-incorrect'
-      ])}>
+      <div
+        className={classes([
+          'component__widget slider__widget',
+          !_isEnabled && 'is-disabled',
+          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
+          _shouldShowMarking && _isCorrect && 'is-correct',
+          _shouldShowMarking && !_isCorrect && 'is-incorrect'
+        ])}
+        aria-labelledby={ariaQuestion ? null : (displayTitle || body || instruction) && `${_id}-header`}
+        aria-label={ariaQuestion || null}
+      >
 
         {(labelStart || labelEnd) &&
         <div className="slider__label-container js-slider-label-container">
