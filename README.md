@@ -4,8 +4,6 @@
 
 To respond to the question, the learner positions a slider along a scale. Upon submission, feedback is provided via the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor), if installed. Feedback can be provided for correct, incorrect and partially correct answers. The number of attempts allowed may be configured.
 
-The component uses [rangeslider.js (v2.3.1)](http://rangeslider.js.org/), a library that provides a polyfill for browsers that do not have support for the 'range' input type. rangeslider.js carries the MIT license compatible with Adapt.
-
 [Visit the **Slider** wiki](https://github.com/adaptlearning/adapt-contrib-slider/wiki) for more information about its functionality and for explanations of key properties.
 
 ## Installation
