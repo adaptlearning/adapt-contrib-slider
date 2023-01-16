@@ -197,7 +197,6 @@ export default function Slider (props) {
             aria-valuenow={_selectedItem.value || _scaleStart}
             aria-valuemin={_scaleStart}
             aria-valuemax={_scaleEnd}
-            data-rangeslider
             data-direction={_marginDir === 'right' ?? 'rtl'}
             disabled={!_isEnabled}
             onInput={onInput}
