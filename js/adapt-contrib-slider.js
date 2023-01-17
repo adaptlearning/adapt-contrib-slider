@@ -1,8 +1,8 @@
 import components from 'core/js/components';
-import SliderView from './nativeSliderView';
-import SliderModel from './nativeSliderModel';
+import SliderView from './sliderView';
+import SliderModel from './sliderModel';
 
-export default components.register('nativeslider', {
+export default components.register('slider', {
   view: SliderView,
   model: SliderModel
 });
