@@ -63,8 +63,6 @@ export default function Slider (props) {
     const itemIndex = getIndexFromValue(value);
     const pixels = mapIndexToPixels(itemIndex);
 
-    console.log('animate slider');
-
     $(sliderNumberSelectionRef.current)
       .velocity('stop')
       .velocity({
@@ -154,7 +152,6 @@ export default function Slider (props) {
           {_showScaleIndicator &&
             <div
               className="slider__number-selection js-slider-number-selection a11y-ignore"
-              /* style={{ left: `${mapIndexToPixels(getIndexFromValue(_selectedItem.value))}px` }} */
               aria-hidden="true"
               tabIndex="-1"
               ref={sliderNumberSelectionRef}
@@ -194,7 +191,7 @@ export default function Slider (props) {
             value={_isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem.value || _scaleStart)}
             min={_scaleStart}
             max={_scaleEnd}
-            aria-valuenow={_selectedItem.value || _scaleStart}
+            aria-valuenow={_isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem.value || _scaleStart)}
             aria-valuemin={_scaleStart}
             aria-valuemax={_scaleEnd}
             data-direction={_marginDir === 'right' ?? 'rtl'}
