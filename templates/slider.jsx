@@ -47,7 +47,6 @@ export default function Slider (props) {
 
   useEffect(() => {
     const onResize = () => {
-      console.log('set width to', $(sliderScaleRef.current).width());
       setSliderScaleWidth($(sliderScaleRef.current).width());
     };
 
