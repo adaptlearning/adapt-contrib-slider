@@ -68,6 +68,10 @@
 
     input {
       width: 100%;
+
+      &:not([disabled]) {
+        cursor: pointer;
+      }
     }
 
     input[type=range]::-moz-range-thumb {
