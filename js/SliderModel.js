@@ -3,6 +3,13 @@ import QuestionModel from 'core/js/models/questionModel';
 
 export default class SliderModel extends QuestionModel {
 
+  defaults() {
+    return QuestionModel.resultExtend('defaults', {
+      _showScale: true,
+      _showScaleNumbers: true
+    });
+  }
+
   init() {
     QuestionModel.prototype.init.call(this);
 
