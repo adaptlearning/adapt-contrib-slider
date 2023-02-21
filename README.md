@@ -78,7 +78,7 @@ guide the learner’s interaction with the component.
 
 **\_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **\_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`. Note that **\_showScaleIndicator** must be set to `true` in order for this to work.
 
-**\_showScaleIndicator** (boolean): Set to `true`, a marker for the position of the slider along the scale is shown. If **\_showNumber** is `true` this marker will contain a numeric value. If **\_showNumber** is `false` a blank marker is shown.
+**\_showScaleIndicator** (boolean): Set to `true`, a marker for the position of the slider along the scale is shown. If **\_showNumber** is `true` this marker will contain a numeric value. If **\_showNumber** is `false` a blank marker is shown. The default is `true`.
 
 **\_showScale** (boolean): When set to `false`, visual indications of the scale&mdash;range of numbers and short rules&mdash;are not displayed. The default is `true`.
 
