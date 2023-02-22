@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Adapt from 'core/js/adapt';
 import { classes, templates } from 'core/js/reactHelpers';
 
 export default function Slider (props) {
   const {
     _id,
     _globals,
+    _isReady,
     _shouldShowMarking,
     _isInteractionComplete,
+    _isCorrectAnswerShown,
     _isEnabled,
     _isCorrect,
     displayTitle,
@@ -15,11 +18,65 @@ export default function Slider (props) {
     ariaQuestion,
     labelStart,
     labelEnd,
-    _userAnswer,
+    _selectedItem,
     _scaleStart,
     _scaleEnd,
-    _marginDir
+    _marginDir,
+    onInput,
+    onNumberSelected,
+    mapValue,
+    getIndexFromValue,
+    normalise,
+    getCorrectAnswers,
+    _items,
+    _showScale,
+    _showNumber,
+    _showScaleNumbers,
+    _showScaleIndicator
   } = props;
+
+  const sliderScaleRef = useRef(null);
+  const sliderNumberSelectionRef = useRef(null);
+  const [sliderScaleWidth, setSliderScaleWidth] = useState(0);
+
+  const mapIndexToPixels = (value) => {
+    const numberOfGrads = _items.length;
+
+    return Math.round(mapValue(value, 0, numberOfGrads - 1, 0, sliderScaleWidth));
+  };
+
+  const getCorrectRangeMidpoint = () => {
+    const answers = getCorrectAnswers();
+    return answers[Math.floor(answers.length / 2)];
+  };
+
+  useEffect(() => {
+    const onResize = () => {
+      setSliderScaleWidth($(sliderScaleRef.current).width());
+    };
+
+    Adapt.on('device:resize', onResize);
+
+    onResize();
+
+    return () => Adapt.off('device:resize', onResize);
+  }, [Adapt, _isReady]);
+
+  useEffect(() => {
+    const value = _isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem.value || _scaleStart);
+    const itemIndex = getIndexFromValue(value);
+    const pixels = mapIndexToPixels(itemIndex);
+
+    $(sliderNumberSelectionRef.current)
+      .velocity('stop')
+      .velocity({
+        left: pixels
+      }, {
+        duration: 200,
+        easing: 'linear',
+        mobileHA: false
+      });
+  }, [_isCorrectAnswerShown, _selectedItem]);
 
   return (
     <div className="component__inner slider__inner">
@@ -62,25 +119,71 @@ export default function Slider (props) {
 
         <div className='slider__number-container'>
 
-          {props._items.map(({ value }, index) =>
-            <div className='slider__number js-slider-number js-slider-number-click'
-              data-id={value}
-              aria-hidden='true'
-              key={index}>
-              {value}
-            </div>
-          )}
+          {/* annotate the scale */}
+          {_showScale && _showScaleNumbers &&
+            _items.map(({ value }, index) => {
+              const normalisedPosition = normalise(index, 0, _items.length - 1);
+              return (
+                <div
+                  key={value}
+                  className="slider__number js-slider-number js-slider-number-click"
+                  data-id={value}
+                  aria-hidden="true"
+                  style={{ left: Math.round(normalisedPosition * sliderScaleWidth) }}
+                  onClick={onNumberSelected}
+                >
+                  {value}
+                </div>
+              );
+            })
+          }
 
-          <div className="slider__number-model-range js-slider-model-range"></div>
+          {/* annotate the correct answer range  */}
+          <div className="slider__number-model-range js-slider-model-range">
+            {_isCorrectAnswerShown &&
+              getCorrectAnswers().map(correctAnswer => {
+                return (
+                  <div
+                    className="slider__number-model-answer"
+                    key={correctAnswer}
+                    style={{ left: `${mapIndexToPixels(getIndexFromValue(correctAnswer))}px` }}
+                  >
+                    {_showNumber && correctAnswer}
+                  </div>
+                );
+              })
+            }
+          </div>
+
+          {/* annotate the selected value  */}
           <div className="slider__number-answer"></div>
-          <div className='slider__number-selection js-slider-number-selection a11y-ignore'
-            aria-hidden='true'
-            tabIndex={-1} />
+          {_showScaleIndicator &&
+            <div
+              className="slider__number-selection js-slider-number-selection a11y-ignore"
+              aria-hidden="true"
+              tabIndex="-1"
+              ref={sliderNumberSelectionRef}
+            >
+              {_showNumber && _selectedItem.value}
+            </div>
+          }
         </div>
 
-        <div className="slider__scale-container js-slider-scale">
+        {/* always present start and end notches */}
+        <div className="slider__scale-container js-slider-scale" ref={sliderScaleRef}>
           <div className="slider__scale-notch slider__scale-notch-start"></div>
-          <div className="slider__scale-notch-container js-slider-scale-notch-container"></div>
+          {_showScale &&
+              <div className="slider__scale-notch-container js-slider-scale-notch-container">
+                {_items.slice(1).map((item, index) =>
+                  <div
+                    className="slider__scale-notch"
+                    style={{ left: `${mapIndexToPixels(index + 1)}px` }}
+                    key={item.value}
+                  >
+                  </div>
+                )}
+              </div>
+          }
           <div className="slider__scale-notch slider__scale-notch-end"></div>
         </div>
 
@@ -93,15 +196,15 @@ export default function Slider (props) {
           <input className='slider__item-input js-slider-item-input'
             type='range'
             role='slider'
-            defaultValue={_userAnswer || _scaleStart}
+            value={_isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem.value || _scaleStart)}
             min={_scaleStart}
             max={_scaleEnd}
-            aria-valuenow={_userAnswer || _scaleStart}
+            aria-valuenow={_isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem.value || _scaleStart)}
             aria-valuemin={_scaleStart}
             aria-valuemax={_scaleEnd}
-            data-rangeslider
             data-direction={_marginDir === 'right' ?? 'rtl'}
             disabled={!_isEnabled}
+            onInput={onInput}
           />
         </div>
 

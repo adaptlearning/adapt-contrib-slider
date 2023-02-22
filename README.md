@@ -4,8 +4,6 @@
 
 To respond to the question, the learner positions a slider along a scale. Upon submission, feedback is provided via the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor), if installed. Feedback can be provided for correct, incorrect and partially correct answers. The number of attempts allowed may be configured.
 
-The component uses [rangeslider.js (v2.3.1)](http://rangeslider.js.org/), a library that provides a polyfill for browsers that do not have support for the 'range' input type. rangeslider.js carries the MIT license compatible with Adapt.
-
 [Visit the **Slider** wiki](https://github.com/adaptlearning/adapt-contrib-slider/wiki) for more information about its functionality and for explanations of key properties.
 
 ## Installation
@@ -80,7 +78,7 @@ guide the learner’s interaction with the component.
 
 **\_showNumber** (boolean): When set to `true`, a numeric value appears on the marker described in **\_showScaleIndicator**. The value indicates the slider's position on the scale. The default is `true`. Note that **\_showScaleIndicator** must be set to `true` in order for this to work.
 
-**\_showScaleIndicator** (boolean): Set to `true`, a marker for the position of the slider along the scale is shown. If **\_showNumber** is `true` this marker will contain a numeric value. If **\_showNumber** is `false` a blank marker is shown.
+**\_showScaleIndicator** (boolean): Set to `true`, a marker for the position of the slider along the scale is shown. If **\_showNumber** is `true` this marker will contain a numeric value. If **\_showNumber** is `false` a blank marker is shown. The default is `true`.
 
 **\_showScale** (boolean): When set to `false`, visual indications of the scale&mdash;range of numbers and short rules&mdash;are not displayed. The default is `true`.
 
@@ -113,7 +111,7 @@ No known limitations.
 
 ----------------------------
 <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
-**Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-slider/graphs/contributors)
-**Accessibility support:** WAI AA
-**RTL support:** Yes
-**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 14 for macOS/iOS/iPadOS, Opera
+**Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-slider/graphs/contributors)<br>
+**Accessibility support:** WAI AA<br>
+**RTL support:** Yes<br>
+**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 14 for macOS/iOS/iPadOS, Opera<br>
