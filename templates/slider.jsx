@@ -99,16 +99,18 @@ export default function Slider (props) {
         <div className="slider__label-container js-slider-label-container">
 
           {labelStart &&
-          <div className="slider__label-start" aria-label={_globals._components._slider.labelStart}>
+          <div className="slider__label-start">
             <div className="slider__label-start-inner">
+              <span className="aria-label">{_globals._components._slider.labelStart} {_scaleStart}</span>
               {labelStart}
             </div>
           </div>
           }
 
           {labelEnd &&
-          <div className="slider__label-end" aria-label={_globals._components._slider.labelEnd}>
+          <div className="slider__label-end">
             <div className="slider__label-end-inner">
+              <span className="aria-label">{_globals._components._slider.labelEnd} {_scaleEnd}</span>
               {labelEnd}
             </div>
           </div>
