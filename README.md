@@ -68,6 +68,10 @@ guide the learner’s interaction with the component.
 
 **\_scaleStep** (number): Defines the amount the scale should be incremented by.
 
+**scaleStepPrefix** (string): Prefix to add to each slider step. For example, a "$" can be used as a prefix to indicate currency in dollars (ex. $100).
+
+**scaleStepSuffix** (string): Suffix to add to each slider step. For example, a "V" can be used as a suffix to indicate voltage (ex. 4V).
+
 **\_correctAnswer** (string): Used to set a single value on the slider scale as the correct answer. (Since the attribute expects a string, numeric values must appear in JSON within quotes.)
 
 **\_correctRange** (object):  Used to set a range of values on the slider scale as the correct answer. The range is determined by **\_bottom** and **\_top**.

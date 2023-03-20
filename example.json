@@ -22,6 +22,8 @@
         "_scaleStart": 1,
         "_scaleEnd": 10,
         "_scaleStep": 1,
+        "scaleStepPrefix": "",
+        "scaleStepSuffix": "",
         "_correctAnswer": "",
         "_correctRange": {
             "_bottom": 4,
