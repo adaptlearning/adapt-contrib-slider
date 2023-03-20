@@ -32,7 +32,9 @@ export default function Slider (props) {
     _showScale,
     _showNumber,
     _showScaleNumbers,
-    _showScaleIndicator
+    _showScaleIndicator,
+    scaleStepPrefix,
+    scaleStepSuffix
   } = props;
 
   const sliderScaleRef = useRef(null);
@@ -134,7 +136,7 @@ export default function Slider (props) {
                   style={{ left: Math.round(normalisedPosition * sliderScaleWidth) }}
                   onClick={onNumberSelected}
                 >
-                  {value}
+                  {scaleStepPrefix}{value}{scaleStepSuffix}
                 </div>
               );
             })
@@ -150,7 +152,9 @@ export default function Slider (props) {
                     key={correctAnswer}
                     style={{ left: `${mapIndexToPixels(getIndexFromValue(correctAnswer))}px` }}
                   >
-                    {_showNumber && correctAnswer}
+                    {_showNumber &&
+                      `${scaleStepPrefix}${correctAnswer}${scaleStepSuffix}`
+                    }
                   </div>
                 );
               })
@@ -166,7 +170,9 @@ export default function Slider (props) {
               tabIndex="-1"
               ref={sliderNumberSelectionRef}
             >
-              {_showNumber && _selectedItem.value}
+              {_showNumber &&
+                `${scaleStepPrefix}${_selectedItem.value}${scaleStepSuffix}`
+              }
             </div>
           }
         </div>
