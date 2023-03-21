@@ -19,6 +19,7 @@ export default function Slider (props) {
     labelStart,
     labelEnd,
     _selectedItem,
+    _fillWidth,
     _scaleStart,
     _scaleEnd,
     _marginDir,
@@ -195,6 +196,7 @@ export default function Slider (props) {
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
         ])}
         >
+          <div className="slider__item-input-fill" style={{ width: `${_fillWidth}%` }}></div>
           <input className='slider__item-input js-slider-item-input'
             type='range'
             role='slider'
