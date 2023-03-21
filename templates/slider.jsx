@@ -196,6 +196,7 @@ export default function Slider (props) {
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
         ])}
         >
+          <div className="slider__item-input-track"></div>
           <div className="slider__item-input-fill" style={{ width: `${_fillWidth}%` }}></div>
           <input className='slider__item-input js-slider-item-input'
             type='range'
