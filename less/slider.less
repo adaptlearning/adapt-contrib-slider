@@ -104,6 +104,11 @@
       border-radius: 50%;
       background: white;
       cursor: pointer;
+
+      .is-disabled & {
+        box-shadow: none;
+        background-color: transparent;
+      }
     }
 
     input[type=range]::-moz-range-thumb {
@@ -114,6 +119,11 @@
       border-radius: 50%;
       background: white;
       cursor: pointer;
+
+      .is-disabled & {
+        box-shadow: none;
+        background-color: transparent;
+      }
     }
 
     input[type=range]::-moz-range-track {
