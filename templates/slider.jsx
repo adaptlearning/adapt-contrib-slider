@@ -174,7 +174,7 @@ export default function Slider (props) {
 
         {/* always present start and end notches */}
         <div className="slider__scale-container js-slider-scale" ref={sliderScaleRef}>
-          <div className="slider__scale-notch slider__scale-notch-start"></div>
+          <div className="slider__scale-notch slider__scale-notch-start" />
           {_showScale &&
               <div className="slider__scale-notch-container js-slider-scale-notch-container">
                 {_items.slice(1).map((item, index) =>
@@ -187,7 +187,7 @@ export default function Slider (props) {
                 )}
               </div>
           }
-          <div className="slider__scale-notch slider__scale-notch-end"></div>
+          <div className="slider__scale-notch slider__scale-notch-end" />
         </div>
 
         <div className={classes([
@@ -196,8 +196,8 @@ export default function Slider (props) {
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
         ])}
         >
-          <div className="slider__item-input-track"></div>
-          <div className="slider__item-input-fill" style={{ width: `${_fillWidth}%` }}></div>
+          <div className="slider__item-input-track" />
+          <div className="slider__item-input-fill" style={{ width: `${_fillWidth}%` }} />
           <input className='slider__item-input js-slider-item-input'
             type='range'
             role='slider'
@@ -215,7 +215,7 @@ export default function Slider (props) {
 
       </div>
 
-      <div className="btn__container"></div>
+      <div className="btn__container" />
 
     </div>
   );
