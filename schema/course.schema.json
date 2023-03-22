@@ -12,32 +12,39 @@
           "type": "object",
           "default": {},
           "properties": {
-            "_slider": {
+            "_components": {
               "type": "object",
               "default": {},
               "properties": {
-                "ariaRegion": {
-                  "type": "string",
-                  "title": "ARIA region",
-                  "default": "Slider. Respond to the question by selecting a value on the scale and then submit.",
-                  "_adapt": {
-                    "translatable": true
-                  }
-                },
-                "labelStart": {
-                  "type": "string",
-                  "title": "Scale start ARIA label",
-                  "default": "Start of the scale",
-                  "_adapt": {
-                    "translatable": true
-                  }
-                },
-                "labelEnd": {
-                  "type": "string",
-                  "title": "Scale end ARIA label",
-                  "default": "End of the scale",
-                  "_adapt": {
-                    "translatable": true
+                "_slider": {
+                  "type": "object",
+                  "title": "Slider",
+                  "default": {},
+                  "properties": {
+                    "ariaRegion": {
+                      "type": "string",
+                      "title": "ARIA region",
+                      "default": "Slider. Respond to the question by selecting a value on the scale and then submit.",
+                      "_adapt": {
+                        "translatable": true
+                      }
+                    },
+                    "labelStart": {
+                      "type": "string",
+                      "title": "Scale start ARIA label",
+                      "default": "Start of the scale",
+                      "_adapt": {
+                        "translatable": true
+                      }
+                    },
+                    "labelEnd": {
+                      "type": "string",
+                      "title": "Scale end ARIA label",
+                      "default": "End of the scale",
+                      "_adapt": {
+                        "translatable": true
+                      }
+                    }
                   }
                 }
               }
