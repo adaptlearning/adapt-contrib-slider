@@ -68,7 +68,8 @@ class SliderView extends QuestionView {
     const item = this.model.get('_items')[itemIndex];
     if (!item) return;
     item.selected = true;
-    const fillWidth = (itemIndex / (this.model.get('_items').length - 1)) * 100;
+    const numItems = this.model.get('_items').length - 1;
+    const fillWidth = (itemIndex / numItems) * 100;
     this.model.set({
       _selectedItem: item,
       _fillWidth: fillWidth
