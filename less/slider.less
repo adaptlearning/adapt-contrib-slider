@@ -139,9 +139,17 @@
     color: @validation-success-inverted;
   }
 
+  &__widget.show-user-answer.is-correct &__item-input-fill {
+    background-color: @validation-success;
+  }
+
   &__widget.show-user-answer.is-incorrect &__number-selection {
     background-color: @validation-error;
     color: @validation-error-inverted;
+  }
+
+  &__widget.show-user-answer.is-incorrect &__item-input-fill {
+    background-color: @validation-error;
   }
 
   // Class to show the correct answers
