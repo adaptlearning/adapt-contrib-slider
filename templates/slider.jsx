@@ -103,7 +103,7 @@ export default function Slider (props) {
           {labelStart &&
           <div className="slider__label-start">
             <div className="slider__label-start-inner">
-              <span className="aria-label">{_globals._components._slider.labelStart} {_scaleStart}</span>
+              <span className="aria-label">{_globals._components._slider.labelStart} {scaleStepPrefix}{_scaleStart}{scaleStepSuffix}</span>
               {labelStart}
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function Slider (props) {
           {labelEnd &&
           <div className="slider__label-end">
             <div className="slider__label-end-inner">
-              <span className="aria-label">{_globals._components._slider.labelEnd} {_scaleEnd}</span>
+              <span className="aria-label">{_globals._components._slider.labelEnd} {scaleStepPrefix}{_scaleEnd}{scaleStepSuffix}</span>
               {labelEnd}
             </div>
           </div>
