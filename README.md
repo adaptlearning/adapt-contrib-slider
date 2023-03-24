@@ -109,7 +109,7 @@ These ARIA labels are not visible elements; they are used by assistive technolog
 
 ## Limitations
 
-No known limitations.
+Does not currently support a descending step value.
 
 ----------------------------
 <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
