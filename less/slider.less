@@ -87,6 +87,10 @@
     margin-left: @slider-handle-width / 2;
     margin-right: @slider-handle-width / 2;
     background-color: darken(@background-inverted, 20%);
+
+    .dir-rtl & {
+      .transform(rotateY(180deg));
+    }
   }
 
   &__item-input-fill {
