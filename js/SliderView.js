@@ -23,7 +23,16 @@ class SliderView extends QuestionView {
   // this shoud give the index of item using given slider value
   getIndexFromValue(value) {
     value = parseInt(value);
-    return this.model.get('_items').find((item) => item.value === value).index;
+    const step = this.model.get('_scaleStep') ?? 1;
+    return this.model.get('_items').reduce((found, item) => {
+      if (found) return found;
+      if (item.value === value) return item;
+      const rangeStart = item.value - (step / 2);
+      const rangeEnd = item.value + (step / 2);
+      const inRange = (value >= rangeStart && value < rangeEnd);
+      if (inRange) return item;
+      return found;
+    }, null).index;
   }
 
   onNumberSelected(value) {
