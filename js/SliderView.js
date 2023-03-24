@@ -3,10 +3,7 @@ import QuestionView from 'core/js/views/questionView';
 class SliderView extends QuestionView {
 
   initialize(...args) {
-    this.onInput = this.onInput.bind(this);
-    this.mapValue = this.mapValue.bind(this);
     this.getIndexFromValue = this.getIndexFromValue.bind(this);
-    this.normalise = this.normalise.bind(this);
     this.onNumberSelected = this.onNumberSelected.bind(this);
     this.getCorrectAnswers = this.model.getCorrectAnswers.bind(this.model);
     super.initialize(...args);
@@ -24,38 +21,17 @@ class SliderView extends QuestionView {
   }
 
   // this shoud give the index of item using given slider value
-  getIndexFromValue(itemValue) {
-    const scaleStart = this.model.get('_scaleStart');
-    const scaleEnd = this.model.get('_scaleEnd');
-    return Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this.model.get('_items').length - 1));
+  getIndexFromValue(value) {
+    value = parseInt(value);
+    return this.model.get('_items').find((item) => item.value === value).index;
   }
 
-  mapIndexToPixels(value, $widthObject) {
-    const numberOfItems = this.model.get('_items').length;
-    const width = $widthObject ? $widthObject.width() : this.$('.js-slider-scale').width();
-
-    return Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
-  }
-
-  normalise(value, low, high) {
-    const range = high - low;
-    return (value - low) / range;
-  }
-
-  mapValue(value, inputLow, inputHigh, outputLow, outputHigh) {
-    const normal = this.normalise(value, inputLow, inputHigh);
-    return normal * (outputHigh - outputLow) + outputLow;
-  }
-
-  onNumberSelected(event) {
-    event.preventDefault();
-
+  onNumberSelected(value) {
     if (this.model.get('_isInteractionComplete')) {
       return;
     }
 
-    const itemValue = parseFloat($(event.currentTarget).attr('data-id'));
-    const index = this.getIndexFromValue(itemValue);
+    const index = this.getIndexFromValue(value);
     this.selectItem(index);
   }
 
@@ -68,23 +44,7 @@ class SliderView extends QuestionView {
     const item = this.model.get('_items')[itemIndex];
     if (!item) return;
     item.selected = true;
-    const numItems = this.model.get('_items').length - 1;
-    const fillWidth = (itemIndex / numItems) * 100;
-    this.model.set({
-      _selectedItem: item,
-      _fillWidth: fillWidth
-    });
-  }
-
-  onInput(e) {
-    const value = e.target.value;
-
-    if (this.oldValue === value) {
-      return;
-    }
-    const itemIndex = this.getIndexFromValue(value);
-    this.selectItem(itemIndex);
-    this.oldValue = value;
+    this.model.set('_selectedItem', item);
   }
 
 }
