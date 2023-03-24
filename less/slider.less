@@ -1,3 +1,8 @@
+@slider-handle-width: 2rem;
+@slider-handle-height: 2rem;
+
+@slider-track-height: .375rem;
+
 .slider {
   // Labels
   &__label-container {
@@ -9,9 +14,10 @@
   // Numbers
   &__number-container {
     position: relative;
-    min-height: 1rem;
+    min-height: 1.5rem;
     // Indent half the width of the range slider handle either side
-    margin: 0 1rem;
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
 
     .dir-rtl & {
       .transform(rotateY(180deg));
@@ -34,8 +40,10 @@
   &__scale-container {
     position: relative;
     height: 1px;
+    margin-top: @item-margin * 2;
     // Indent half the width of the range slider handle either side
-    margin: 0.5rem 1rem 1.5rem;
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
     background-color: @background;
   }
 
@@ -59,18 +67,25 @@
   // Slider bar
   &__item {
     position: relative;
+    // Add margin to ensure slider handle does not overlap above / below
+    margin-top: @slider-handle-height * .75;
+    margin-bottom: @slider-handle-height * .75;
   }
 
   &__item-input-track,
   &__item-input-fill {
     position: absolute;
-    top: 0.625rem;
+    top: 0;
     left: 0;
-    height: 0.375rem;
+    height: @slider-track-height;
   }
 
   &__item-input-track {
-    width: 100%;
+    // Reduce width of track by half of slider width either side
+    width: calc(~'100% - @{slider-handle-width}');
+    // Indent half the width of the range slider handle either side
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
     background-color: darken(@background-inverted, 20%);
   }
 
@@ -81,6 +96,8 @@
   // Slider bar input
   &__item input {
     position: relative;
+    display: block;
+    height: @slider-track-height;
     width: 100%;
     appearance: none;
     background-color: transparent;
@@ -90,24 +107,45 @@
     }
   }
 
-  &__item input[type=range]::-webkit-slider-thumb {
-    .slider-thumb();
-    appearance: none;
-    margin-top: -1rem;
+  // Slider input thumb mixin
+  .slider-thumb() {
+    height: @slider-handle-height;
+    width: @slider-handle-width;
+    background-color: @white;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 
     .is-disabled & {
+      box-shadow: none;
+      background-color: transparent;
       cursor: default;
     }
+  }
+
+  // Slider input track mixin
+  .slider-track() {
+    height: @slider-track-height;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  // Handle styling
+  &__item input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    .slider-thumb();
+    appearance: none;
   }
 
   &__item input[type=range]::-moz-range-thumb {
     .slider-thumb();
-
-    .is-disabled & {
-      cursor: default;
-    }
   }
 
+  // Track styling
   &__item input[type=range]::-webkit-slider-runnable-track {
     .slider-track();
     appearance: none;
@@ -119,25 +157,6 @@
 
   // Class to show the correct answers
   &__widget.show-correct-answer &__number-selection {
-    .u-display-none;
+    opacity: 0;
   }
-}
-
-// Slider input thumb mixin
-.slider-thumb() {
-  height: 2rem;
-  width: 2rem;
-  background-color: @white;
-  border: 0;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-// Slider input track mixin
-.slider-track() {
-  height: 0.375rem;
-  width: 100%;
-  background-color: transparent;
-  box-shadow: none;
 }
