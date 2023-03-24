@@ -142,16 +142,16 @@ export default function Slider (props) {
         <div className="slider__scale-container js-slider-scale">
           <div className="slider__scale-notch slider__scale-notch-start" />
           {_showScale &&
-              <div className="slider__scale-notch-container js-slider-scale-notch-container">
-                {_items.slice(1).map((item, index) =>
-                  <div
-                    className="slider__scale-notch"
-                    style={{ left: `${calculatePercentFromIndex(index)}%` }}
-                    key={item.value}
-                  >
-                  </div>
-                )}
-              </div>
+            <div className="slider__scale-notch-container js-slider-scale-notch-container">
+              {_items.slice(1).map((item, index) =>
+                <div
+                  className="slider__scale-notch"
+                  style={{ left: `${calculatePercentFromIndex(index)}%` }}
+                  key={item.value}
+                >
+                </div>
+              )}
+            </div>
           }
           <div className="slider__scale-notch slider__scale-notch-end" />
         </div>
