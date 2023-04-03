@@ -66,6 +66,9 @@ export default class SliderModel extends QuestionModel {
         // we therefore need to convert it to Number when checking the answer (see https://github.com/adaptlearning/adapt_framework/issues/2259)
         correct: answer ? i === Number(answer) : (i >= range._bottom && i <= range._top)
       });
+
+      const index = items.length - 1;
+      items[index].index = index;
     }
 
     this.set({
