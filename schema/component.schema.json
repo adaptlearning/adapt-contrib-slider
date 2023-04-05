@@ -119,7 +119,6 @@
           "title": "Prefix to add to each slider step",
           "description": "For instance, a '$' can be used as a prefix to indicate currency in dollars (ex. $100)",
           "default": "",
-          "properties": {},
           "_adapt": {
             "translatable": true
           }
@@ -129,7 +128,6 @@
           "title": "Suffix to add to each slider step",
           "description": "For instance, a 'V' can be used as a suffix to indicate voltage (ex. 4V)",
           "default": "",
-          "properties": {},
           "_adapt": {
             "translatable": true
           }
