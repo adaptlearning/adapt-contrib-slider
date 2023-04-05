@@ -161,7 +161,7 @@ export default function Slider (props) {
             }
           </div>
 
-          {/* annotate the selected value  */}
+          {/* annotate the selected value */}
           <div className="slider__number-answer"></div>
           {_showScaleIndicator &&
             <div
