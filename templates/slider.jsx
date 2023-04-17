@@ -27,7 +27,9 @@ export default function Slider (props) {
     _showScale,
     _showNumber,
     _showScaleNumbers,
-    _showScaleIndicator
+    _showScaleIndicator,
+    scaleStepPrefix,
+    scaleStepSuffix
   } = props;
 
   const sliderNumberSelectionRef = useRef(0);
@@ -68,7 +70,7 @@ export default function Slider (props) {
           {labelStart &&
           <div className="slider__label-start">
             <div className="slider__label-start-inner">
-              <span className="aria-label">{_globals._components._slider.labelStart} {_scaleStart}</span>
+              <span className="aria-label">{_globals._components._slider.labelStart} {scaleStepPrefix}{_scaleStart}{scaleStepSuffix}</span>
               {labelStart}
             </div>
           </div>
@@ -77,7 +79,7 @@ export default function Slider (props) {
           {labelEnd &&
           <div className="slider__label-end">
             <div className="slider__label-end-inner">
-              <span className="aria-label">{_globals._components._slider.labelEnd} {_scaleEnd}</span>
+              <span className="aria-label">{_globals._components._slider.labelEnd} {scaleStepPrefix}{_scaleEnd}{scaleStepSuffix}</span>
               {labelEnd}
             </div>
           </div>
@@ -100,7 +102,7 @@ export default function Slider (props) {
                   style={{ left: `${calculatePercentFromIndex(index)}%` }}
                   onClick={e => onNumberSelected(parseFloat(e.currentTarget.getAttribute('data-id')))}
                 >
-                  {value}
+                  {scaleStepPrefix}{value}{scaleStepSuffix}
                 </div>
               );
             })
@@ -116,7 +118,9 @@ export default function Slider (props) {
                     key={correctAnswer}
                     style={{ left: `${calculatePercentFromIndex(getIndexFromValue(correctAnswer))}%` }}
                   >
-                    {_showNumber && correctAnswer}
+                    {_showNumber &&
+                      `${scaleStepPrefix}${correctAnswer}${scaleStepSuffix}`
+                    }
                   </div>
                 );
               })
@@ -133,7 +137,9 @@ export default function Slider (props) {
               tabIndex="-1"
               ref={sliderNumberSelectionRef}
             >
-              {_showNumber && _selectedItem.value}
+              {_showNumber &&
+                `${scaleStepPrefix}${_selectedItem.value}${scaleStepSuffix}`
+              }
             </div>
           }
         </div>
