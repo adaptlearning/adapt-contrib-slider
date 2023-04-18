@@ -28,8 +28,8 @@ export default function Slider (props) {
     _showNumber,
     _showScaleNumbers,
     _showScaleIndicator,
-    scaleStepPrefix,
-    scaleStepSuffix
+    scaleStepPrefix = '',
+    scaleStepSuffix = ''
   } = props;
 
   const sliderNumberSelectionRef = useRef(0);
