@@ -19,6 +19,7 @@ export default function Slider (props) {
     _selectedItem,
     _scaleStart,
     _scaleEnd,
+    _scaleStep,
     _marginDir,
     onNumberSelected,
     getIndexFromValue,
@@ -178,6 +179,7 @@ export default function Slider (props) {
             value={selectedValue}
             min={_scaleStart}
             max={_scaleEnd}
+            step={_scaleStep}
             aria-valuenow={selectedValue}
             aria-valuemin={_scaleStart}
             aria-valuemax={_scaleEnd}
