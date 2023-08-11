@@ -14,6 +14,7 @@ export default function Slider (props) {
     body,
     instruction,
     ariaQuestion,
+    ariaScaleName,
     labelStart,
     labelEnd,
     _selectedItem,
@@ -176,6 +177,7 @@ export default function Slider (props) {
           <input className='slider__item-input js-slider-item-input'
             type='range'
             role='slider'
+            aria-label={ariaScaleName}
             value={selectedValue}
             min={_scaleStart}
             max={_scaleEnd}

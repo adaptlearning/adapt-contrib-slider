@@ -86,6 +86,15 @@
       "help": "This will be read out by screen readers instead of reading the 'Display title', 'Body' & 'Instruction' fields when focusing on the when focusing on the group or radiogroup. To be clear and concise, ensure the text encompasses only the question associated.",
       "translatable": true
     },
+    "ariaScaleName": {
+      "type": "string",
+      "required": true,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This will be read out by screen readers when focusing on the scale input (slider handle). An appropriate name should give context to which the scale is a measurement of.",
+      "translatable": true
+    },
     "_attempts": {
       "type": "number",
       "required": true,

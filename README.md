@@ -44,6 +44,8 @@ guide the learner’s interaction with the component.
 
 **ariaQuestion** (string): This will be read out by screen readers instead of reading the title, body & instruction fields when focusing on the group or radiogroup.
 
+**ariaScaleName** (string): This will be read out by screen readers when focusing on the scale input (slider handle). An appropriate name should give context to which the scale is a measurement of.
+
 **\_attempts** (integer): This specifies the number of times a learner is allowed to submit an answer. The default is `1`.
 
 **\_shouldDisplayAttempts** (boolean): Determines whether or not the text set in **remainingAttemptText** and **remainingAttemptsText** will be displayed. These two attributes are part of the [core buttons](https://github.com/adaptlearning/adapt_framework/wiki/Core-Buttons) attribute group. The default is `false`.
