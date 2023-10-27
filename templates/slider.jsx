@@ -176,15 +176,11 @@ export default function Slider (props) {
 
           <input className='slider__item-input js-slider-item-input'
             type='range'
-            role='slider'
             aria-label={ariaScaleName}
             value={selectedValue}
             min={_scaleStart}
             max={_scaleEnd}
             step={_scaleStep}
-            aria-valuenow={selectedValue}
-            aria-valuemin={_scaleStart}
-            aria-valuemax={_scaleEnd}
             data-direction={_marginDir === 'right' ?? 'rtl'}
             disabled={!_isEnabled}
             onChange={e => onNumberSelected(e.target.value)}
