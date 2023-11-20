@@ -9,7 +9,7 @@
         "displayTitle": "Slider type component",
         "body": "Question text here",
         "instruction": "Drag the slider to make your choice and select Submit.",
-        "ariaQuestion": "Question text specifically for screen readers.",
+        "ariaQuestion": "",
         "ariaScaleName": "Scale name specifically for screen readers.",
         "_attempts": 1,
         "_shouldDisplayAttempts": false,
