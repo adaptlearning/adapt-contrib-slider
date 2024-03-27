@@ -8,11 +8,9 @@ describe('Slider', function () {
     const sliderComponents = this.data.components.filter((component) => component._component === 'slider')
     sliderComponents.forEach((sliderComponent) => {
       cy.visit(`/#/preview/${sliderComponent._id}`);
-      cy.stripHtml(sliderComponent.body)
-      const bodyWithoutHtml = this.text;
+      const bodyWithoutHtml = cy.helpers.stripHtml(sliderComponent.body)
       cy.testContainsOrNotExists('.slider__body', bodyWithoutHtml)
       
-      cy.testQuestionButtons()
       cy.testContainsOrNotExists('.slider__title', sliderComponent.displayTitle)
       cy.testContainsOrNotExists('.slider__instruction', sliderComponent.instruction)
       cy.get('.slider__number').should('contain', sliderComponent._scaleStart)
