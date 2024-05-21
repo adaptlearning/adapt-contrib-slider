@@ -52,7 +52,7 @@ export default class SliderModel extends QuestionModel {
     const range = this.get('_correctRange');
     const start = this.get('_scaleStart');
     const end = this.get('_scaleEnd');
-    const step = this.get('_scaleStep') || 1;
+    const step = this.get('_scaleStep');
 
     const dp = this.getDecimalPlaces(step);
 
@@ -180,7 +180,7 @@ export default class SliderModel extends QuestionModel {
       return answers;
     }
     let answer = bottom;
-    const step = this.get('_scaleStep') || 1;
+    const step = this.get('_scaleStep');
     while (answer <= top) {
       answers.push(answer);
       answer += step;
