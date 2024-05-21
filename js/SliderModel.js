@@ -5,6 +5,9 @@ export default class SliderModel extends QuestionModel {
 
   defaults() {
     return QuestionModel.resultExtend('defaults', {
+      _scaleStart: 1,
+      _scaleEnd: 10,
+      _scaleStep: 1,
       _showScale: true,
       _showScaleNumbers: true,
       _showScaleIndicator: true,
