@@ -1,5 +1,6 @@
 import Adapt from 'core/js/adapt';
 import QuestionModel from 'core/js/models/questionModel';
+import logging from 'core/js/logging';
 
 export default class SliderModel extends QuestionModel {
 
@@ -17,7 +18,11 @@ export default class SliderModel extends QuestionModel {
 
   init() {
     QuestionModel.prototype.init.call(this);
-
+    // safeguard against `_scaleStep` of 0 or less
+    if (this.get('_scaleStep') <= 0) {
+      logging.warn(`\`_scaleStep\` must be a positive number, restoring default of 1 for ${this.get('_id')}`);
+      this.set('_scaleStep', 1);
+    }
     this.setupModelItems();
     this.selectDefaultItem();
   }
