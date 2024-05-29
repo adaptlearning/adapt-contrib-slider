@@ -116,13 +116,14 @@
         "_scaleEnd": {
           "type": "number",
           "title": "Scale end number",
-          "default": 1
+          "default": 10
         },
         "_scaleStep": {
           "type": "number",
           "title": "Scale step",
           "description": "The amount the scale should increment by",
-          "default": 1
+          "default": 1,
+          "exclusiveMinimum": 0
         },
         "scaleStepPrefix": {
           "type": "string",

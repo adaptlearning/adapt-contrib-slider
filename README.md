@@ -64,11 +64,11 @@ guide the learner’s interaction with the component.
 
 **labelEnd** (string): Text/characters that appear at the end of the slider scale.
 
-**\_scaleStart** (number): This value is the numeric start of the scale. It is used to calculate the slider's position on the scale.
+**\_scaleStart** (number): This value is the numeric start of the scale. It is used to calculate the slider's position on the scale. The default is `1`.
 
-**\_scaleEnd** (number): This value is the numeric end of the scale. It is used to calculate the slider's position on the scale.
+**\_scaleEnd** (number): This value is the numeric end of the scale. It is used to calculate the slider's position on the scale. The default is `10`.
 
-**\_scaleStep** (number): Defines the amount the scale should be incremented by.
+**\_scaleStep** (number): Defines the amount the scale should be incremented by. The default is `1`.
 
 **scaleStepPrefix** (string): Prefix to add to each slider step. For example, a "$" can be used as a prefix to indicate currency in dollars (ex. $100).
 
