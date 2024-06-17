@@ -6,9 +6,9 @@ describe('Slider', function () {
 
   it('should display the slider component', function () {
     const sliderComponents = this.data.components.filter(component => component._component === 'slider');
+    const stripHtml = cy.helpers.stripHtml;
     sliderComponents.forEach(sliderComponent => {
       cy.visit(`/#/preview/${sliderComponent._id}`);
-      const stripHtml = cy.helpers.stripHtml;
       cy.testContainsOrNotExists('.slider__body', stripHtml(sliderComponent.body));
       cy.testContainsOrNotExists('.slider__title', stripHtml(sliderComponent.displayTitle));
       cy.testContainsOrNotExists('.slider__instruction', stripHtml(sliderComponent.instruction));
