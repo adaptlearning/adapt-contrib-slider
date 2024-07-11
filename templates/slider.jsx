@@ -64,6 +64,7 @@ export default function Slider (props) {
         ])}
         aria-labelledby={ariaQuestion ? null : (displayTitle || body || instruction) && `${_id}-header`}
         aria-label={ariaQuestion || null}
+        role='region'
       >
 
         {(labelStart || labelEnd) &&
