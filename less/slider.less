@@ -59,6 +59,10 @@
     position: absolute;
     top: 0;
     .transform(translateX(-50%));
+
+    .dir-rtl & {
+      .transform(translateX(-50%) rotateY(180deg));
+    }
   }
 
   &__correct-icon .icon {
