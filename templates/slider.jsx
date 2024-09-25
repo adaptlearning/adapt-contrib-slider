@@ -6,6 +6,8 @@ export default function Slider (props) {
     _id,
     _globals,
     _shouldShowMarking,
+    _canShowModelAnswer,
+    _canShowCorrectness,
     _isInteractionComplete,
     _isCorrectAnswerShown,
     _isEnabled,
@@ -58,7 +60,10 @@ export default function Slider (props) {
         className={classes([
           'component__widget slider__widget',
           !_isEnabled && 'is-disabled',
-          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
+          _isInteractionComplete && 'is-complete is-submitted',
+          _isInteractionComplete && !_canShowCorrectness && !_isCorrectAnswerShown && 'show-user-answer',
+          _isInteractionComplete && _canShowModelAnswer && _isCorrectAnswerShown && 'show-correct-answer',
+          _isInteractionComplete && _canShowCorrectness && 'show-correctness',
           _shouldShowMarking && _isCorrect && 'is-correct',
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
         ])}
