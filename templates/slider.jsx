@@ -153,14 +153,14 @@ export default function Slider (props) {
         </div>
 
         {/* annotate the answer range correctness */}
-        {_isInteractionComplete && _canShowCorrectness &&
+        {_canShowCorrectness &&
           <div className="slider__state">
             {_items.slice(0).map((item, index) =>
               <div
                 className={classes([
                   'slider__icon',
-                  item.correct && 'slider__correct-icon',
-                  !item.correct && 'slider__incorrect-icon'
+                  _isInteractionComplete && item.correct && 'slider__correct-icon',
+                  _isInteractionComplete && !item.correct && 'slider__incorrect-icon'
                 ])}
                 style={{ left: `${calculatePercentFromIndex(index)}%` }}
                 key={item.value}
