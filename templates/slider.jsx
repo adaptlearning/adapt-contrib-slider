@@ -1,3 +1,4 @@
+import Adapt from 'core/js/adapt';
 import React, { useRef } from 'react';
 import { classes, templates } from 'core/js/reactHelpers';
 
@@ -50,6 +51,8 @@ export default function Slider (props) {
   const selectedValue = _isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem?.value ?? _scaleStart);
   const selectedIndex = getIndexFromValue(selectedValue);
   const selectedWidth = calculatePercentFromIndex(selectedIndex);
+
+  const ariaLabels = Adapt.course.get('_globals')._accessibility._ariaLabels;
 
   return (
     <div className="component__inner slider__inner">
@@ -106,11 +109,14 @@ export default function Slider (props) {
                   key={index}
                   className="slider__number js-slider-number js-slider-number-click"
                   data-id={value}
-                  aria-hidden="true"
+                  aria-disabled= {_isInteractionComplete || null}
                   style={{ left: `${calculatePercentFromIndex(index)}%` }}
                   onClick={e => onNumberSelected(parseFloat(e.currentTarget.getAttribute('data-id')))}
                 >
-                  {scaleStepPrefix}{value}{scaleStepSuffix}
+                  {_shouldShowMarking && _isInteractionComplete &&
+                  <span className="aria-label">{`${_isCorrect ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
+                  }
+                  <span aria-hidden="true">{scaleStepPrefix}{value}{scaleStepSuffix}</span>
                 </div>
               );
             })
@@ -154,7 +160,7 @@ export default function Slider (props) {
 
         {/* annotate the answer range correctness */}
         {_canShowCorrectness &&
-          <div className="slider__state">
+          <div className="slider__state" aria-hidden="true">
             {_items.slice(0).map((item, index) =>
               <div
                 className={classes([
