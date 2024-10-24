@@ -103,7 +103,7 @@ export default function Slider (props) {
 
           {/* annotate the scale */}
           {_showScale && _showScaleNumbers &&
-            _items.map(({ index, value }) => {
+            _items.map(({ index, value, correct }) => {
               return (
                 <div
                   key={index}
@@ -114,7 +114,7 @@ export default function Slider (props) {
                   onClick={e => onNumberSelected(parseFloat(e.currentTarget.getAttribute('data-id')))}
                 >
                   {_shouldShowMarking && _isInteractionComplete &&
-                  <span className="aria-label">{`${_isCorrect ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
+                  <span className="aria-label">{`${correct ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
                   }
                   <span aria-hidden="true">{scaleStepPrefix}{value}{scaleStepSuffix}</span>
                 </div>
