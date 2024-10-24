@@ -15,6 +15,7 @@
         "_shouldDisplayAttempts": false,
         "_questionWeight": 1,
         "_canShowModelAnswer": true,
+        "_canShowCorrectness": false,
         "_canShowFeedback": true,
         "_canShowMarking": true,
         "_recordInteraction": true,
