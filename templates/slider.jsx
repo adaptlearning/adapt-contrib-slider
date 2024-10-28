@@ -1,3 +1,4 @@
+import Adapt from 'core/js/adapt';
 import React, { useRef } from 'react';
 import { classes, templates } from 'core/js/reactHelpers';
 
@@ -6,6 +7,8 @@ export default function Slider (props) {
     _id,
     _globals,
     _shouldShowMarking,
+    _canShowModelAnswer,
+    _canShowCorrectness,
     _isInteractionComplete,
     _isCorrectAnswerShown,
     _isEnabled,
@@ -49,6 +52,8 @@ export default function Slider (props) {
   const selectedIndex = getIndexFromValue(selectedValue);
   const selectedWidth = calculatePercentFromIndex(selectedIndex);
 
+  const ariaLabels = Adapt.course.get('_globals')._accessibility._ariaLabels;
+
   return (
     <div className="component__inner slider__inner">
 
@@ -58,7 +63,10 @@ export default function Slider (props) {
         className={classes([
           'component__widget slider__widget',
           !_isEnabled && 'is-disabled',
-          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
+          _isInteractionComplete && 'is-complete is-submitted',
+          _isInteractionComplete && !_canShowCorrectness && !_isCorrectAnswerShown && 'show-user-answer',
+          _isInteractionComplete && _canShowModelAnswer && _isCorrectAnswerShown && 'show-correct-answer',
+          _isInteractionComplete && _canShowCorrectness && 'show-correctness',
           _shouldShowMarking && _isCorrect && 'is-correct',
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
         ])}
@@ -95,17 +103,20 @@ export default function Slider (props) {
 
           {/* annotate the scale */}
           {_showScale && _showScaleNumbers &&
-            _items.map(({ index, value }) => {
+            _items.map(({ index, value, correct }) => {
               return (
                 <div
                   key={index}
                   className="slider__number js-slider-number js-slider-number-click"
                   data-id={value}
-                  aria-hidden="true"
+                  aria-disabled= {_isInteractionComplete || null}
                   style={{ left: `${calculatePercentFromIndex(index)}%` }}
                   onClick={e => onNumberSelected(parseFloat(e.currentTarget.getAttribute('data-id')))}
                 >
-                  {scaleStepPrefix}{value}{scaleStepSuffix}
+                  {_shouldShowMarking && _isInteractionComplete &&
+                  <span className="aria-label">{`${correct ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
+                  }
+                  <span aria-hidden="true">{scaleStepPrefix}{value}{scaleStepSuffix}</span>
                 </div>
               );
             })
@@ -146,6 +157,25 @@ export default function Slider (props) {
             </div>
           }
         </div>
+
+        {/* annotate the answer range correctness */}
+        {_canShowCorrectness &&
+          <div className="slider__state" aria-hidden="true">
+            {_items.slice(0).map((item, index) =>
+              <div
+                className={classes([
+                  'slider__icon',
+                  _isInteractionComplete && item.correct && 'slider__correct-icon',
+                  _isInteractionComplete && !item.correct && 'slider__incorrect-icon'
+                ])}
+                style={{ left: `${calculatePercentFromIndex(index)}%` }}
+                key={item.value}
+              >
+                <span className='icon'></span>
+              </div>
+            )}
+          </div>
+        }
 
         {/* always present start and end notches */}
         <div className="slider__scale-container js-slider-scale">

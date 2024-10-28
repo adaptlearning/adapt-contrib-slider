@@ -39,6 +39,40 @@
     }
   }
 
+  // Correctness state
+  &__state {
+    position: relative;
+    min-height: 1.5rem;
+    // Indent half the width of the range slider handle either side
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
+
+    .dir-rtl & {
+      .transform(rotateY(180deg));
+    }
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    .transform(translateX(-50%));
+
+    .dir-rtl & {
+      .transform(translateX(-50%) rotateY(180deg));
+    }
+  }
+
+  &__correct-icon .icon {
+    .icon-tick;
+  }
+
+  &__incorrect-icon .icon {
+    .icon-cross;
+  }
+
   // Scale
   &__scale-container {
     position: relative;
