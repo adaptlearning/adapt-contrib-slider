@@ -153,6 +153,24 @@ export default class SliderModel extends QuestionModel {
     this.set('_score', score);
   }
 
+  getInteractionObject() {
+    return {
+      correctResponsesPattern: this.getCorrectResponsesPattern()
+    }
+  }
+
+  getCorrectResponsesPattern() {
+    const correctAnswer = this.get('_correctAnswer');
+    if (correctAnswer) return [correctAnswer];
+    const correctRange = this.get('_correctRange');
+    if (!correctRange) return null;
+    const bottom = correctRange?._bottom ?? '';
+    const top = correctRange?._top ?? '';
+    return [
+      `${bottom}[:]${top}`
+    ];
+  }
+
   /**
   * Used by adapt-contrib-spoor to get the user's answers in the format required by the cmi.interactions.n.student_response data field
   */
