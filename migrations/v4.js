@@ -1,4 +1,4 @@
-import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin } from 'adapt-migrations';
+import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin, getComponents } from 'adapt-migrations';
 
 describe('adapt-contrib-slider - v3.2.0 > v4.2.1', async () => {
   let sliders;
@@ -6,7 +6,7 @@ describe('adapt-contrib-slider - v3.2.0 > v4.2.1', async () => {
   whereFromPlugin('adapt-contrib-slider - from v3.2.0', { name: 'adapt-contrib-slider', version: '<4.2.1' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -35,7 +35,7 @@ describe('adapt-contrib-slider - v4.2.1 > v4.3.6', async () => {
   whereFromPlugin('adapt-contrib-slider - from v4.2.1', { name: 'adapt-contrib-slider', version: '<4.3.6' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -80,7 +80,7 @@ describe('adapt-contrib-slider - v4.3.6 > v4.3.9', async () => {
   whereFromPlugin('adapt-contrib-slider - from v4.3.6', { name: 'adapt-contrib-slider', version: '<4.3.9' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -109,7 +109,7 @@ describe('adapt-contrib-slider - v4.3.9 > v4.6.0', async () => {
   whereFromPlugin('adapt-contrib-slider - from v4.3.9', { name: 'adapt-contrib-slider', version: '<4.6.0' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 

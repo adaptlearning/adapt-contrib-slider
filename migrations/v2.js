@@ -1,4 +1,4 @@
-import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin } from 'adapt-migrations';
+import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin, getCourse, getComponents } from 'adapt-migrations';
 import _ from 'lodash';
 
 describe('adapt-contrib-slider - v2.0.0 > v2.0.1', async () => {
@@ -7,7 +7,7 @@ describe('adapt-contrib-slider - v2.0.0 > v2.0.1', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.0.0', { name: 'adapt-contrib-slider', version: '<2.0.1' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -52,7 +52,7 @@ describe('adapt-contrib-slider - v2.0.1 > v2.0.3', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.0.1', { name: 'adapt-contrib-slider', version: '<2.0.3' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -119,7 +119,7 @@ describe('adapt-contrib-slider - v2.0.3 > v2.0.4', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.0.3', { name: 'adapt-contrib-slider', version: '<2.0.4' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -148,7 +148,7 @@ describe('adapt-contrib-slider - v2.0.4 > v2.1.0', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.0.3', { name: 'adapt-contrib-slider', version: '<2.0.4' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -193,7 +193,7 @@ describe('adapt-contrib-slider - v2.1.0 > v2.1.1', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.1.1', { name: 'adapt-contrib-slider', version: '<2.1.1' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -254,7 +254,7 @@ describe('adapt-contrib-slider - v2.1.1 > v2.1.5', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.1.1', { name: 'adapt-contrib-slider', version: '<2.1.5' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -269,7 +269,7 @@ describe('adapt-contrib-slider - v2.1.1 > v2.1.5', async () => {
   });
 
   checkContent('adapt-contrib-slider - check slider._feedback attribute', async () => {
-    const isValid = sliders.every(({ _feedback }) => _feedback === undefined);
+    const isValid = sliders.some(({ _feedback }) => _feedback);
     if (!isValid) throw new Error('adapt-contrib-slider - _feedback not removed from every instance of slider');
     return true;
   });
@@ -379,7 +379,7 @@ describe('adapt-contrib-slider - v2.1.5 > v2.3.0', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.1.5', { name: 'adapt-contrib-slider', version: '<2.3.0' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -408,7 +408,7 @@ describe('adapt-contrib-slider - v2.3.0 > v2.4.0', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.3.0', { name: 'adapt-contrib-slider', version: '<2.4.0' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -416,7 +416,7 @@ describe('adapt-contrib-slider - v2.3.0 > v2.4.0', async () => {
    * * Add JSON field to component and set attribute.
    */
   mutateContent('adapt-contrib-slider - add slider.labelStart', async (content) => {
-    course = content.find(({ _type }) => _type === 'course');
+    course = getCourse();
     if (!_.has(course, '_globals._components._slider')) _.set(course, '_globals._components._slider', {});
     courseConfidenceSliderGlobals = course._globals._components._slider;
 
@@ -435,7 +435,7 @@ describe('adapt-contrib-slider - v2.3.0 > v2.4.0', async () => {
    * * Add JSON field to component and set attribute.
    */
   mutateContent('adapt-contrib-slider - add slider.labelEnd', async (content) => {
-    course = content.find(({ _type }) => _type === 'course');
+    course = getCourse();
     if (!_.has(course, '_globals._components._slider')) _.set(course, '_globals._components._slider', {});
     courseConfidenceSliderGlobals = course._globals._components._slider;
 

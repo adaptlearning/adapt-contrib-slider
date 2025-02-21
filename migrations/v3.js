@@ -1,4 +1,4 @@
-import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin } from 'adapt-migrations';
+import { describe, whereContent, whereFromPlugin, mutateContent, checkContent, updatePlugin, getCourse, getComponents } from 'adapt-migrations';
 import _ from 'lodash';
 
 describe('adapt-contrib-slider - v2.4.0 > v3.1.0-alpha.1', async () => {
@@ -7,7 +7,7 @@ describe('adapt-contrib-slider - v2.4.0 > v3.1.0-alpha.1', async () => {
   whereFromPlugin('adapt-contrib-slider - from v2.4.0', { name: 'adapt-contrib-slider', version: '<3.1.0-alpha.1' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -36,7 +36,7 @@ describe('adapt-contrib-slider - v3.1.0-alpha.1 > v3.2.0', async () => {
   whereFromPlugin('adapt-contrib-slider - from v3.2.0', { name: 'adapt-contrib-slider', version: '<3.2.0' });
 
   whereContent('adapt-contrib-slider - where slider', async content => {
-    sliders = content.filter(({ _component }) => _component === 'slider');
+    sliders = getComponents('slider');
     return sliders.length;
   });
 
@@ -44,7 +44,7 @@ describe('adapt-contrib-slider - v3.1.0-alpha.1 > v3.2.0', async () => {
    * * Add JSON field to globals and set attribute
    */
   mutateContent('adapt-contrib-slider - add ariaCorrectAnswer to globals', async (content) => {
-    course = content.find(({ _type }) => _type === 'course');
+    course = getCourse();
     if (!_.has(course, '_globals._components._slider')) _.set(course, '_globals._components._slider', {});
     courseConfidenceSliderGlobals = course._globals._components._slider;
 
@@ -63,7 +63,7 @@ describe('adapt-contrib-slider - v3.1.0-alpha.1 > v3.2.0', async () => {
    * * Add JSON field to globals and set attribute
    */
   mutateContent('adapt-contrib-slider - add ariaCorrectAnswerRange to globals', async (content) => {
-    course = content.find(({ _type }) => _type === 'course');
+    course = getCourse();
     if (!_.has(course, '_globals._components._slider')) _.set(course, '_globals._components._slider', {});
     courseConfidenceSliderGlobals = course._globals._components._slider;
 
@@ -82,7 +82,7 @@ describe('adapt-contrib-slider - v3.1.0-alpha.1 > v3.2.0', async () => {
    * * Add JSON field to globals and set attribute
    */
   mutateContent('adapt-contrib-slider - add ariaUserAnswer to globals', async (content) => {
-    course = content.find(({ _type }) => _type === 'course');
+    course = getCourse();
     if (!_.has(course, '_globals._components._slider')) _.set(course, '_globals._components._slider', {});
     courseConfidenceSliderGlobals = course._globals._components._slider;
 
