@@ -164,8 +164,8 @@ export default class SliderModel extends QuestionModel {
     if (correctAnswer) return [correctAnswer];
     const correctRange = this.get('_correctRange');
     if (!correctRange) return null;
-    const bottom = correctRange?._bottom ?? '';
-    const top = correctRange?._top ?? '';
+    const bottom = correctRange._bottom ?? '';
+    const top = correctRange._top ?? '';
     return [
       `${bottom}[:]${top}`
     ];
