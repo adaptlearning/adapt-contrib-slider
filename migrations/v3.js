@@ -13,13 +13,13 @@ describe('adapt-contrib-slider - v2.4.0 > v3.1.0', async () => {
 
   mutateContent('adapt-contrib-slider - remove slider._feedback._partlyCorrect', async () => {
     sliders.forEach(slider => {
-      delete slider._feedback._partlyCorrect;
+      _.unset(slider, '_feedback._partlyCorrect');
     });
     return true;
   });
 
   checkContent('adapt-contrib-slider - check slider._feedback._partlyCorrect', async () => {
-    const isInvalid = sliders.some(({ _feedback }) => _feedback._partlyCorrect);
+    const isInvalid = sliders.some(({ _feedback }) => _.has(_feedback, '_partlyCorrect'));
     if (isInvalid) throw new Error('adapt-contrib-slider - _feedback not removed from every instance of slider');
     return true;
   });
@@ -32,6 +32,7 @@ describe('adapt-contrib-slider - v2.4.0 > v3.1.0', async () => {
       { _id: 'c-100', _component: 'slider', _feedback: { _partlyCorrect: {} } },
       { _id: 'c-105', _component: 'slider', _feedback: { _partlyCorrect: { final: 'final', notFinal: 'notFinal' } } },
       { _id: 'c-110', _component: 'slider', _feedback: {} },
+      { _id: 'c-115', _component: 'slider' },
       { _type: 'course', _globals: { _components: { _slider: {} } } }
     ]
   });

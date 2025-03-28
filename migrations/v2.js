@@ -69,7 +69,7 @@ describe('adapt-contrib-slider - v2.0.1 > v2.0.3', async () => {
 
   mutateContent('adapt-contrib-slider - add slider._correctAnswer', async () => {
     sliders.forEach(slider => {
-      const newValue = slider._correctAnswer?.toString() || '';
+      const newValue = String(slider._correctAnswer ?? '');
       slider._correctAnswer = newValue;
     });
     return true;
@@ -215,7 +215,7 @@ describe('adapt-contrib-slider - v2.0.4 > v2.1.0', async () => {
 
   updatePlugin('adapt-contrib-slider - update to v2.1.0', { name: 'adapt-contrib-slider', version: '2.1.0', framework: '>=2.0.0' });
 
-  testSuccessWhere('non/configured slider component with empty course', {
+  testSuccessWhere('empty slider component', {
     fromPlugins: [{ name: 'adapt-contrib-slider', version: '2.0.4' }],
     content: [
       { _id: 'c-100', _component: 'slider' },
