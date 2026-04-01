@@ -62,6 +62,8 @@ export default function Slider (props) {
       <div
         className={classes([
           'component__widget slider__widget',
+          scaleStepPrefix && 'has-scale-step-prefix',
+          scaleStepSuffix && 'has-scale-step-suffix',
           !_isEnabled && 'is-disabled',
           _isInteractionComplete && 'is-complete is-submitted',
           _isInteractionComplete && !_canShowCorrectness && !_isCorrectAnswerShown && 'show-user-answer',
