@@ -116,7 +116,11 @@ export default function Slider (props) {
                   {_shouldShowMarking && _isInteractionComplete &&
                   <span className="aria-label">{`${correct ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
                   }
-                  <span aria-hidden="true">{scaleStepPrefix}{value}{scaleStepSuffix}</span>
+                  <span aria-hidden="true">
+                    {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                    {value}
+                    {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+                  </span>
                 </div>
               );
             })
@@ -132,9 +136,11 @@ export default function Slider (props) {
                     key={correctAnswer}
                     style={{ left: `${calculatePercentFromIndex(getIndexFromValue(correctAnswer))}%` }}
                   >
-                    {_showNumber &&
-                      `${scaleStepPrefix}${correctAnswer}${scaleStepSuffix}`
-                    }
+                    {_showNumber && <>
+                      {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                      {correctAnswer}
+                      {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+                    </>}
                   </div>
                 );
               })
@@ -151,9 +157,11 @@ export default function Slider (props) {
               tabIndex="-1"
               ref={sliderNumberSelectionRef}
             >
-              {_showNumber &&
-                `${scaleStepPrefix}${_selectedItem.value}${scaleStepSuffix}`
-              }
+              {_showNumber && <>
+                {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                {_selectedItem.value}
+                {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+              </>}
             </div>
           }
         </div>
