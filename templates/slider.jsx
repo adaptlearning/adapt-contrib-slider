@@ -119,9 +119,13 @@ export default function Slider (props) {
                   <span className="aria-label">{`${correct ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
                   }
                   <span aria-hidden="true">
-                    {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                    {scaleStepPrefix &&
+                    <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                    }
                     {value}
-                    {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+                    {scaleStepSuffix &&
+                    <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                    }
                   </span>
                 </div>
               );
@@ -139,9 +143,13 @@ export default function Slider (props) {
                     style={{ left: `${calculatePercentFromIndex(getIndexFromValue(correctAnswer))}%` }}
                   >
                     {_showNumber && <>
-                      {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                      {scaleStepPrefix &&
+                      <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                      }
                       {correctAnswer}
-                      {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+                      {scaleStepSuffix &&
+                      <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                      }
                     </>}
                   </div>
                 );
@@ -160,9 +168,13 @@ export default function Slider (props) {
               ref={sliderNumberSelectionRef}
             >
               {_showNumber && <>
-                {scaleStepPrefix && <span className='slider__scale-step-prefix'>{scaleStepPrefix}</span>}
+                {scaleStepPrefix &&
+                <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                }
                 {_selectedItem.value}
-                {scaleStepSuffix && <span className='slider__scale-step-suffix'>{scaleStepSuffix}</span>}
+                {scaleStepSuffix &&
+                <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                }
               </>}
             </div>
           }
