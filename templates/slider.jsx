@@ -230,7 +230,7 @@ export default function Slider (props) {
           <input className='slider__item-input js-slider-item-input'
             type='range'
             aria-label={ariaScaleName}
-            aria-valuetext={(scaleStepPrefix || scaleStepSuffix) ? `${scaleStepPrefix} ${selectedValue} ${scaleStepSuffix}` : null}
+            aria-valuetext={(scaleStepPrefix || scaleStepSuffix) ? `${scaleStepPrefix}${selectedValue}${scaleStepSuffix}` : null}
             value={selectedValue}
             min={_scaleStart}
             max={_scaleEnd}
