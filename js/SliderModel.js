@@ -23,8 +23,56 @@ export default class SliderModel extends QuestionModel {
       logging.warn(`\`_scaleStep\` must be a positive number, restoring default of 1 for ${this.get('_id')}`);
       this.set('_scaleStep', 1);
     }
+    this.validateCorrectRange();
     this.setupModelItems();
     this.selectDefaultItem();
+  }
+
+  validateCorrectRange() {
+    const answer = this.get('_correctAnswer');
+    if (answer) return;
+    const range = this.get('_correctRange');
+    if (!range) return;
+    const id = this.get('_id');
+    const start = this.get('_scaleStart');
+    const end = this.get('_scaleEnd');
+    const step = this.get('_scaleStep');
+    let { _bottom: bottom, _top: top } = range;
+
+    if (bottom > top) {
+      logging.warn(`\`_correctRange._bottom\` (${bottom}) is greater than \`_correctRange._top\` (${top}), swapping values for ${id}`);
+      [bottom, top] = [top, bottom];
+    }
+
+    if (bottom < start) {
+      logging.warn(`\`_correctRange._bottom\` (${bottom}) is less than \`_scaleStart\` (${start}), clamping to ${start} for ${id}`);
+      bottom = start;
+    }
+
+    if (top > end) {
+      logging.warn(`\`_correctRange._top\` (${top}) is greater than \`_scaleEnd\` (${end}), clamping to ${end} for ${id}`);
+      top = end;
+    }
+
+    const dp = this.getDecimalPlaces(step);
+    const snapToStep = (value) => {
+      const snapped = start + Math.round((value - start) / step) * step;
+      return dp ? parseFloat(snapped.toFixed(dp)) : snapped;
+    };
+
+    const snappedBottom = snapToStep(bottom);
+    if (snappedBottom !== bottom) {
+      logging.warn(`\`_correctRange._bottom\` (${bottom}) does not align with \`_scaleStep\` (${step}), snapping to ${snappedBottom} for ${id}`);
+      bottom = snappedBottom;
+    }
+
+    const snappedTop = snapToStep(top);
+    if (snappedTop !== top) {
+      logging.warn(`\`_correctRange._top\` (${top}) does not align with \`_scaleStep\` (${step}), snapping to ${snappedTop} for ${id}`);
+      top = snappedTop;
+    }
+
+    this.set('_correctRange', { _bottom: bottom, _top: top });
   }
 
   /**
