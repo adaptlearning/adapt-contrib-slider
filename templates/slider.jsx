@@ -62,6 +62,8 @@ export default function Slider (props) {
       <div
         className={classes([
           'component__widget slider__widget',
+          scaleStepPrefix && 'has-scale-step-prefix',
+          scaleStepSuffix && 'has-scale-step-suffix',
           !_isEnabled && 'is-disabled',
           _isInteractionComplete && 'is-complete is-submitted',
           _isInteractionComplete && !_canShowCorrectness && !_isCorrectAnswerShown && 'show-user-answer',
@@ -116,7 +118,15 @@ export default function Slider (props) {
                   {_shouldShowMarking && _isInteractionComplete &&
                   <span className="aria-label">{`${correct ? ariaLabels.correct : ariaLabels.incorrect}, ${selectedValue === value ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${scaleStepPrefix}${value}${scaleStepSuffix}`}</span>
                   }
-                  <span aria-hidden="true">{scaleStepPrefix}{value}{scaleStepSuffix}</span>
+                  <span aria-hidden="true">
+                    {scaleStepPrefix &&
+                    <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                    }
+                    {value}
+                    {scaleStepSuffix &&
+                    <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                    }
+                  </span>
                 </div>
               );
             })
@@ -132,9 +142,15 @@ export default function Slider (props) {
                     key={correctAnswer}
                     style={{ left: `${calculatePercentFromIndex(getIndexFromValue(correctAnswer))}%` }}
                   >
-                    {_showNumber &&
-                      `${scaleStepPrefix}${correctAnswer}${scaleStepSuffix}`
-                    }
+                    {_showNumber && <>
+                      {scaleStepPrefix &&
+                      <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                      }
+                      {correctAnswer}
+                      {scaleStepSuffix &&
+                      <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                      }
+                    </>}
                   </div>
                 );
               })
@@ -151,9 +167,15 @@ export default function Slider (props) {
               tabIndex="-1"
               ref={sliderNumberSelectionRef}
             >
-              {_showNumber &&
-                `${scaleStepPrefix}${_selectedItem.value}${scaleStepSuffix}`
-              }
+              {_showNumber && <>
+                {scaleStepPrefix &&
+                <span className='slider__scale-step-prefix' dangerouslySetInnerHTML={{ __html: scaleStepPrefix }} />
+                }
+                {_selectedItem.value}
+                {scaleStepSuffix &&
+                <span className='slider__scale-step-suffix' dangerouslySetInnerHTML={{ __html: scaleStepSuffix }} />
+                }
+              </>}
             </div>
           }
         </div>
@@ -208,7 +230,7 @@ export default function Slider (props) {
           <input className='slider__item-input js-slider-item-input'
             type='range'
             aria-label={ariaScaleName}
-            aria-valuetext={(scaleStepPrefix || scaleStepSuffix) ? `${scaleStepPrefix} ${selectedValue} ${scaleStepSuffix}` : null}
+            aria-valuetext={(scaleStepPrefix || scaleStepSuffix) ? `${scaleStepPrefix}${selectedValue}${scaleStepSuffix}` : null}
             value={selectedValue}
             min={_scaleStart}
             max={_scaleEnd}
