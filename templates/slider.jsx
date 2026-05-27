@@ -39,18 +39,27 @@ export default function Slider (props) {
 
   const sliderNumberSelectionRef = useRef(0);
 
+  const correctAnswers = getCorrectAnswers();
+
   const getCorrectRangeMidpoint = () => {
-    const answers = getCorrectAnswers();
-    return answers[Math.floor(answers.length / 2)];
+    return correctAnswers[Math.floor(correctAnswers.length / 2)];
   };
 
   const calculatePercentFromIndex = (index) => {
     return index / (_items.length - 1) * 100;
   };
 
+  const isCorrectRangeShown = _isInteractionComplete && _isCorrect && _canShowModelAnswer && correctAnswers.length > 1;
+  const isModelRangeShown = _isCorrectAnswerShown || isCorrectRangeShown;
+
   const selectedValue = _isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem?.value ?? _scaleStart);
   const selectedIndex = getIndexFromValue(selectedValue);
   const selectedWidth = calculatePercentFromIndex(selectedIndex);
+
+  const rangeBottomWidth = correctAnswers.length ? calculatePercentFromIndex(getIndexFromValue(correctAnswers[0])) : 0;
+  const rangeTopWidth = correctAnswers.length ? calculatePercentFromIndex(getIndexFromValue(correctAnswers[correctAnswers.length - 1])) : 0;
+  const fillLeft = _isCorrectAnswerShown ? rangeBottomWidth : 0;
+  const fillWidth = _isCorrectAnswerShown ? rangeTopWidth - rangeBottomWidth : selectedWidth;
 
   const ariaLabels = Adapt.course.get('_globals')._accessibility._ariaLabels;
 
@@ -134,8 +143,8 @@ export default function Slider (props) {
 
           {/* annotate the correct answer range */}
           <div className="slider__number-model-range js-slider-model-range">
-            {_isCorrectAnswerShown &&
-              getCorrectAnswers().map(correctAnswer => {
+            {isModelRangeShown &&
+              correctAnswers.map(correctAnswer => {
                 return (
                   <div
                     className="slider__number-model-answer"
@@ -159,7 +168,7 @@ export default function Slider (props) {
 
           {/* annotate the selected value */}
           <div className="slider__number-answer"></div>
-          {_showScaleIndicator &&
+          {_showScaleIndicator && !isCorrectRangeShown &&
             <div
               className="slider__number-selection js-slider-number-selection a11y-ignore"
               aria-hidden="true"
@@ -224,7 +233,7 @@ export default function Slider (props) {
         ])}
         >
           <div className="slider__item-input-track">
-            <div className="slider__item-input-fill" style={{ width: `${selectedWidth}%` }} />
+            <div className="slider__item-input-fill" style={{ left: `${fillLeft}%`, width: `${fillWidth}%` }} />
           </div>
 
           <input className='slider__item-input js-slider-item-input'
