@@ -49,8 +49,8 @@ export default function Slider (props) {
     return index / (_items.length - 1) * 100;
   };
 
-  const isCorrectRangeShown = _isInteractionComplete && _isCorrect && _canShowModelAnswer && correctAnswers.length > 1;
-  const isModelRangeShown = _isCorrectAnswerShown || isCorrectRangeShown;
+  const isModelRangeShown = _isCorrectAnswerShown ||
+    (_isInteractionComplete && _isCorrect && _canShowModelAnswer && correctAnswers.length > 1);
 
   const selectedValue = _isCorrectAnswerShown ? getCorrectRangeMidpoint() : (_selectedItem?.value ?? _scaleStart);
   const selectedIndex = getIndexFromValue(selectedValue);
@@ -75,8 +75,8 @@ export default function Slider (props) {
           scaleStepSuffix && 'has-scale-step-suffix',
           !_isEnabled && 'is-disabled',
           _isInteractionComplete && 'is-complete is-submitted',
-          _isInteractionComplete && !_canShowCorrectness && !_isCorrectAnswerShown && 'show-user-answer',
-          _isInteractionComplete && _canShowModelAnswer && _isCorrectAnswerShown && 'show-correct-answer',
+          _isInteractionComplete && !_canShowCorrectness && !isModelRangeShown && 'show-user-answer',
+          _isInteractionComplete && _canShowModelAnswer && isModelRangeShown && 'show-correct-answer',
           _isInteractionComplete && _canShowCorrectness && 'show-correctness',
           _shouldShowMarking && _isCorrect && 'is-correct',
           _shouldShowMarking && !_isCorrect && 'is-incorrect'
@@ -168,7 +168,7 @@ export default function Slider (props) {
 
           {/* annotate the selected value */}
           <div className="slider__number-answer"></div>
-          {_showScaleIndicator && !isCorrectRangeShown &&
+          {_showScaleIndicator &&
             <div
               className="slider__number-selection js-slider-number-selection a11y-ignore"
               aria-hidden="true"
