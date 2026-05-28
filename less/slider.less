@@ -164,9 +164,12 @@
     cursor: pointer;
 
     .is-disabled & {
+      cursor: default;
+    }
+
+    .show-correct-answer.is-incorrect & {
       box-shadow: none;
       background-color: transparent;
-      cursor: default;
     }
   }
 
